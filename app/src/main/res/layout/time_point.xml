@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/time_point"
+    android:orientation="vertical"
+    android:paddingTop="1.5dp"
+    android:paddingBottom="1.5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/time_point_count_layout"
+        android:background="@color/widgetColorTimer"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/countdown_timer">
+
+        </include>
+    </FrameLayout>
+    <LinearLayout
+        android:background="@color/widgetColor"
+        android:id="@+id/time_point_inner"
+        android:layoutDirection="rtl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/time_point_text"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="10dp"
+            android:textSize="30sp"
+            android:fontFamily="@font/isfkut"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/time_point_ampm"
+            android:textColor="@android:color/white"
+            android:layout_weight="0.7"
+            android:textSize="15sp"
+            android:layoutDirection="ltr"
+            android:layout_gravity="center"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/time_point_time"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:layoutDirection="rtl"
+            android:layout_weight="0.6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#dcb36c</color>
+    <color name="colorPrimaryDark">#bf9c5e</color>
+    <color name="colorPrimaryDarker">#9b7e4c</color>
+    <color name="colorAccent">#1bd821</color>
+    <color name="widgetColor">#303354</color>
+    <color name="widgetColorTimer">#606381</color>
+    <color name="widgetColorComming">#454b8b</color>
+    <color name="widgetColorSettings">#1c1d30</color>
+    <color name="widgetColorSettingsBox">#41436e</color>
+    <color name="iconColor">#ffffff</color>
+</resources>

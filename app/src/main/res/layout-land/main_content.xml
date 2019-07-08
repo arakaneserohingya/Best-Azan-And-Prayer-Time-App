@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/app_bar_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/background"
+        android:src="@drawable/b1"
+        android:layout_width="match_parent"
+        android:layout_gravity="top"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/Background" />
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progress_bar_landscape"
+                android:progressDrawable="@drawable/circle"
+                style="?android:progressBarStyleHorizontal"
+                android:progress="80"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <include layout="@layout/countdown_timer"
+                android:id="@+id/countdown_point_time_landscape">
+
+            </include>
+        </FrameLayout>
+        <ScrollView
+            android:layout_weight="0.5"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/time_point_layout"
+                android:alpha="0.8"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
