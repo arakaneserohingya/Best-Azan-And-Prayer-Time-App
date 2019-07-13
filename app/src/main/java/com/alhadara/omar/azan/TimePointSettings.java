@@ -8,13 +8,18 @@ import android.os.Handler;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.omar.azanapkmostafa.R;
+
+import org.w3c.dom.Text;
 
 public class TimePointSettings extends AppCompatActivity {
 
@@ -44,34 +49,50 @@ public class TimePointSettings extends AppCompatActivity {
     }
 
     public void widgetsAdder(){
-        LinearLayout innerLayout = findViewById(R.id.time_point_settings_inner_layout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        lp.setMargins(10,10,10,10);
-        LinearLayout l = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_settings_box,null);
-         SwitchBox azan = new SwitchBox(this,"azan.txt", Integer.toString(index),
-               true,"التنبيه وقت الأذان",true);
-       /* azan.imageButton.setOnClickListener(new View.OnClickListener() {
+        /* Azan widget configuration*/
+        final LinearLayout azanBox = findViewById(R.id.time_point_settings_azan_switch_box);
+        final SharedPreferences azanPref = this.getSharedPreferences("azan.txt",Context.MODE_PRIVATE);
+        final SharedPreferences.Editor azanEditor = azanPref.edit();
+        ((TextView) azanBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الأذان");
+        ((TextView) azanBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
+        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(azanPref.getBoolean(Integer.toString(index),true));
+        ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
+                azanPref.getBoolean(Integer.toString(index),true)? View.VISIBLE:View.GONE);
+        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                if(mediaPlayer.isPlaying()){
-               //     azan.imageButton.setImageResource(R.drawable.ic_stop_black_24dp);
-                    mediaPlayer.stop();
-                }else {
-                //    azan.imageButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    mediaPlayer.start();
-                }
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                azanEditor.putBoolean(Integer.toString(index),((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
+                azanEditor.commit();
+                ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
+                        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
             }
-        });*/
-        l.addView(azan);
-        l.setLayoutParams(lp);
-        innerLayout.addView(l);
-        l = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_settings_box,null);
-        SwitchBox iqama = new SwitchBox(this,"iqama.txt", Integer.toString(index),
-                true,"التنبيه وقت الإقامة",false);
-        l.addView(iqama);
-        l.setLayoutParams(lp);
-        innerLayout.addView(l);
+        });
+        ((ImageButton) azanBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_library_music_black_24dp);
+
+        /* Iqama widget configuration*/
+        final LinearLayout iqamaBox = findViewById(R.id.time_point_settings_iqama_switch_box);
+        final SharedPreferences iqamaPref = this.getSharedPreferences("iqama.txt",Context.MODE_PRIVATE);
+        final SharedPreferences.Editor iqamaEditor = iqamaPref.edit();
+        ((TextView) iqamaBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الإقامة");
+        ((TextView) iqamaBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
+        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(iqamaPref.getBoolean(Integer.toString(index),true));
+        ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
+                iqamaPref.getBoolean(Integer.toString(index),true)? View.VISIBLE:View.GONE);
+        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                iqamaEditor.putBoolean(Integer.toString(index),((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked());
+                iqamaEditor.commit();
+                ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
+                        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
+            }
+        });
+        ((ImageButton) iqamaBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_library_music_black_24dp);
+
+
+        /* Adjust times widget*/
+        final LinearLayout adustTimesBox = findViewById(R.id.time_point_settings_adjust_times);
+        ((ImageButton) adustTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_edit_black_24dp);
     }
 
 

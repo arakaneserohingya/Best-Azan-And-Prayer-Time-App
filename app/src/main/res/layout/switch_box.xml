@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layoutDirection="rtl"
-    android:orientation="horizontal"
-    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_box_trigger"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layoutDirection="rtl"
         android:layout_margin="10dp"
-        android:layout_weight="1.5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <TextView
-        android:text="التنبيه وقت الأذان"
-        android:fontFamily="@font/isfkut"
-        android:id="@+id/switch_box_text"
-        android:layout_weight="0.5"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ImageButton
-        android:background="@android:color/transparent"
-        android:visibility="gone"
-        android:id="@+id/switch_box_imagebutton"
-        android:src="@drawable/ic_play_arrow_black_24dp"
-        android:layout_weight="1.5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:background="@drawable/box_shape"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_box_trigger"
+                android:layout_margin="10dp"
+                android:layout_weight="1.5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:fontFamily="@font/isfkut"
+                android:id="@+id/switch_box_text"
+                android:layout_weight="0.5"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/configuration_box"
+            android:id="@+id/switch_box_configuration_box"
+            android:layout_margin="0dp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+
+    </LinearLayout>
