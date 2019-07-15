@@ -1,8 +1,15 @@
 package com.alhadara.omar.azan;
 
+
+import android.content.SharedPreferences;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static android.content.Context.MODE_PRIVATE;
 
 class Times {
 
@@ -38,5 +45,17 @@ class Times {
         times[3]=prayerTimes.get(3);
         times[4]=prayerTimes.get(5);
         times[5]=prayerTimes.get(6);
+    }
+    static void applyDelayPreferences(AppCompatActivity activity){
+        SharedPreferences delayTimesPref = activity.getSharedPreferences("delaytime.txt",MODE_PRIVATE);
+        for(int i=0;i<6;i++) {
+            int h = TM.getHours24(times[i]);
+            int m = TM.getMinute(times[i]);
+            m = m + delayTimesPref.getInt(Integer.toString(i),0);
+            if(m > 59) { m = m -60; if(h < 23) h= h+1; else h=0;}
+            else if(m < 0) { m = m + 60; if(h >0) h=h-1; else h=23;}
+            times[i] = h > 9 ? Integer.toString(h) : "0" + Integer.toString(h);
+            times[i] += m > 9 ? ":" + Integer.toString(m) : ":0" + Integer.toString(m);
+        }
     }
 }

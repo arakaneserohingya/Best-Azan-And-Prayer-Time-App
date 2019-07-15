@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    android:background="@color/widgetColorSettings"
+    android:layout_height="match_parent"
+    tools:context="com.alhadara.omar.azan.AdjustTimesActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_adjust_times_activity"
+        android:alpha="0.8"
+        android:layout_gravity="top"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/adjust_time_widget_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_1">
+
+                </include>
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_2">
+
+                </include>
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_3">
+
+                </include>
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_4">
+
+                </include>
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_5">
+
+                </include>
+                <include layout="@layout/adjust_time_widget"
+                    android:id="@+id/adjust_time_widget_6">
+
+                </include>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/adjust_times_activity_save_button"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_save_24dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/colorPrimary"
+                android:scaleType="fitXY"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         timePoint = new TimePoint[6];
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.azan_haram);
         Times.initializeTimes(33.513805,36.276527,3);
+        Times.applyDelayPreferences(this);
         initializeTimePoints();
         handler = new Handler();
         upComingTimePoint = TM.commingTimePointIndex(Times.times);

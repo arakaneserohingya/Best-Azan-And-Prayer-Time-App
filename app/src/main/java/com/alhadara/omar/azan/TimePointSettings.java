@@ -1,6 +1,7 @@
 package com.alhadara.omar.azan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -91,8 +93,33 @@ public class TimePointSettings extends AppCompatActivity {
 
 
         /* Adjust times widget*/
-        final LinearLayout adustTimesBox = findViewById(R.id.time_point_settings_adjust_times);
-        ((ImageButton) adustTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_edit_black_24dp);
+        final LinearLayout adjustTimesBox = findViewById(R.id.time_point_settings_adjust_times);
+        ((ImageButton) adjustTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_edit_black_24dp);
+        ((TextView) adjustTimesBox.findViewById(R.id.configuration_text)).setText("تعديل الأوقات يدوياً");
+        adjustTimesBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TimePointSettings.this,AdjustTimesActivity.class));
+            }
+        });
+
+        /* Reset times*/
+        final LinearLayout resetTimesBox = findViewById(R.id.time_point_settings_reset_times);
+        ((ImageButton) resetTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_restore_black_24dp);
+        ((TextView) resetTimesBox.findViewById(R.id.configuration_text)).setText("استعادة الإعدادات العامة");
+        resetTimesBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor delayTimesEdit = getSharedPreferences("delaytime.txt",MODE_PRIVATE).edit();
+                for(int i=0;i<6;i++) {
+                    delayTimesEdit.putInt(Integer.toString(i),0);
+                    delayTimesEdit.commit();
+                    Toast toast = Toast.makeText(getApplicationContext(),"تم حفظ التغيرات!، سيتم التطبيق عند إعادة تشغيل البرنامج",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
     }
 
 
