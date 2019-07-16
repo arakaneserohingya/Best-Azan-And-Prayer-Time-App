@@ -24,6 +24,7 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/time_point_text"
             android:textColor="@android:color/white"
             android:layout_marginRight="10dp"

@@ -37,7 +37,7 @@ public class TimePoint extends LinearLayout {
     public void setAttributes(int i, String times[]) {
         index = i;
         text.setText(Constants.alias[i]);
-        text.setTypeface(ResourcesCompat.getFont(mContext, R.font.din_next_lt_arabic_regular));
+
         String hours = times[i].substring(0, 2);
         int h = Integer.parseInt(hours);
         if (h > 12) {

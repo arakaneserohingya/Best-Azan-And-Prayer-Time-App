@@ -28,7 +28,7 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:textDirection="rtl"
         android:text="برنامج الأذان التجريبي"
-        android:fontFamily="@font/din_next_lt_arabic_regular"
+        android:fontFamily="@font/isfkut"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
