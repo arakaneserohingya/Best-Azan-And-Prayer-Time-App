@@ -43,9 +43,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Date d = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MMM dd");
-        //getSupportActionBar().setTitle(dateFormat.format(d));
+
+        getSupportActionBar().setTitle(TM.hijriDateByFormat("D M Y",true,true));
 
         backgroundAnimation();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

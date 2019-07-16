@@ -1,8 +1,14 @@
 package com.alhadara.omar.azan;
 
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.chrono.HijrahDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TM {
 
@@ -10,7 +16,7 @@ public class TM {
         return Integer.parseInt(time.substring(0,2));
     }
     public static int getHours12(String time) {
-        int i = Integer.parseInt(time.substring(0,2));
+        int i = Integer.parseInt(time.substring(0, 2));
         if(i == 0) i = 12;
         else if(i>12) i = i-12;
         return i;
@@ -46,9 +52,44 @@ public class TM {
         return 0;
     }
     public static String getTime(){
-        String T = null;
         DateFormat dFormat = new SimpleDateFormat("HH:mm:ss");
-        T = dFormat.format(Calendar.getInstance().getTime());
-        return T;
+        return dFormat.format(Calendar.getInstance().getTime());
+    }
+    public static String hijriDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        Date d = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        LocalDate gregorianDate = LocalDate.of(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH) + 1,calendar.get(Calendar.DAY_OF_MONTH));
+        HijrahDate islamicDate = HijrahDate.from(gregorianDate);
+        return islamicDate.toString().substring(islamicDate.toString().indexOf("1"));
+    }
+    public static String hijriDateByFormat(String stringFiveChars,boolean convertMonthToName,boolean dayOfWeek) {
+        String hijriDate = hijriDate();
+        String year = hijriDate.substring(0,hijriDate.indexOf("-"));
+        hijriDate = hijriDate.substring(hijriDate.indexOf("-")+1);
+        String month = hijriDate.substring(0,hijriDate.indexOf("-"));
+        hijriDate = hijriDate.substring(hijriDate.indexOf("-")+1);
+        String day = hijriDate;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        if(stringFiveChars.length() != 5) return "Wrong date format";
+        String str = "";
+        if(dayOfWeek) str = Constants.dayesOfWeek[calendar.get(Calendar.DAY_OF_WEEK)] + " ";
+        int i=0;
+        while(stringFiveChars.length()!=i) {
+            if(stringFiveChars.charAt(i) == 'y' || stringFiveChars.charAt(i) == 'Y') {
+                str += year;
+            } else if(stringFiveChars.charAt(i) == 'm' || stringFiveChars.charAt(i) == 'M') {
+                if(convertMonthToName) str+= Constants.hijriMonthes[Integer.parseInt(month)-1];
+                else str+=month;
+            } else if(stringFiveChars.charAt(i) == 'd' || stringFiveChars.charAt(i) == 'D') {
+                str += day;
+            } else {
+                str += stringFiveChars.charAt(i);
+            }
+            ++i;
+        }
+        return str;
     }
 }
