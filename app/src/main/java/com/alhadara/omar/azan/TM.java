@@ -75,7 +75,7 @@ public class TM {
         calendar.setTime(new Date());
         if(stringFiveChars.length() != 5) return "Wrong date format";
         String str = "";
-        if(dayOfWeek) str = Constants.dayesOfWeek[calendar.get(Calendar.DAY_OF_WEEK)] + " ";
+        if(dayOfWeek) str = Constants.dayesOfWeek[calendar.get(Calendar.DAY_OF_WEEK)-1] + " ";
         int i=0;
         while(stringFiveChars.length()!=i) {
             if(stringFiveChars.charAt(i) == 'y' || stringFiveChars.charAt(i) == 'Y') {
