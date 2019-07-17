@@ -43,9 +43,12 @@ public class AdjustTimesActivity extends AppCompatActivity {
                     delayTimesEdit.putInt(Integer.toString(i),delays[i]);
                     delayTimesEdit.commit();
                     Times.times[i] = times[i];
-                    Toast toast = Toast.makeText(getApplicationContext(),"تم حفظ التغيرات!، سيتم التطبيق عند إعادة تشغيل البرنامج",Toast.LENGTH_SHORT);
-                    toast.show();
+                    finish();
                 }
+                SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean("recreate_mainactivity_onresume",true);
+                editor.commit();
             }
         });
     }

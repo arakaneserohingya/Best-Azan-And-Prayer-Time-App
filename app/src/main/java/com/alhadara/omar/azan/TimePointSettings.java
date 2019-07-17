@@ -114,9 +114,11 @@ public class TimePointSettings extends AppCompatActivity {
                 for(int i=0;i<6;i++) {
                     delayTimesEdit.putInt(Integer.toString(i),0);
                     delayTimesEdit.commit();
-                    Toast toast = Toast.makeText(getApplicationContext(),"تم حفظ التغيرات!، سيتم التطبيق عند إعادة تشغيل البرنامج",Toast.LENGTH_SHORT);
-                    toast.show();
                 }
+                SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean("recreate_mainactivity_onresume",true);
+                editor.commit();
             }
         });
 

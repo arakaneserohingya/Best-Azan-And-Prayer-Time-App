@@ -25,9 +25,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.omar.azanapkmostafa.R;
 import com.google.android.material.navigation.NavigationView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -203,6 +200,20 @@ public class MainActivity extends AppCompatActivity
             countdown.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
             timePoint[upComingTimePoint].meComming(true);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        if(pref.getBoolean("recreate_mainactivity_onresume",false)) {
+
+            editor.putBoolean("recreate_mainactivity_onresume",false);
+            editor.commit();
+            recreate();
         }
     }
 }
