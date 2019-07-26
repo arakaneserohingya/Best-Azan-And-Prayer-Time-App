@@ -3,7 +3,7 @@
     <color name="colorPrimary">#dcb36c</color>
     <color name="colorPrimaryDark">#bf9c5e</color>
     <color name="colorPrimaryDarker">#9b7e4c</color>
-    <color name="colorAccent">#1bd821</color>
+    <color name="colorAccent">@color/colorPrimary</color>
     <color name="widgetColor">#303354</color>
     <color name="widgetColorTimer">#606381</color>
     <color name="widgetColorComming">@color/colorPrimary</color>

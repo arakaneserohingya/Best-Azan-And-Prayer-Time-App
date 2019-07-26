@@ -25,11 +25,27 @@
         <activity
             android:name="com.alhadara.omar.azan.TimePointSettings"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name="com.alhadara.omar.azan.AdjustTimesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.LocationsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.InternetLocationSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.UpdateCurrentLocationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.AdjustLocationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.ManuallyLocationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.ManuallyLocationCitiesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
     </application>
 
 </manifest>

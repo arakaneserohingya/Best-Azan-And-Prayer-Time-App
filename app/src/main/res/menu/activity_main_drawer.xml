@@ -22,8 +22,12 @@
             android:title="الأدوات" />
     </group>
 
-    <item android:title="التواصل">
+    <group android:checkableBehavior="single">
         <menu>
+            <item
+                android:id="@+id/nav_location"
+                android:icon="@drawable/ic_location_on_black_24dp"
+                android:title="المواقع" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
@@ -33,6 +37,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="إرسال" />
         </menu>
-    </item>
+    </group>
 
 </menu>

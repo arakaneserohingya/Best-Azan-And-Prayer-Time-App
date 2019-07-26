@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/widgetColorSettings"
+    tools:context="com.alhadara.omar.azan.LocationsActivity">
+
+    <ImageView
+        android:id="@+id/locations_activity_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintHeight_percent="0.35"
+        android:src="@drawable/loc1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:layoutDirection="rtl"
+        android:id="@+id/toolbar_locations_activity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/gradient_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:alpha="0.5"
+        android:background="@android:color/black"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/locations_activity_image">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="الموقع الحالي"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/locations_activity_current_location_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <View
+        android:background="@color/widgetColorSettingsBox"
+        app:layout_constraintTop_toBottomOf="@id/locations_activity_image"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:text="@string/update_current_location"
+        android:id="@+id/locations_activity_update_current_location"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/box_shape"
+        app:layout_constraintEnd_toStartOf="@+id/locations_activity_divider"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/locations_activity_image" />
+
+    <View
+        android:id="@+id/locations_activity_divider"
+        android:layout_marginTop="5dp"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toStartOf="@+id/locations_activity_adjust_current_location"
+
+        app:layout_constraintStart_toEndOf="@+id/locations_activity_update_current_location"
+        app:layout_constraintTop_toBottomOf="@id/locations_activity_image" />
+
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:text="@string/adjust_current_location"
+        android:id="@+id/locations_activity_adjust_current_location"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/box_shape"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/locations_activity_divider"
+        app:layout_constraintTop_toBottomOf="@id/locations_activity_image" />
+
+    <ScrollView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/locations_activity_adjust_current_location"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:id="@+id/locations_activity_locations_list_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+    </ScrollView>
+    <FrameLayout
+        android:id="@+id/locations_activity_add_location_floating_button"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/floating_button_circle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/add_location_floating_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

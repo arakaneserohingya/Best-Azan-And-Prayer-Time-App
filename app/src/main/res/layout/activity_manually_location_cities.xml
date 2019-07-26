@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/widgetColorSettings"
+    tools:context="com.alhadara.omar.azan.ManuallyLocationCitiesActivity">
+
+    <TextView
+        android:gravity="start"
+        android:id="@+id/manually_location_cities_activity_header"
+        android:textSize="20sp"
+        android:text="@string/choose_the_city"
+        android:textColor="@android:color/white"
+        android:padding="15dp"
+        android:background="#1B1B1B"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <EditText
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:id="@+id/manually_location_cities_activity_search"
+        android:hint="@string/search"
+        android:textColorHint="@android:color/darker_gray"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@id/manually_location_cities_activity_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manually_location_cities_activity_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:id="@+id/manually_location_cities_activity_countries_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
