@@ -11,10 +11,10 @@ import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
 
-class Times {
+public class Times {
 
-    static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
-    static void initializeTimes(double latitude,double longitude,double timezone ){
+    public static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
+    public static void initializeTimes(double latitude,double longitude,double timezone ){
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
@@ -46,7 +46,7 @@ class Times {
         times[4]=prayerTimes.get(5);
         times[5]=prayerTimes.get(6);
     }
-    static void applyDelayPreferences(AppCompatActivity activity){
+    public static void applyDelayPreferences(AppCompatActivity activity){
         SharedPreferences delayTimesPref = activity.getSharedPreferences("delaytime.txt",MODE_PRIVATE);
         for(int i=0;i<6;i++) {
             int h = TM.getHours24(times[i]);

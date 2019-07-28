@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alhadara.omar.azan.UpdateCurrentLocationActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class LocationsActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class LocationsActivity extends AppCompatActivity {
         findViewById(R.id.locations_activity_update_current_location).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LocationsActivity.this,UpdateCurrentLocationActivity.class));
+                startActivity(new Intent(LocationsActivity.this, UpdateCurrentLocationActivity.class));
             }
         });
         findViewById(R.id.locations_activity_adjust_current_location).setOnClickListener(new View.OnClickListener() {

@@ -9,7 +9,7 @@
         android:id="@+id/time_point_settings_layout"
         android:background="@color/widgetColorSettings"
         android:layout_height="match_parent"
-        tools:context="com.alhadara.omar.azan.TimePointSettings">
+        tools:context="com.alhadara.omar.azan.Activities.TimePointSettingsActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_time_point_settings"

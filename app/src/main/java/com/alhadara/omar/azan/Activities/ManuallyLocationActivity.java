@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alhadara.omar.azan.CountriesRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
 import com.opencsv.CSVReader;
 

@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.alhadara.omar.azan.Constants;
+import com.alhadara.omar.azan.TM;
+import com.alhadara.omar.azan.TimePoint;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(MainActivity.this,TimePointSettings.class);
+                    Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
                     intent.putExtra("TimePointIndex",s);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_top,R.anim.slide_out_top);

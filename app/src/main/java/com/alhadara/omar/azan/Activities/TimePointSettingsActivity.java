@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,22 +8,21 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import com.alhadara.omar.azan.Constants;
+import com.alhadara.omar.azan.TM;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
-import org.w3c.dom.Text;
-
-public class TimePointSettings extends AppCompatActivity {
+public class TimePointSettingsActivity extends AppCompatActivity {
 
     private int index;
     private int upComingTimePoint;
@@ -43,7 +42,7 @@ public class TimePointSettings extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         index=getIntent().getExtras().getInt("TimePointIndex");
         getSupportActionBar().setTitle("إعدادات صلاة "+ Constants.alias[index]);
-        mediaPlayer = MediaPlayer.create(TimePointSettings.this,R.raw.azan_haram);
+        mediaPlayer = MediaPlayer.create(TimePointSettingsActivity.this,R.raw.azan_haram);
 
         widgetsAdder();
         handler = new Handler();
@@ -99,7 +98,7 @@ public class TimePointSettings extends AppCompatActivity {
         adjustTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TimePointSettings.this,AdjustTimesActivity.class));
+                startActivity(new Intent(TimePointSettingsActivity.this,AdjustTimesActivity.class));
             }
         });
 

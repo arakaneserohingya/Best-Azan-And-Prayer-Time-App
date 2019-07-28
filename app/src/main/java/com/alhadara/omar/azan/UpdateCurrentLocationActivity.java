@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Activities.AdjustLocationActivity;
+import com.alhadara.omar.azan.Activities.InternetLocationSearchActivity;
+import com.alhadara.omar.azan.Activities.ManuallyLocationActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class UpdateCurrentLocationActivity extends AppCompatActivity {
@@ -27,7 +30,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_internet_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UpdateCurrentLocationActivity.this,InternetLocationSearchActivity.class);
+                Intent intent = new Intent(UpdateCurrentLocationActivity.this, InternetLocationSearchActivity.class);
                 intent.putExtra("new",false);
                 startActivity(intent);
             }
@@ -35,7 +38,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_manually_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UpdateCurrentLocationActivity.this,ManuallyLocationActivity.class));
+                startActivity(new Intent(UpdateCurrentLocationActivity.this, ManuallyLocationActivity.class));
             }
         });
         findViewById(R.id.update_current_location_activity_gps_button).setOnClickListener(new View.OnClickListener() {
@@ -65,7 +68,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_location_edit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UpdateCurrentLocationActivity.this,AdjustLocationActivity.class));
+                startActivity(new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class));
             }
         });
     }

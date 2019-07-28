@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/widgetColorSettings"
-    tools:context="com.alhadara.omar.azan.AdjustLocationActivity">
+    tools:context="com.alhadara.omar.azan.Activities.AdjustLocationActivity">
 
     <ImageView
         android:id="@+id/adjust_location_activity_image"

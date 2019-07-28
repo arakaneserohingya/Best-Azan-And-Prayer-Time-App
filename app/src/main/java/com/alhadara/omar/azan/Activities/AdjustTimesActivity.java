@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Constants;
+import com.alhadara.omar.azan.TM;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
 public class AdjustTimesActivity extends AppCompatActivity {
@@ -33,7 +36,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
         delayTimesEdit = delayTimesPref.edit();
         times = new String[6];
         delays = new int[6];
-        for(int i=0;i<6;i++) { times[i]=Times.times[i]; delays[i] = delayTimesPref.getInt(Integer.toString(i),0);}
+        for(int i=0;i<6;i++) { times[i]= Times.times[i]; delays[i] = delayTimesPref.getInt(Integer.toString(i),0);}
 
         widgetsAdder();
         ((ImageButton) findViewById(R.id.adjust_times_activity_save_button)).setOnClickListener(new View.OnClickListener() {
