@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.omar.azanapkmostafa">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -46,6 +49,20 @@
         <activity
             android:name="com.alhadara.omar.azan.Activities.ManuallyLocationCitiesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <!--  Declare  Alarm Broadcast receiver here  -->
+        <receiver android:name="com.alhadara.omar.azan.GeneralTimeSettingsAlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.alhadara.omar.azan.TimePrayerAlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+
     </application>
 
 </manifest>

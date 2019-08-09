@@ -1,11 +1,13 @@
 package com.alhadara.omar.azan.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -14,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +23,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.alhadara.omar.azan.GeneralTimeSettingsAlarmReceiver;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.TimePoint;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity
@@ -37,7 +41,12 @@ public class MainActivity extends AppCompatActivity
     private int upComingTimePoint;
     private int remainTime;
     private Handler handler;
-    private MediaPlayer mediaPlayer;
+    //private MediaPlayer mediaPlayer;
+    public static double CURRENT_LATITUDE;
+    public static double CURRENT_LONGITUDE;
+    public static double CURRENT_TIMEZONE;
+    public static PendingIntent generalTimeSettingIntent;
+    private static final int ALARM_REQUEST_CODE = 133;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,16 +67,22 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         timePoint = new TimePoint[6];
-        mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.azan_haram);
-        Times.initializeTimes(33.513805,36.276527,3);
+        //mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.azan_haram);
+        CURRENT_LATITUDE = 33.513805;
+        CURRENT_LONGITUDE = 36.276527;
+        CURRENT_TIMEZONE = 3;
+        Times.initializeTimes(CURRENT_LATITUDE,CURRENT_LONGITUDE,CURRENT_TIMEZONE);
         Times.applyDelayPreferences(this);
         initializeTimePoints();
         handler = new Handler();
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
-        startTimer();
+
+        //startTimer();
+        generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralTimeSettingsAlarmReceiver.class), 0);
+        triggerAlarmManager();
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         if(mediaPlayer.isPlaying()){
             mediaPlayer.stop();
@@ -79,7 +94,7 @@ public class MainActivity extends AppCompatActivity
                 super.onBackPressed();
             }
         }
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -143,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         // start the animation!
         animation.start();
     }
-    public void startTimer(){
+    /*public void startTimer(){
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -174,25 +189,19 @@ public class MainActivity extends AppCompatActivity
         };
         timePoint[upComingTimePoint].meComming(true);
         runnable.run();
-    }
+    }*/
 
-    boolean alarmActive(String alarmType,int index) {
+    public static boolean isAlarmActivated(Context context,String alarmType,int index) {
         SharedPreferences pref;
-        SharedPreferences.Editor editor;
-        pref = this.getSharedPreferences(alarmType,Context.MODE_PRIVATE);
-        return pref.getBoolean("index",true);
-    }
-
-    @Override
-    protected void onDestroy() {
-        mediaPlayer.stop();
-        super.onDestroy();
+        pref = context.getSharedPreferences(alarmType + ".txt",Context.MODE_PRIVATE);
+        return pref.getBoolean(Integer.toString(index),true);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mediaPlayer.stop();
+
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             LinearLayout countdown = findViewById(R.id.countdown_point_time_landscape);
             ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
@@ -220,6 +229,21 @@ public class MainActivity extends AppCompatActivity
             editor.putBoolean("recreate_mainactivity_onresume",false);
             editor.commit();
             recreate();
+        }
+    }
+
+    public void triggerAlarmManager() {
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND,3);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            manager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
+        } else {
+            manager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
         }
     }
 }
