@@ -23,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.alhadara.omar.azan.GeneralTimeSettingsAlarmReceiver;
+import com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.TimePoint;
@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity
     public static double CURRENT_LATITUDE;
     public static double CURRENT_LONGITUDE;
     public static double CURRENT_TIMEZONE;
-    public static PendingIntent generalTimeSettingIntent;
-    private static final int ALARM_REQUEST_CODE = 133;
+    public static final int ALARM_REQUEST_CODE = 133;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
 
         //startTimer();
-        generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralTimeSettingsAlarmReceiver.class), 0);
+
         triggerAlarmManager();
     }
 
@@ -237,7 +236,7 @@ public class MainActivity extends AppCompatActivity
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND,3);
-
+        PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
         if (Build.VERSION.SDK_INT >= 23) {
             manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
         } else if (Build.VERSION.SDK_INT >= 19) {

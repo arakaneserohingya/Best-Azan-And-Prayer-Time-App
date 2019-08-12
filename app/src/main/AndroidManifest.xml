@@ -51,17 +51,22 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <!--  Declare  Alarm Broadcast receiver here  -->
-        <receiver android:name="com.alhadara.omar.azan.GeneralTimeSettingsAlarmReceiver"
+        <receiver android:name="com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.alhadara.omar.azan.TimePrayerAlarmReceiver"
+        <receiver android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
+
+        <service android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
+            android:enabled="true"
+            android:exported="false"/>
+
 
     </application>
 
