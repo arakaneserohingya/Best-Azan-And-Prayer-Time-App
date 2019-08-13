@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alhadara.omar.azan.Activities.AdjustLocationActivity;
-import com.alhadara.omar.azan.Activities.InternetLocationSearchActivity;
-import com.alhadara.omar.azan.Activities.ManuallyLocationActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class UpdateCurrentLocationActivity extends AppCompatActivity {

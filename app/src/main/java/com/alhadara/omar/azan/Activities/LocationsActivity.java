@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.alhadara.omar.azan.UpdateCurrentLocationActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class LocationsActivity extends AppCompatActivity {
