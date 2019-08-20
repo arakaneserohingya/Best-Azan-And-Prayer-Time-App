@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
@@ -29,7 +30,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
     private int remainTime;
     private Handler handler;
     private int diffWithUpComingTimePoint;
-    private MediaPlayer mediaPlayer;
+
     private int diff_h;
     private int diff_m;
     @Override
@@ -42,7 +43,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         index=getIntent().getExtras().getInt("TimePointIndex");
         getSupportActionBar().setTitle("إعدادات صلاة "+ Constants.alias[index]);
-        mediaPlayer = MediaPlayer.create(TimePointSettingsActivity.this,R.raw.azan_haram);
+
 
         widgetsAdder();
         handler = new Handler();
@@ -52,18 +53,17 @@ public class TimePointSettingsActivity extends AppCompatActivity {
     public void widgetsAdder(){
         /* Azan widget configuration*/
         final LinearLayout azanBox = findViewById(R.id.time_point_settings_azan_switch_box);
-        final SharedPreferences azanPref = this.getSharedPreferences("azan.txt",Context.MODE_PRIVATE);
-        final SharedPreferences.Editor azanEditor = azanPref.edit();
+
         ((TextView) azanBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الأذان");
         ((TextView) azanBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
-        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(azanPref.getBoolean(Integer.toString(index),true));
+        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"azan",index));
         ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
-                azanPref.getBoolean(Integer.toString(index),true)? View.VISIBLE:View.GONE);
+                ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                azanEditor.putBoolean(Integer.toString(index),((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
-                azanEditor.commit();
+
+                Configurations.setAlarmActivated(getApplicationContext(),"azan",index,((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
                 ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
             }
@@ -72,18 +72,18 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
         /* Iqama widget configuration*/
         final LinearLayout iqamaBox = findViewById(R.id.time_point_settings_iqama_switch_box);
-        final SharedPreferences iqamaPref = this.getSharedPreferences("iqama.txt",Context.MODE_PRIVATE);
-        final SharedPreferences.Editor iqamaEditor = iqamaPref.edit();
+
+
         ((TextView) iqamaBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الإقامة");
         ((TextView) iqamaBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
-        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(iqamaPref.getBoolean(Integer.toString(index),true));
+        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"iqama",index));
         ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
-                iqamaPref.getBoolean(Integer.toString(index),true)? View.VISIBLE:View.GONE);
+                ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
         ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                iqamaEditor.putBoolean(Integer.toString(index),((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked());
-                iqamaEditor.commit();
+
+                Configurations.setAlarmActivated(getApplicationContext(),"iqama",index,((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked());
                 ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                         ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
             }
@@ -109,15 +109,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         resetTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor delayTimesEdit = getSharedPreferences("delaytime.txt",MODE_PRIVATE).edit();
-                for(int i=0;i<6;i++) {
-                    delayTimesEdit.putInt(Integer.toString(i),0);
-                    delayTimesEdit.commit();
-                }
-                SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putBoolean("recreate_mainactivity_onresume",true);
-                editor.commit();
+                Configurations.resetTimeConfigurations(getApplicationContext());
             }
         });
 
@@ -147,7 +139,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
                 int h,m,s;
                 remainTime = TM.difference(TM.getTime(),Times.times[upComingTimePoint]);
                 if(remainTime < 1) {
-                    if(alarmActive("azan.txt",upComingTimePoint)) mediaPlayer.start();
+
                     firstInitialization();
                 }else {
 
@@ -166,30 +158,11 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         runnable.run();
     }
 
-    boolean alarmActive(String alarmType, int index) {
-        SharedPreferences pref;
-        pref = this.getSharedPreferences(alarmType, Context.MODE_PRIVATE);
-        return pref.getBoolean("index",true);
-    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(mediaPlayer.isPlaying()){
-            mediaPlayer.stop();
-        }else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        mediaPlayer.stop();
-        super.onDestroy();
     }
 }

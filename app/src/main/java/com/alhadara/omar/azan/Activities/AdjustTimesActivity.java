@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
@@ -48,10 +49,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
                     Times.times[i] = times[i];
                     finish();
                 }
-                SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putBoolean("recreate_mainactivity_onresume",true);
-                editor.commit();
+                Configurations.setReloadMainActivityOnResume(true);
             }
         });
     }

@@ -38,7 +38,7 @@
             android:name="com.alhadara.omar.azan.Activities.InternetLocationSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.UpdateCurrentLocationActivity"
+            android:name="com.alhadara.omar.azan.Activities.UpdateCurrentLocationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.alhadara.omar.azan.Activities.AdjustLocationActivity"

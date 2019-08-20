@@ -24,6 +24,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver;
+import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.TimePoint;
@@ -37,15 +38,13 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int GENERAL_ALARM_REQUEST_CODE = 133;
     private TimePoint[] timePoint;
     private int upComingTimePoint;
     private int remainTime;
     private Handler handler;
-    //private MediaPlayer mediaPlayer;
-    public static double CURRENT_LATITUDE;
-    public static double CURRENT_LONGITUDE;
-    public static double CURRENT_TIMEZONE;
-    public static final int ALARM_REQUEST_CODE = 133;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +65,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         timePoint = new TimePoint[6];
-        //mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.azan_haram);
-        CURRENT_LATITUDE = 33.513805;
-        CURRENT_LONGITUDE = 36.276527;
-        CURRENT_TIMEZONE = 3;
-        Times.initializeTimes(CURRENT_LATITUDE,CURRENT_LONGITUDE,CURRENT_TIMEZONE);
-        Times.applyDelayPreferences(this);
+
+        Configurations.setCurrentLocation(this,(float)33.513805,(float)36.276527,3);
+        Configurations.setReloadMainActivityOnResume(false);// False in MainActivity itself
+
         initializeTimePoints();
         handler = new Handler();
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
@@ -81,19 +78,6 @@ public class MainActivity extends AppCompatActivity
         triggerAlarmManager();
     }
 
-    /*@Override
-    public void onBackPressed() {
-        if(mediaPlayer.isPlaying()){
-            mediaPlayer.stop();
-        }else {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
-        }
-    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -190,12 +174,6 @@ public class MainActivity extends AppCompatActivity
         runnable.run();
     }*/
 
-    public static boolean isAlarmActivated(Context context,String alarmType,int index) {
-        SharedPreferences pref;
-        pref = context.getSharedPreferences(alarmType + ".txt",Context.MODE_PRIVATE);
-        return pref.getBoolean(Integer.toString(index),true);
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -220,13 +198,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences pref = getSharedPreferences("mainconfig.txt",MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-
-        if(pref.getBoolean("recreate_mainactivity_onresume",false)) {
-
-            editor.putBoolean("recreate_mainactivity_onresume",false);
-            editor.commit();
+        if(Configurations.getReloadMainActivityOnResume()){
+            Configurations.setReloadMainActivityOnResume(false);
             recreate();
         }
     }
@@ -236,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND,3);
-        PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
+        PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, GENERAL_ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
         if (Build.VERSION.SDK_INT >= 23) {
             manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
         } else if (Build.VERSION.SDK_INT >= 19) {
