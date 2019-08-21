@@ -4,10 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.AlarmManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -210,12 +211,6 @@ public class MainActivity extends AppCompatActivity
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND,3);
         PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, GENERAL_ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
-        if (Build.VERSION.SDK_INT >= 23) {
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            manager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
-        } else {
-            manager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), generalTimeSettingIntent);
-        }
+        AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),generalTimeSettingIntent);
     }
 }

@@ -8,20 +8,27 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
 import com.alhadara.omar.azan.Activities.MainActivity;
 import com.alhadara.omar.azan.Constants;
+import com.example.omar.azanapkmostafa.R;
+
+import java.util.logging.Level;
 
 
 public class TimePrayerReceiver extends BroadcastReceiver {
 
 
     private String id;
+    private Intent audioServiceIntent;
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context,TimePrayerService.class));
+        audioServiceIntent = new Intent(context,TimePrayerService.class);
+        audioServiceIntent.putExtra("mode",true);
+        context.startService(audioServiceIntent);
         String[] content = {"موعد صلاة","موعد الإقامة لصلاة"};
         int type = intent.getExtras().getInt("type");
         if(type==0) id="azan";else id="iqama";
@@ -44,22 +51,26 @@ public class TimePrayerReceiver extends BroadcastReceiver {
             if (mChannel == null) {
                 mChannel = new NotificationChannel(id, msg, NotificationManager.IMPORTANCE_HIGH);
                 mChannel.enableVibration(true);
-                mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 alarmNotificationManager.createNotificationChannel(mChannel);
             }
         }
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, id);
 
+        audioServiceIntent.putExtra("mode",false);
+
+
         builder.setContentTitle(Constants.APP_NAME)
-                .setSmallIcon(android.R.drawable.ic_popup_reminder)
+                .setSmallIcon(R.drawable.logo)
                 .setContentText(msg)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent)
                 .setTicker(Constants.APP_NAME)
-                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                .addAction(R.drawable.ic_stop_black_24dp, context.getApplicationContext().getResources().getString(R.string.stop),PendingIntent.getService(
+                        context,0,audioServiceIntent,PendingIntent.FLAG_CANCEL_CURRENT
+                ));
 
-        alarmNotificationManager.notify(0, builder.build());
+        alarmNotificationManager.notify(Constants.APP_NOTIFICATION_ID, builder.build());
     }
 
 }

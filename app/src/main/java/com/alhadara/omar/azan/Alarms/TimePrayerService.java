@@ -1,12 +1,15 @@
 package com.alhadara.omar.azan.Alarms;
 
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.alhadara.omar.azan.Constants;
 import com.example.omar.azanapkmostafa.R;
 
 public class TimePrayerService extends Service implements MediaPlayer.OnCompletionListener {
@@ -29,7 +32,11 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mediaPlayer.start();
+        if(intent.getExtras().getBoolean("mode")) mediaPlayer.start();
+        else {
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(Constants.APP_NOTIFICATION_ID);
+            onDestroy();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 

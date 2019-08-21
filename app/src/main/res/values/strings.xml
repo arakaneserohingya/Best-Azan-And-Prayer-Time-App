@@ -24,4 +24,5 @@
     <string name="choose_the_country">اختر الدولة</string>
     <string name="search">بحث</string>
     <string name="choose_the_city">اختر المدينة</string>
+    <string name="stop">إيقاف</string>
 </resources>

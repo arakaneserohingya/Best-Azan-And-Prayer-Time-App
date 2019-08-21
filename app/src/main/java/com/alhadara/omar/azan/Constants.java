@@ -8,4 +8,5 @@ public class Constants {
     public static String[] hijriMonthes = {"محرم","صفر","ربيع الأول","ربيع الثاني","جمادى الأول","جمادى الثاني",
             "رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"};
     public static String[] dayesOfWeek = {"الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"};
+    public static int APP_NOTIFICATION_ID = 119;
 }

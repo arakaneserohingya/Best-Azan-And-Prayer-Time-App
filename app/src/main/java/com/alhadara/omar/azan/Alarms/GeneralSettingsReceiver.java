@@ -8,9 +8,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+
 import android.widget.Toast;
 
+
+import androidx.core.app.AlarmManagerCompat;
 
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Times;
@@ -32,10 +34,12 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.SECOND,0);
-        Intent in = new Intent(context, TimePrayerReceiver.class);
+        Intent in;
         for(int i=0;i<6;i++) {
+            in = new Intent(context, TimePrayerReceiver.class);
             cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
+            in.setAction(cal.toString());
             if(Configurations.isAlarmActivated(context,"azan",i) &&
                     Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis()) {
                 in.putExtra("type",0);
@@ -65,14 +69,9 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
 
 
     }
+
     private void alarmTrig(Context context,PendingIntent pendingIntent,Calendar calendar){
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT >= 23) {
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        } else {
-            manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
+        AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
     }
 }
