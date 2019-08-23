@@ -36,12 +36,13 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         cal.set(Calendar.SECOND,0);
         Intent in;
         for(int i=0;i<6;i++) {
-            in = new Intent(context, TimePrayerReceiver.class);
             cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
-            in.setAction(cal.toString());
             if(Configurations.isAlarmActivated(context,"azan",i) &&
                     Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis()) {
+                in = new Intent(context, TimePrayerReceiver.class);
+                in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+                in.setAction(cal.toString());
                 in.putExtra("type",0);
                 in.putExtra("index",i);
                 alarmTrig(context
@@ -51,6 +52,9 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
            /* cal.add(Calendar.MINUTE,Integer.parseInt(Times.iqamaDiffTimes[i]));
             if(Configurations.isAlarmActivated(context,"iqama",i) && i!=1 No Alarm For Shorooq &&
                     Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis()) {
+                in = new Intent(context, TimePrayerReceiver.class);
+                in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+                in.setAction(cal.toString());
                 in.putExtra("type",1);
                 in.putExtra("index",i);
                 alarmTrig(context
@@ -63,8 +67,9 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         cal.add(Calendar.DATE,1);
         cal.set(Calendar.HOUR_OF_DAY,0);
         cal.set(Calendar.MINUTE,1);
-        PendingIntent generalSettingsIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE,
-                new Intent(context,GeneralSettingsReceiver.class),0);
+        in = new Intent(context,GeneralSettingsReceiver.class);
+        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        PendingIntent generalSettingsIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE, in,0);
         alarmTrig(context,generalSettingsIntent,cal);
 
 

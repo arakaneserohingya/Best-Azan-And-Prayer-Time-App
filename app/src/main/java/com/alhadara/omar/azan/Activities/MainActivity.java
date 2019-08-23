@@ -210,6 +210,8 @@ public class MainActivity extends AppCompatActivity
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND,3);
+        Intent intent = new Intent(MainActivity.this, GeneralSettingsReceiver.class);
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, GENERAL_ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
         AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),generalTimeSettingIntent);
     }

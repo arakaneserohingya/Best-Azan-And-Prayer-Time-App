@@ -14,8 +14,10 @@ import androidx.core.app.NotificationCompat;
 
 import com.alhadara.omar.azan.Activities.MainActivity;
 import com.alhadara.omar.azan.Constants;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
+import java.util.Calendar;
 import java.util.logging.Level;
 
 
@@ -26,13 +28,28 @@ public class TimePrayerReceiver extends BroadcastReceiver {
     private Intent audioServiceIntent;
     @Override
     public void onReceive(Context context, Intent intent) {
+        int type = intent.getExtras().getInt("type");
+        int index = intent.getExtras().getInt("index");
+        if(isTimeDiffers(type,index)) return;
         audioServiceIntent = new Intent(context,TimePrayerService.class);
         audioServiceIntent.putExtra("mode",true);
         context.startService(audioServiceIntent);
         String[] content = {"موعد صلاة","موعد الإقامة لصلاة"};
-        int type = intent.getExtras().getInt("type");
+
         if(type==0) id="azan";else id="iqama";
-        sendNotification(context, content[type]+" "+ Constants.alias[intent.getExtras().getInt("index")]);
+        sendNotification(context, content[type]+" "+ Constants.alias[index]);
+    }
+
+    private boolean isTimeDiffers(int type, int index) {
+        Calendar calendar = Calendar.getInstance();
+        long now = calendar.getTimeInMillis();
+        now = now / 1000;
+        calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[index].substring(0,2)));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(Times.times[index].substring(3,5)));
+        //if(type !=0 ) calendar.add(Calendar.MINUTE,Integer.parseInt(Times.iqamaDiffTimes[index])); // for iqama
+        long time = calendar.getTimeInMillis();
+        time = time / 1000;
+        return (now - time) > 30;
     }
 
     private void sendNotification(Context context,String msg) {
