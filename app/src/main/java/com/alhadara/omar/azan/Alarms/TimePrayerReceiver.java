@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,7 +17,6 @@ import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
-import java.util.logging.Level;
 
 
 public class TimePrayerReceiver extends BroadcastReceiver {
@@ -46,6 +44,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         now = now / 1000;
         calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[index].substring(0,2)));
         calendar.set(Calendar.MINUTE,Integer.parseInt(Times.times[index].substring(3,5)));
+        calendar.set(Calendar.SECOND,0);
         //if(type !=0 ) calendar.add(Calendar.MINUTE,Integer.parseInt(Times.iqamaDiffTimes[index])); // for iqama
         long time = calendar.getTimeInMillis();
         time = time / 1000;

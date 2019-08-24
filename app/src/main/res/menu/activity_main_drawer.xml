@@ -5,37 +5,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="المعرض" />
+            android:title="@string/settings" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_convert_date"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="المعرض" />
+            android:title="@string/convert_date" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_compass"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="أصوات الأذان" />
+            android:title="@string/compass" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="الأدوات" />
-    </group>
-
-    <group android:checkableBehavior="single">
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_location_on_black_24dp"
+            android:title="@string/locations"/>
         <menu>
             <item
-                android:id="@+id/nav_location"
-                android:icon="@drawable/ic_location_on_black_24dp"
-                android:title="المواقع" />
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/about_application"/>
+            <item
+                android:id="@+id/nav_problems"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/problems_and_suggestions" />
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="شارك التطبيق" />
-            <item
-                android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="إرسال" />
+                android:title="Share Application" />
         </menu>
     </group>
 

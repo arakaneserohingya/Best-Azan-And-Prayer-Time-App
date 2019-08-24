@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
-        android:layoutDirection="rtl"
         android:id="@+id/toolbar_adjust_location_activity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

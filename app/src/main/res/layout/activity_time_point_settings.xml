@@ -5,7 +5,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layoutDirection="rtl"
         android:id="@+id/time_point_settings_layout"
         android:background="@color/widgetColorSettings"
         android:layout_height="match_parent"

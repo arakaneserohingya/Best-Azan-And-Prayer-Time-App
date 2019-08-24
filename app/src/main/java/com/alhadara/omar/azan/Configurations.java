@@ -2,7 +2,13 @@ package com.alhadara.omar.azan;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.widget.Toast;
+
+import com.example.omar.azanapkmostafa.R;
+
+import java.util.Locale;
 
 
 public class Configurations {
@@ -13,6 +19,24 @@ public class Configurations {
     }
     public static boolean getReloadMainActivityOnResume() {
         return reloadMainActivityOnResume;
+    }
+
+    public static void initializeMainConfigurations(Context context){
+        SharedPreferences pref = context.getSharedPreferences("mainconfigurations.txt",Context.MODE_PRIVATE);
+        Configuration configuration = context.getResources().getConfiguration();
+        Locale locale = new Locale(pref.getString("language","en"));
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
+            configuration.setLocale(locale);
+            configuration.setLayoutDirection(locale);
+            context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+        }
+        resolveConstants(context);
+    }
+
+    private static void resolveConstants(Context context) {
+        Constants.hijriMonthes = context.getResources().getStringArray(R.array.hijri_month);
+        Constants.dayesOfWeek = context.getResources().getStringArray(R.array.day_of_week);
+        Constants.alias = context.getResources().getStringArray(R.array.prayer_time);
     }
 
     public static boolean isAlarmActivated(Context context,String type, int index){
