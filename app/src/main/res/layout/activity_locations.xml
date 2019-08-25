@@ -37,8 +37,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="الموقع الحالي"
+            android:gravity="start"
+            android:text="@string/current_location"
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 

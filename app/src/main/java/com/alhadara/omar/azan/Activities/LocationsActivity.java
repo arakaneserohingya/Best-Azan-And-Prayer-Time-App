@@ -19,7 +19,7 @@ public class LocationsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("المواقع المحفوظة");
+        getSupportActionBar().setTitle(getResources().getString(R.string.saved_locations));
 
         ((View) findViewById(R.id.locations_activity_add_location_floating_button)).setOnClickListener(new View.OnClickListener() {
             @Override

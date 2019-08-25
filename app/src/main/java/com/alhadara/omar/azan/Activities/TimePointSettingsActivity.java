@@ -42,7 +42,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         index=getIntent().getExtras().getInt("TimePointIndex");
-        getSupportActionBar().setTitle("إعدادات صلاة "+ Constants.alias[index]);
+        getSupportActionBar().setTitle( Constants.alias[index] + getResources().getString(R.string.prayer_time_settings));
 
 
         widgetsAdder();
@@ -54,8 +54,8 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         /* Azan widget configuration*/
         final LinearLayout azanBox = findViewById(R.id.time_point_settings_azan_switch_box);
 
-        ((TextView) azanBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الأذان");
-        ((TextView) azanBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
+        ((TextView) azanBox.findViewById(R.id.switch_box_text)).setText(getResources().getString(R.string.activate_azan_notifications));
+        ((TextView) azanBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.choose_alarm_tone));
         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"azan",index));
         ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                 ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
@@ -74,8 +74,8 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         final LinearLayout iqamaBox = findViewById(R.id.time_point_settings_iqama_switch_box);
 
 
-        ((TextView) iqamaBox.findViewById(R.id.switch_box_text)).setText("التنبيه وقت الإقامة");
-        ((TextView) iqamaBox.findViewById(R.id.configuration_text)).setText("اختيار نغمة التنبيه");
+        ((TextView) iqamaBox.findViewById(R.id.switch_box_text)).setText(getResources().getString(R.string.activate_iqama_notifications));
+        ((TextView) iqamaBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.choose_alarm_tone));
         ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"iqama",index));
         ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                 ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
@@ -94,7 +94,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         /* Adjust times widget*/
         final LinearLayout adjustTimesBox = findViewById(R.id.time_point_settings_adjust_times);
         ((ImageButton) adjustTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_edit_black_24dp);
-        ((TextView) adjustTimesBox.findViewById(R.id.configuration_text)).setText("تعديل الأوقات يدوياً");
+        ((TextView) adjustTimesBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.adjust_time_manually));
         adjustTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +105,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         /* Reset times*/
         final LinearLayout resetTimesBox = findViewById(R.id.time_point_settings_reset_times);
         ((ImageButton) resetTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_restore_black_24dp);
-        ((TextView) resetTimesBox.findViewById(R.id.configuration_text)).setText("استعادة الإعدادات العامة");
+        ((TextView) resetTimesBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.reset_time_settings));
         resetTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

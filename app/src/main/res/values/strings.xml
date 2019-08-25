@@ -23,7 +23,7 @@
     <string name="search">Search</string>
     <string name="choose_the_city">Choose City</string>
     <string name="stop">Stop</string>
-    <string name="settings">settings</string>
+    <string name="settings">Settings</string>
     <string name="convert_date">Convert Date</string>
     <string name="compass">Compass</string>
     <string name="about_application">About Application</string>
@@ -86,4 +86,11 @@
         <item>@string/prayer_time5</item>
         <item>@string/prayer_time6</item>
     </string-array>
+    <string name="adjust_time_manually">Adjust time manually</string>
+    <string name="reset_time_settings">Reset time settings</string>
+    <string name="activate_azan_notifications">Activate azan notifications</string>
+    <string name="activate_iqama_notifications">Activate iqama notifications</string>
+    <string name="choose_alarm_tone">Choose alarm tone</string>
+    <string name="prayer_time_settings">prayer time settings</string>
+    <string name="saved_locations">Saved locations</string>
 </resources>
