@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/time_point"
     android:orientation="vertical"
     android:paddingTop="1.5dp"
     android:paddingBottom="1.5dp"
+    android:layout_marginBottom="2dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <FrameLayout
-        android:id="@+id/time_point_count_layout"
-        android:background="@color/widgetColorTimer"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/countdown_timer">
+    android:layout_height="50dp"
+    android:background="@color/widgetColorSettingsBox">
 
-        </include>
-    </FrameLayout>
-    <LinearLayout
-        android:background="@color/widgetColor"
-        android:id="@+id/time_point_inner"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <TextView
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/time_point_time_container"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:gravity="center_vertical"
             android:layout_gravity="center"
             android:id="@+id/time_point_text"
             android:textColor="@android:color/white"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:textSize="25sp"
             android:fontFamily="@font/isfkut"
-            android:layout_weight="0.5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/time_point_time_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/time_point_text"
+        tools:layout_editor_absoluteY="2dp">
+
         <TextView
             android:id="@+id/time_point_ampm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
             android:textColor="@android:color/white"
-            android:layout_weight="0.7"
             android:textSize="15sp"
-            android:layout_gravity="center"
+            app:layout_constraintWidth_percent="0.2"
+            app:layout_constraintLeft_toRightOf="@id/time_point_time"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/time_point_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingRight="2dp"
+            android:gravity="right|center_vertical"
             android:textColor="@android:color/white"
             android:textSize="30sp"
-            android:layout_gravity="center"
-            android:layout_weight="0.6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            app:layout_constraintRight_toLeftOf="@id/time_point_ampm"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

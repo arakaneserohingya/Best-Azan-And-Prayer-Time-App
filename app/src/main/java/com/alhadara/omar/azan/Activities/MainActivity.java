@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
             final int s = i;
             timePoint[i] = new TimePoint(this);
             timePoint[i].setAttributes(i,Times.times);
-            ((LinearLayout)timePoint[i].findViewById(R.id.time_point_inner)).setOnClickListener(new View.OnClickListener() { // timePoint[i] has multiple views including countdown timer
+            ((LinearLayout)timePoint[i]).setOnClickListener(new View.OnClickListener() { // timePoint[i] has multiple views including countdown timer
                 @Override
                 public void onClick(View view) {
 
