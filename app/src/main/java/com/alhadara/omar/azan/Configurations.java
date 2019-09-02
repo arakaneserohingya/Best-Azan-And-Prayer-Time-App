@@ -13,6 +13,7 @@ import java.util.Locale;
 
 public class Configurations {
     private static boolean reloadMainActivityOnResume = false;
+    public static int orientation;
 
     public static void setReloadMainActivityOnResume(boolean bool) {
         reloadMainActivityOnResume = bool;
@@ -31,6 +32,7 @@ public class Configurations {
             context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
         }
         resolveConstants(context);
+        orientation = configuration.orientation;
     }
 
     private static void resolveConstants(Context context) {

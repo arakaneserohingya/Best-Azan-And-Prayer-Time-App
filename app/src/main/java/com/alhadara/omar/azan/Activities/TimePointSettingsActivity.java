@@ -46,8 +46,8 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
 
         widgetsAdder();
-        handler = new Handler();
-        startTimer();
+       /* handler = new Handler();
+        startTimer();*/
     }
 
     public void widgetsAdder(){

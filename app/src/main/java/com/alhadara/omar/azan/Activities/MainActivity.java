@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity
             final int s = i;
             timePoint[i] = new TimePoint(this);
             timePoint[i].setAttributes(i,Times.times);
-            ((LinearLayout)timePoint[i]).setOnClickListener(new View.OnClickListener() { // timePoint[i] has multiple views including countdown timer
+            ((LinearLayout)timePoint[i]).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -180,20 +181,10 @@ public class MainActivity extends AppCompatActivity
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout countdown = findViewById(R.id.countdown_point_time_landscape);
-            ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-            countdown.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-            timePoint[upComingTimePoint].meComming(false);
-
-        }else {
-            LinearLayout countdown = findViewById(R.id.countdown_point_time_landscape);
-            ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-            countdown.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
-            timePoint[upComingTimePoint].meComming(true);
+        if(Configurations.orientation != getResources().getConfiguration().orientation){
+            Configurations.orientation = getResources().getConfiguration().orientation;
+            setContentView(R.layout.activity_main);
+            initializeTimePoints();
         }
     }
 

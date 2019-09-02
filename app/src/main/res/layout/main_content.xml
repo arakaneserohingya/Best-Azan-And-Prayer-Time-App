@@ -3,14 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/app_bar_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/background"
-        android:src="@drawable/b1"
-        android:layout_width="match_parent"
-        android:layout_gravity="top"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent" />
+    android:layout_height="0dp">
+
     <LinearLayout
         android:id="@+id/time_point_layout"
         android:orientation="vertical"
@@ -20,19 +14,7 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content">
-        <ProgressBar
-            android:id="@+id/progress_bar_landscape"
-            android:progressDrawable="@drawable/circle"
-            style="?android:progressBarStyleHorizontal"
-            android:visibility="gone"
-            android:progress="80"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <include layout="@layout/countdown_timer"
-            android:id="@+id/countdown_point_time_landscape"
-            android:visibility="gone">
-
-        </include>
     </LinearLayout>
+
 
 </FrameLayout>
