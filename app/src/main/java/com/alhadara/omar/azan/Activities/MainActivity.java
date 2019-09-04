@@ -14,13 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,7 +29,6 @@ import com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver;
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
-import com.alhadara.omar.azan.TimePoint;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 import com.google.android.material.navigation.NavigationView;
@@ -41,10 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int GENERAL_ALARM_REQUEST_CODE = 133;
-    private TimePoint[] timePoint;
     private int upComingTimePoint;
-    private int remainTime;
-    private Handler handler;
 
 
     @Override
@@ -66,18 +62,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        timePoint = new TimePoint[6];
-
         Configurations.setCurrentLocation(this,(float)33.513805,(float)36.276527,3);
         Configurations.setReloadMainActivityOnResume(false);// False in MainActivity itself
-
-        initializeTimePoints();
-        handler = new Handler();
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
-
-        //startTimer();
-
+        initializeTimePoints();
+        startTimer();
         triggerAlarmManager();
     }
 
@@ -111,12 +100,12 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeTimePoints(){
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
-
+        ViewGroup timepoint;
         for(int i=0;i<6;i++) {
             final int s = i;
-            timePoint[i] = new TimePoint(this);
-            timePoint[i].setAttributes(i,Times.times);
-            ((LinearLayout)timePoint[i]).setOnClickListener(new View.OnClickListener() {
+            timepoint = (ViewGroup) timePointLayout.getChildAt(i);
+            attributingTimePoint(timepoint,i);
+            timepoint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -126,8 +115,41 @@ public class MainActivity extends AppCompatActivity
                     overridePendingTransition(R.anim.slide_in_top,R.anim.slide_out_top);
                 }
             });
-            timePointLayout.addView(timePoint[i]);
+
         }
+        if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
+    }
+    public void attributingTimePoint(ViewGroup timepoint, int i){
+        ((TextView)timepoint.findViewById(R.id.time_point_ampm)).setText("AM");
+        ((TextView)timepoint.findViewById(R.id.time_point_text)).setText(Constants.alias[i]);
+
+        String hours = Times.times[i].substring(0, 2);
+        int h = Integer.parseInt(hours);
+        if (h > 12) {
+            h = h - 12;
+            ((TextView)timepoint.findViewById(R.id.time_point_ampm)).setText("PM");
+            hours = "0" + Integer.toString(h);
+        }
+        String tm = hours + Times.times[i].substring(2, 5);
+        ((TextView)timepoint.findViewById(R.id.time_point_time)).setText(tm);
+    }
+    public void reorderTimePointForPortrait(){
+        ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
+        ConstraintLayout timepoint;
+        for(int i=0;i<7;i++) {
+            timepoint = (ConstraintLayout) timePointLayout.getChildAt(i);
+            if(timepoint !=null) {
+                timePointLayout.removeView(timepoint);
+                if(i < upComingTimePoint) timePointLayout.addView(timepoint,i);
+                else timePointLayout.addView(timepoint);
+            }
+        }
+    }
+    public void handleProgressBarForLandscape(int remainTime){
+        int goneTimePoint = upComingTimePoint -1;
+        if(goneTimePoint < 0) goneTimePoint = 5;
+        ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
+        progressBar.setProgress((int) (100-(100*remainTime/(TM.difference(Times.times[goneTimePoint],Times.times[upComingTimePoint])))));
     }
 
 
@@ -144,28 +166,22 @@ public class MainActivity extends AppCompatActivity
         // start the animation!
         animation.start();
     }
-    /*public void startTimer(){
+    public void startTimer(){
+        final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 int h,m,s;
-                remainTime = TM.difference(TM.getTime(),Times.times[upComingTimePoint]);
+                int remainTime = TM.difference(TM.getTime(),Times.times[upComingTimePoint]);
                 if(remainTime < 1) {
-                    if(alarmActive("azan.txt",upComingTimePoint))mediaPlayer.start();
-                    timePoint[upComingTimePoint].meComming(false);
                     upComingTimePoint = TM.commingTimePointIndex(Times.times);
-                    timePoint[upComingTimePoint].meComming(true);
+                    if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
                 }else {
-                    int goneTimePoint = upComingTimePoint -1;
-                    if(goneTimePoint < 0) goneTimePoint = 5;
                     h = (int)remainTime /3600;
                     m = (int)((remainTime-(h*3600))/60);
                     s = (int)remainTime - (h*3600) - (m*60);
-                    timePoint[upComingTimePoint].setCounterText(h,m,s);
-
-                    LinearLayout countdown = findViewById(R.id.countdown_point_time_landscape);
-                    ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-                    progressBar.setProgress((int) (100-(100*remainTime/(TM.difference(Times.times[goneTimePoint],Times.times[upComingTimePoint])))));
+                    ViewGroup countdown = findViewById(R.id.main_activity_timer);
+                    if(Configurations.orientation == Configuration.ORIENTATION_LANDSCAPE) handleProgressBarForLandscape(remainTime);
                     ((TextView)(countdown.getChildAt(0))).setText(Integer.toString(h));
                     ((TextView)(countdown.getChildAt(2))).setText(Integer.toString(m));
                     ((TextView)(countdown.getChildAt(4))).setText(Integer.toString(s));
@@ -173,9 +189,8 @@ public class MainActivity extends AppCompatActivity
                 handler.postDelayed(this,1000);
             }
         };
-        timePoint[upComingTimePoint].meComming(true);
         runnable.run();
-    }*/
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

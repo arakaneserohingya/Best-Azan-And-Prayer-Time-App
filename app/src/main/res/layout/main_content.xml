@@ -14,6 +14,42 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content">
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/time_prayer_widget_height"
+            layout="@layout/time_point"
+            android:layout_marginBottom="2dp"/>
+        <FrameLayout
+            android:layout_marginBottom="2dp"
+            android:background="@color/widgetColorTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/main_activity_timer"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                layout="@layout/countdown_timer"/>
+        </FrameLayout>
     </LinearLayout>
 
 
