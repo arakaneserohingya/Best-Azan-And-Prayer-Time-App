@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -135,13 +134,13 @@ public class MainActivity extends AppCompatActivity
     }
     public void reorderTimePointForPortrait(){
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
-        ConstraintLayout timepoint;
+        ViewGroup timepoint ;
         for(int i=0;i<7;i++) {
-            timepoint = (ConstraintLayout) timePointLayout.getChildAt(i);
-            if(timepoint !=null) {
+            if(((ViewGroup) timePointLayout.getChildAt(i)).getChildCount() == 1) {
+                timepoint = (ViewGroup) timePointLayout.getChildAt(i);
                 timePointLayout.removeView(timepoint);
-                if(i < upComingTimePoint) timePointLayout.addView(timepoint,i);
-                else timePointLayout.addView(timepoint);
+                timePointLayout.addView(timepoint,upComingTimePoint);
+                break;
             }
         }
     }
