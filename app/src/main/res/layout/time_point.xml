@@ -20,8 +20,8 @@
             android:layout_gravity="center"
             android:id="@+id/time_point_text"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
-            android:fontFamily="@font/isfkut"
+            android:textSize="@dimen/widget_font_size"
+
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 

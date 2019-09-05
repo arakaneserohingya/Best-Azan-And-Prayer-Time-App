@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/fontStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -27,6 +28,10 @@
         <item name="android:activityOpenExitAnimation">@anim/slide_out_top</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_top</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_top</item>
+    </style>
+
+    <style name="fontStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/gill_sans_mt</item>
     </style>
 
 </resources>

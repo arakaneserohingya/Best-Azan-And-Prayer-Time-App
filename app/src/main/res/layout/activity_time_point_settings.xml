@@ -33,10 +33,9 @@
                 app:layout_constraintEnd_toStartOf="@id/countdown_timer_time_point_settings"
                 app:layout_constraintWidth_percent="0.5"
                 android:id="@+id/countdown_text_time_point_settings"
-                android:fontFamily="@font/isfkut"
                 android:gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"
+                android:textSize="@dimen/widget_font_size_small"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
 
@@ -44,8 +43,10 @@
                 android:id="@+id/countdown_timer_time_point_settings"
                 layout="@layout/countdown_timer"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/countdown_text_time_point_settings" />
 

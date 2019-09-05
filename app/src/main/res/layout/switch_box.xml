@@ -20,13 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView
-                android:fontFamily="@font/isfkut"
+
                 android:id="@+id/switch_box_text"
                 android:layout_weight="0.5"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"
+                android:textSize="@dimen/widget_font_size_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
