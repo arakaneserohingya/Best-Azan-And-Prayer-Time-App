@@ -11,6 +11,7 @@
         android:id="@+id/progress_bar_landscape"
         android:progressDrawable="@drawable/circle"
         style="?android:progressBarStyleHorizontal"
+        android:rotation="-90"
         android:progress="80"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/time_point_scrollview"
