@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -26,13 +27,6 @@ import com.example.omar.azanapkmostafa.R;
 public class TimePointSettingsActivity extends AppCompatActivity {
 
     private int index;
-    private int upComingTimePoint;
-    private int remainTime;
-    private Handler handler;
-    private int diffWithUpComingTimePoint;
-
-    private int diff_h;
-    private int diff_m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +36,11 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         index=getIntent().getExtras().getInt("TimePointIndex");
-        getSupportActionBar().setTitle( Constants.alias[index] + getResources().getString(R.string.prayer_time_settings));
+        getSupportActionBar().setTitle( Constants.alias[index] +" "+ getResources().getString(R.string.prayer_time_settings));
 
 
         widgetsAdder();
-       /* handler = new Handler();
-        startTimer();*/
+        startTimer();
     }
 
     public void widgetsAdder(){
@@ -117,44 +110,27 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
 
 
-    public void firstInitialization(){
-        upComingTimePoint = TM.commingTimePointIndex(Times.times);
-        LinearLayout countdownlayout = findViewById(R.id.countdown_layout_time_point_settings);
-        diffWithUpComingTimePoint = TM.difference(Times.times[upComingTimePoint],Times.times[index]);
-        diff_h = (int)diffWithUpComingTimePoint /3600;
-        diff_m = (int)((diffWithUpComingTimePoint-(diff_h*3600))/60);
-        if(index >= upComingTimePoint) {
-
-            countdownlayout.setVisibility(View.VISIBLE);
-            ((TextView) countdownlayout.getChildAt(0)).setText(Constants.alias[index]);
-        } else countdownlayout.setVisibility(View.GONE);
-    }
-
-
-
     public void startTimer(){
+        final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 int h,m,s;
-                remainTime = TM.difference(TM.getTime(),Times.times[upComingTimePoint]);
-                if(remainTime < 1) {
-
-                    firstInitialization();
-                }else {
-
+                int remainTime = TM.difference(TM.getTime(),Times.times[index]);
+                if(remainTime < 1)
+                    findViewById(R.id.countdown_layout_time_point_settings).setVisibility(View.GONE);
+                else {
                     h = (int)remainTime /3600;
                     m = (int)((remainTime-(h*3600))/60);
                     s = (int)remainTime - (h*3600) - (m*60);
-                    LinearLayout countdown = findViewById(R.id.countdown_timer_time_point_settings);
-                    ((TextView)(countdown.getChildAt(0))).setText(Integer.toString(h + diff_h));
-                    ((TextView)(countdown.getChildAt(2))).setText(Integer.toString(m + diff_m));
+                    ViewGroup countdown = findViewById(R.id.countdown_timer_time_point_settings);
+                    ((TextView)(countdown.getChildAt(0))).setText(Integer.toString(h));
+                    ((TextView)(countdown.getChildAt(2))).setText(Integer.toString(m));
                     ((TextView)(countdown.getChildAt(4))).setText(Integer.toString(s));
+                    handler.postDelayed(this,1000);
                 }
-                handler.postDelayed(this,1000);
             }
         };
-        firstInitialization();
         runnable.run();
     }
 

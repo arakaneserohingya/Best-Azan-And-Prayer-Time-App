@@ -93,4 +93,5 @@
     <string name="choose_alarm_tone">Choose alarm tone</string>
     <string name="prayer_time_settings">prayer time settings</string>
     <string name="saved_locations">Saved locations</string>
+    <string name="remaining_time">Remaining time</string>
 </resources>
