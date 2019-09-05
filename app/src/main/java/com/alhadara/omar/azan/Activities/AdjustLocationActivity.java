@@ -19,7 +19,7 @@ public class AdjustLocationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("+ أضف موقع");
+        getSupportActionBar().setTitle("+ " + getResources().getString(R.string.add_location));
         findViewById(R.id.adjust_location_activity_save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

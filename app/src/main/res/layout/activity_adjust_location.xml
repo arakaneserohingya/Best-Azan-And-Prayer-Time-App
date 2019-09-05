@@ -38,12 +38,12 @@
                 android:id="@+id/adjust_location_activity_current_location_title"
                 android:textColor="@android:color/darker_gray"
                 android:text="@string/current_location"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
-                android:gravity="right"
+                android:gravity="start"
                 android:textColor="@android:color/white"
                 android:id="@+id/adjust_location_activity_current_location_edittext"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_current_location_title"
@@ -53,18 +53,18 @@
                 android:id="@+id/adjust_location_activity_time_location_title"
                 android:textColor="@android:color/darker_gray"
                 android:text="@string/the_time_location"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_current_location_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
-                android:gravity="right"
+                android:gravity="start"
                 android:inputType="numberDecimal"
                 android:textColor="@android:color/white"
                 android:id="@+id/adjust_location_activity_time_location_edittext"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_time_location_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/adjust_location_activity_time_location_gmt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/adjust_location_activity_time_location_gmt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
@@ -74,20 +74,20 @@
                 android:textSize="20sp"
                 android:id="@+id/adjust_location_activity_time_location_gmt"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_time_location_title"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp" />
+                android:layout_marginStart="30dp" />
             <TextView
                 android:id="@+id/adjust_location_activity_longitude_title"
                 android:textColor="@android:color/darker_gray"
                 android:text="@string/longitude"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_time_location_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
-                android:gravity="right"
+                android:gravity="start"
                 android:textColor="@android:color/white"
                 android:inputType="numberDecimal"
                 android:id="@+id/adjust_location_activity_longitude_edittext"
@@ -98,12 +98,12 @@
                 android:id="@+id/adjust_location_activity_latitude_title"
                 android:textColor="@android:color/darker_gray"
                 android:text="@string/latitude"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adjust_location_activity_longitude_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
-                android:gravity="right"
+                android:gravity="start"
                 android:textColor="@android:color/white"
                 android:inputType="numberDecimal"
                 android:id="@+id/adjust_location_activity_latitude_edittext"

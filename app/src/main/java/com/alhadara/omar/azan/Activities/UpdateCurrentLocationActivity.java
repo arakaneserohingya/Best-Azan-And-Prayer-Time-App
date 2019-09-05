@@ -21,7 +21,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("تحديث الموقع الحالي");
+        getSupportActionBar().setTitle(getResources().getString(R.string.update_current_location));
 
         final Toast tempToast = Toast.makeText(this,"Can't perform operations in this commit!",Toast.LENGTH_SHORT);
         findViewById(R.id.update_current_location_activity_internet_button).setOnClickListener(new View.OnClickListener() {
