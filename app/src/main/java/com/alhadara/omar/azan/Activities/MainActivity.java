@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
+        tintingUpComingTimePoint(true);
     }
     public void attributingTimePoint(ViewGroup timepoint, int i){
         ((TextView)timepoint.findViewById(R.id.time_point_ampm)).setText("AM");
@@ -150,6 +151,13 @@ public class MainActivity extends AppCompatActivity
         ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
         progressBar.setProgress((int) (100-(100*remainTime/(TM.difference(Times.times[goneTimePoint],Times.times[upComingTimePoint])))));
     }
+    public void tintingUpComingTimePoint(boolean tint){
+        if(Configurations.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            ((ViewGroup)findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint)
+                    .setBackgroundColor(getResources().getColor(tint?R.color.colorPrimary:R.color.widgetColorSettingsBox));
+        else ((ViewGroup)findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint + 1)
+                .setBackgroundColor(getResources().getColor(tint?R.color.colorPrimary:R.color.widgetColorSettingsBox));
+    }
 
 
     public void backgroundAnimation() {
@@ -173,8 +181,10 @@ public class MainActivity extends AppCompatActivity
                 int h,m,s;
                 int remainTime = TM.difference(TM.getTime(),Times.times[upComingTimePoint]);
                 if(remainTime < 1) {
+                    tintingUpComingTimePoint(false);
                     upComingTimePoint = TM.commingTimePointIndex(Times.times);
                     if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
+                    tintingUpComingTimePoint(true);
                 }else {
                     h = (int)remainTime /3600;
                     m = (int)((remainTime-(h*3600))/60);
