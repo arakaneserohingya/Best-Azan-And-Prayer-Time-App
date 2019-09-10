@@ -1,9 +1,7 @@
 package com.alhadara.omar.azan.Activities;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -27,6 +25,8 @@ import com.example.omar.azanapkmostafa.R;
 public class TimePointSettingsActivity extends AppCompatActivity {
 
     private int index;
+    private Handler handler;
+    private Runnable runnable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +111,8 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
 
     public void startTimer(){
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 int h,m,s;
@@ -140,5 +140,11 @@ public class TimePointSettingsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
     }
 }

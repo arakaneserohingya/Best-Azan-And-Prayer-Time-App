@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final int GENERAL_ALARM_REQUEST_CODE = 133;
     private int upComingTimePoint;
+    private Handler handler;
+    private Runnable runnable;
 
 
     @Override
@@ -174,8 +176,8 @@ public class MainActivity extends AppCompatActivity
         animation.start();
     }
     public void startTimer(){
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 int h,m,s;
@@ -202,23 +204,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if(Configurations.orientation != getResources().getConfiguration().orientation){
-            Configurations.orientation = getResources().getConfiguration().orientation;
-            setContentView(R.layout.activity_main);
-            initializeTimePoints();
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if(Configurations.getReloadMainActivityOnResume()){
             Configurations.setReloadMainActivityOnResume(false);
             recreate();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
     }
 
     public void triggerAlarmManager() {

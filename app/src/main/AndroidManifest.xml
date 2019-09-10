@@ -15,7 +15,6 @@
 
         <activity
             android:name="com.alhadara.omar.azan.Activities.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
