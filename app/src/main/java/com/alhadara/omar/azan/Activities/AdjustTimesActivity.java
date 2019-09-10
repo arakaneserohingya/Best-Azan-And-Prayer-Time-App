@@ -32,7 +32,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("تعديل الأوقات يدوياً");
+        getSupportActionBar().setTitle(getResources().getString(R.string.adjust_time_manually));
         delayTimesPref = getSharedPreferences("delaytime.txt",MODE_PRIVATE);
         delayTimesEdit = delayTimesPref.edit();
         times = new String[6];

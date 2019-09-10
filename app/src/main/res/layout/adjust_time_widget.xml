@@ -9,7 +9,7 @@
         android:id="@+id/adjust_time_widget_text"
         android:textSize="20sp"
         android:textColor="@android:color/white"
-        android:gravity="center|right"
+        android:gravity="center|start"
         android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
