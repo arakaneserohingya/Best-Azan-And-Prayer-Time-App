@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle(TM.hijriDateByFormat("D M Y",true,true));
 
-        backgroundAnimation();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -162,19 +161,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void backgroundAnimation() {
-        AnimationDrawable animation = new AnimationDrawable();
-        animation.addFrame(getResources().getDrawable(R.drawable.b1), Constants.BACKGROUND_DURATION);
-        animation.addFrame(getResources().getDrawable(R.drawable.b2), Constants.BACKGROUND_DURATION);
-        animation.addFrame(getResources().getDrawable(R.drawable.b3), Constants.BACKGROUND_DURATION);
-        animation.setOneShot(false);
 
-        ImageView imageAnim =  (ImageView) findViewById(R.id.background);
-        imageAnim.setImageDrawable(animation);
-
-        // start the animation!
-        animation.start();
-    }
     public void startTimer(){
         handler = new Handler();
         runnable = new Runnable() {
