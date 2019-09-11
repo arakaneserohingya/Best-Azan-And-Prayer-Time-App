@@ -13,14 +13,16 @@ import com.alhadara.omar.azan.Constants;
 import com.example.omar.azanapkmostafa.R;
 
 public class TimePrayerService extends Service implements MediaPlayer.OnCompletionListener {
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer azanPlayer,iqamaPlayer;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.azan_haram);
-        mediaPlayer.setOnCompletionListener(this);
+        azanPlayer = MediaPlayer.create(this, R.raw.azan);
+        iqamaPlayer = MediaPlayer.create(this,R.raw.iqama);
+        azanPlayer.setOnCompletionListener(this);
+        iqamaPlayer.setOnCompletionListener(this);
 
     }
 
@@ -32,7 +34,10 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent.getExtras().getBoolean("mode")) mediaPlayer.start();
+        if(intent.getExtras().getBoolean("mode")) {
+            if(intent.getExtras().getInt("type") == GeneralSettingsReceiver.AZAN_REQUEST_CODE) azanPlayer.start();
+            else iqamaPlayer.start();
+        }
         else {
             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(Constants.APP_NOTIFICATION_ID);
             onDestroy();
@@ -48,7 +53,8 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        this.mediaPlayer.stop();
+        this.azanPlayer.stop();
+        this.iqamaPlayer.stop();
         stopSelf();
     }
 }

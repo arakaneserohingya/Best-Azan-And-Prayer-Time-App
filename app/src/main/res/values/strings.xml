@@ -95,4 +95,6 @@
     <string name="saved_locations">Saved locations</string>
     <string name="remaining_time">Remaining time</string>
     <string name="add_location">Add location</string>
+    <string name="prayer_time">prayer time</string>
+    <string name="iqama_time">iqama time</string>
 </resources>

@@ -15,12 +15,14 @@ import android.widget.Toast;
 import androidx.core.app.AlarmManagerCompat;
 
 import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.Times;
 
 import java.util.Calendar;
 
 
 public class GeneralSettingsReceiver extends BroadcastReceiver {
+
 
     public static final int AZAN_REQUEST_CODE = 150;
     public static final int IQAMA_REQUEST_CODE = 160;
@@ -39,28 +41,15 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
             cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
             if(Configurations.isAlarmActivated(context,"azan",i) &&
-                    Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis()) {
-                in = new Intent(context, TimePrayerReceiver.class);
-                in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-                in.setAction(cal.toString());
-                in.putExtra("type",0);
-                in.putExtra("index",i);
-                alarmTrig(context
-                        ,PendingIntent.getBroadcast(context, AZAN_REQUEST_CODE + i, in, 0)
-                        ,cal);
-            }
-           /* cal.add(Calendar.MINUTE,Integer.parseInt(Times.iqamaDiffTimes[i]));
-            if(Configurations.isAlarmActivated(context,"iqama",i) && i!=1 No Alarm For Shorooq &&
-                    Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis()) {
-                in = new Intent(context, TimePrayerReceiver.class);
-                in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-                in.setAction(cal.toString());
-                in.putExtra("type",1);
-                in.putExtra("index",i);
-                alarmTrig(context
-                        ,PendingIntent.getBroadcast(context, IQAMA_REQUEST_CODE + i, in, 0)
-                        ,cal);
-            }*/
+                    Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis())
+                alarmTrig(context,AZAN_REQUEST_CODE,i,cal,true);
+            else alarmTrig(context,AZAN_REQUEST_CODE,i,cal,false);
+            
+            cal.add(Calendar.MINUTE, Constants.iqamaTimes[i]);
+            if(Configurations.isAlarmActivated(context,"iqama",i) && i!=1 /* No iqama for shorooq*/ &&
+                    Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis())
+                alarmTrig(context,IQAMA_REQUEST_CODE,i,cal,true);
+            else alarmTrig(context,IQAMA_REQUEST_CODE,i,cal,false);
         }
 
         //Activate this for tomorrow
@@ -70,13 +59,24 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         in = new Intent(context,GeneralSettingsReceiver.class);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         PendingIntent generalSettingsIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE, in,0);
-        alarmTrig(context,generalSettingsIntent,cal);
+        AlarmManagerCompat.setExactAndAllowWhileIdle(
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE),
+                AlarmManager.RTC_WAKEUP,
+                cal.getTimeInMillis(),
+                generalSettingsIntent
+        );
 
 
     }
-
-    private void alarmTrig(Context context,PendingIntent pendingIntent,Calendar calendar){
+    private void alarmTrig(Context context,int type,int index,Calendar calendar,boolean trig){
+        Intent in = new Intent(context, TimePrayerReceiver.class);
+        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        in.setAction(calendar.toString());
+        in.putExtra("type",type);
+        in.putExtra("index",index);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, 0);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+        if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+        else manager.cancel(pendingIntent);
     }
 }
