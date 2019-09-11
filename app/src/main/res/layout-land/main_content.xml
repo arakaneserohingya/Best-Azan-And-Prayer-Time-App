@@ -6,6 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="0dp">
 
+    <TextView
+        android:id="@+id/main_activity_gregorian_month_number"
+        android:textColor="@android:color/black"
+        android:text="12"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/main_activity_gregorian_month_name"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="september"
+        app:layout_constraintLeft_toRightOf="@id/main_activity_gregorian_month_number"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/main_activity_hijri_month_number"
+        android:textColor="@android:color/black"
+        android:text="12"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/main_activity_hijri_month_name"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:textSize="20sp"
+        android:text="september"
+        app:layout_constraintRight_toLeftOf="@id/main_activity_hijri_month_number"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="Wednesday"
+        android:id="@+id/main_activity_day_of_week"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/progress_bar_landscape"
@@ -13,9 +63,11 @@
         style="?android:progressBarStyleHorizontal"
         android:rotation="-90"
         android:progress="80"
+        app:layout_constraintTop_toBottomOf="@id/main_activity_gregorian_month_number"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/time_point_scrollview"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_width="0dp"/>
     <include
         android:layout_height="wrap_content"
@@ -27,12 +79,14 @@
         app:layout_constraintRight_toRightOf="@id/progress_bar_landscape"
         app:layout_constraintTop_toTopOf="@id/progress_bar_landscape"/>
     <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/main_activity_gregorian_month_number"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/time_point_scrollview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintWidth_percent="0.5"
         android:layout_marginTop="10dp"
         android:layout_width="0dp"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
         <LinearLayout
             android:id="@+id/time_point_layout"
             android:alpha="0.8"

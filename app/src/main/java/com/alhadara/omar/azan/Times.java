@@ -14,6 +14,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Times {
 
     public static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
+    public static int[] iqamaTimes = {30,0,20,20,5,5};
     public static void initializeTimes(double latitude,double longitude,double timezone ){
         PrayTime prayers = new PrayTime();
 

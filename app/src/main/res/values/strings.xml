@@ -56,6 +56,32 @@
         <item>@string/hijri_month_11</item>
         <item>@string/hijri_month_12</item>
     </string-array>
+    <string name="gregorian_month_1">January</string>
+    <string name="gregorian_month_2">February</string>
+    <string name="gregorian_month_3">March</string>
+    <string name="gregorian_month_4">April</string>
+    <string name="gregorian_month_5">May</string>
+    <string name="gregorian_month_6">June</string>
+    <string name="gregorian_month_7">July</string>
+    <string name="gregorian_month_8">August</string>
+    <string name="gregorian_month_9">September</string>
+    <string name="gregorian_month_10">October</string>
+    <string name="gregorian_month_11">November</string>
+    <string name="gregorian_month_12">December</string>
+    <string-array name="gregorian_month">
+        <item>@string/gregorian_month_1</item>
+        <item>@string/gregorian_month_2</item>
+        <item>@string/gregorian_month_3</item>
+        <item>@string/gregorian_month_4</item>
+        <item>@string/gregorian_month_5</item>
+        <item>@string/gregorian_month_6</item>
+        <item>@string/gregorian_month_7</item>
+        <item>@string/gregorian_month_8</item>
+        <item>@string/gregorian_month_9</item>
+        <item>@string/gregorian_month_10</item>
+        <item>@string/gregorian_month_11</item>
+        <item>@string/gregorian_month_12</item>
+    </string-array>
     <string name="day_of_week1">Sunday</string>
     <string name="day_of_week2">Monday</string>
     <string name="day_of_week3">Tuesday</string>

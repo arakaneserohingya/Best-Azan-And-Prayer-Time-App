@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.core.app.AlarmManagerCompat;
 
 import com.alhadara.omar.azan.Configurations;
-import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.Times;
 
 import java.util.Calendar;
@@ -45,7 +44,7 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
                 alarmTrig(context,AZAN_REQUEST_CODE,i,cal,true);
             else alarmTrig(context,AZAN_REQUEST_CODE,i,cal,false);
             
-            cal.add(Calendar.MINUTE, Constants.iqamaTimes[i]);
+            cal.add(Calendar.MINUTE, Times.iqamaTimes[i]);
             if(Configurations.isAlarmActivated(context,"iqama",i) && i!=1 /* No iqama for shorooq*/ &&
                     Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis())
                 alarmTrig(context,IQAMA_REQUEST_CODE,i,cal,true);

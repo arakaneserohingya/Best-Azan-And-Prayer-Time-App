@@ -6,14 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.res.Configuration;
-import android.graphics.drawable.AnimationDrawable;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,6 +28,7 @@ import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
+import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
@@ -51,9 +50,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setTitle(TM.hijriDateByFormat("D M Y",true,true));
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -65,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         Configurations.setCurrentLocation(this,(float)33.513805,(float)36.276527,3);
         Configurations.setReloadMainActivityOnResume(false);// False in MainActivity itself
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
+        initializeDateViews();
         initializeTimePoints();
         startTimer();
         triggerAlarmManager();
@@ -97,7 +94,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    public void initializeDateViews() {
+        UmmalquraCalendar hijCal = new UmmalquraCalendar();
+        Calendar cal = Calendar.getInstance();
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(Constants.dayesOfWeek[cal.get(Calendar.DAY_OF_WEEK)-1]);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(Integer.toString(hijCal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(Constants.hijriMonthes[hijCal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(Constants.gregorianMonthes[cal.get(Calendar.MONTH)]);
+    }
     public void initializeTimePoints(){
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
         ViewGroup timepoint;

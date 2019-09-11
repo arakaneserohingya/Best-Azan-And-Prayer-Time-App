@@ -46,7 +46,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[index].substring(0,2)));
         calendar.set(Calendar.MINUTE,Integer.parseInt(Times.times[index].substring(3,5)));
         calendar.set(Calendar.SECOND,0);
-        if(type !=GeneralSettingsReceiver.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,Constants.iqamaTimes[index]); // for iqama
+        if(type !=GeneralSettingsReceiver.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,Times.iqamaTimes[index]); // for iqama
         long time = calendar.getTimeInMillis();
         time = time / 1000;
         return (now - time) > 30;

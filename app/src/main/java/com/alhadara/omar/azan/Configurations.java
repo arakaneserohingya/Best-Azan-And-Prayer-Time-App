@@ -37,6 +37,7 @@ public class Configurations {
 
     private static void resolveConstants(Context context) {
         Constants.hijriMonthes = context.getResources().getStringArray(R.array.hijri_month);
+        Constants.gregorianMonthes = context.getResources().getStringArray(R.array.gregorian_month);
         Constants.dayesOfWeek = context.getResources().getStringArray(R.array.day_of_week);
         Constants.alias = context.getResources().getStringArray(R.array.prayer_time);
     }
