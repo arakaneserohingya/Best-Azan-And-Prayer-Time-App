@@ -36,7 +36,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         String[] content = {context.getResources().getString(R.string.prayer_time),context.getResources().getString(R.string.iqama_time)};
 
         id=(type==GeneralSettingsReceiver.AZAN_REQUEST_CODE)?"azan":"iqama";
-        sendNotification(context, Constants.alias[index]+" "+ content[(type==GeneralSettingsReceiver.AZAN_REQUEST_CODE)?0:1]);
+        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type==GeneralSettingsReceiver.AZAN_REQUEST_CODE)?0:1]);
     }
 
     private boolean isTimeDiffers(int type, int index) {
