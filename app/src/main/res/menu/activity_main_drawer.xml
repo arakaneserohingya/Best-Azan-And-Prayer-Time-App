@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_gallery"
@@ -20,20 +20,21 @@
             android:id="@+id/nav_location"
             android:icon="@drawable/ic_location_on_black_24dp"
             android:title="@string/locations"/>
-        <menu>
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/about_application"/>
-            <item
-                android:id="@+id/nav_problems"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/problems_and_suggestions" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Share Application" />
-        </menu>
+
+    </group>
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/about_application"/>
+        <item
+            android:id="@+id/nav_problems"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/problems_and_suggestions" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Share Application" />
     </group>
 
 </menu>
