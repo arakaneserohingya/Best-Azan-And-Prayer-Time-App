@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:alpha="0.5"
         android:background="@android:color/black"
         android:orientation="vertical"
@@ -46,9 +46,9 @@
             android:id="@+id/locations_activity_current_location_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/widget_font_size" />
     </LinearLayout>
     <View
         android:background="@color/widgetColorSettingsBox"
@@ -58,7 +58,7 @@
 
     <TextView
         android:textSize="15sp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/darker_gray"
         android:gravity="center"
         android:text="@string/update_current_location"
         android:id="@+id/locations_activity_update_current_location"
@@ -105,6 +105,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <include layout="@layout/widget_location"
+                android:visibility="gone"/>
+            <include layout="@layout/widget_location"
+                android:visibility="gone"/>
+            <include layout="@layout/widget_location"
+                android:visibility="gone"/>
+            <include layout="@layout/widget_location"
+                android:visibility="gone"/>
+            <include layout="@layout/widget_location"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class Configurations {
     private static boolean reloadMainActivityOnResume = false;
-    private static String mainConFile = "mainconfigurations.txt";
+    public static String mainConFile = "mainconfigurations.txt";
     private static String locationsFile = "locations.txt";
     public static boolean isAppActive = false;
 
@@ -101,9 +101,10 @@ public class Configurations {
         adjustTimes(context);
         reloadMainActivityOnResume = true;
     }
-    public static void setCurrentLocation(Context context,float latitude,float longitude,float timezone) {
+    public static void setCurrentLocation(Context context,String location_name,float latitude,float longitude,float timezone) {
         SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
+        editor.putString("location_name",location_name);
         editor.putFloat("latitude",latitude);
         editor.putFloat("longitude",longitude);
         editor.putFloat("timezone",timezone);

@@ -6,10 +6,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.alhadara.omar.azan.Configurations;
 import com.example.omar.azanapkmostafa.R;
 
 public class LocationsActivity extends AppCompatActivity {
+
+    public static boolean reloadLocationActivityOnResume = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,9 @@ public class LocationsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.saved_locations));
-
+        ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(
+                getSharedPreferences(Configurations.mainConFile,MODE_PRIVATE).getString("location_name","")
+        );
         ((View) findViewById(R.id.locations_activity_add_location_floating_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +38,7 @@ public class LocationsActivity extends AppCompatActivity {
         findViewById(R.id.locations_activity_update_current_location).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LocationsActivity.this, UpdateCurrentLocationActivity.class));
+                //startActivity(new Intent(LocationsActivity.this, UpdateCurrentLocationActivity.class));
             }
         });
         findViewById(R.id.locations_activity_adjust_current_location).setOnClickListener(new View.OnClickListener() {
@@ -47,5 +53,14 @@ public class LocationsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(reloadLocationActivityOnResume){
+            reloadLocationActivityOnResume = false;
+            recreate();
+        }
     }
 }
