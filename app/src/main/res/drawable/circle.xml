@@ -5,6 +5,6 @@
     android:thickness="6dp"
     android:useLevel="true">
 
-    <solid android:color="@android:color/white"/>
+    <solid android:color="@color/widgetColor"/>
 
 </shape>
