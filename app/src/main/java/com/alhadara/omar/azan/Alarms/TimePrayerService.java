@@ -35,7 +35,7 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent.getExtras().getBoolean("mode")) {
-            if(intent.getExtras().getInt("type") == GeneralSettingsReceiver.AZAN_REQUEST_CODE) azanPlayer.start();
+            if(intent.getExtras().getInt("type") == AlarmsScheduler.AZAN_REQUEST_CODE) azanPlayer.start();
             else iqamaPlayer.start();
         }
         else {

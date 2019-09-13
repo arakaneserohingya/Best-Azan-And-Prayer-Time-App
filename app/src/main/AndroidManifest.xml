@@ -50,7 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <!--  Declare  Alarm Broadcast receiver here  -->
-        <receiver android:name="com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver"
+        <receiver android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

@@ -1,8 +1,5 @@
 package com.alhadara.omar.azan.Activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 
 import android.content.res.Configuration;
@@ -18,11 +15,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.AlarmManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.alhadara.omar.azan.Alarms.GeneralSettingsReceiver;
+import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
@@ -37,7 +33,6 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int GENERAL_ALARM_REQUEST_CODE = 133;
     private int upComingTimePoint;
     private Handler handler;
     private Runnable runnable;
@@ -46,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Configurations.initializeMainConfigurations(getApplicationContext());
+        Configurations.initializeMainConfigurations(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,13 +53,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Configurations.setCurrentLocation(this,(float)33.513805,(float)36.276527,3);
-        Configurations.setReloadMainActivityOnResume(false);// False in MainActivity itself
+
         upComingTimePoint = TM.commingTimePointIndex(Times.times);
         initializeDateViews();
         initializeTimePoints();
         startTimer();
-        triggerAlarmManager();
+        AlarmsScheduler.fire(this,Calendar.getInstance()); //set Alarms
     }
 
 
@@ -122,7 +116,7 @@ public class MainActivity extends AppCompatActivity
             });
 
         }
-        if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
+        if(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
         tintingUpComingTimePoint(true);
     }
     public void attributingTimePoint(ViewGroup timepoint, int i){
@@ -158,7 +152,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setProgress((int) (100-(100*remainTime/(TM.difference(Times.times[goneTimePoint],Times.times[upComingTimePoint])))));
     }
     public void tintingUpComingTimePoint(boolean tint){
-        if(Configurations.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             ((ViewGroup)findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint)
                     .setBackgroundColor(getResources().getColor(tint?R.color.colorPrimary:R.color.widgetColorSettingsBox));
         else ((ViewGroup)findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint + 1)
@@ -177,14 +171,14 @@ public class MainActivity extends AppCompatActivity
                 if(remainTime < 1) {
                     tintingUpComingTimePoint(false);
                     upComingTimePoint = TM.commingTimePointIndex(Times.times);
-                    if(Configurations.orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
+                    if(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) reorderTimePointForPortrait();
                     tintingUpComingTimePoint(true);
                 }else {
                     h = (int)remainTime /3600;
                     m = (int)((remainTime-(h*3600))/60);
                     s = (int)remainTime - (h*3600) - (m*60);
                     ViewGroup countdown = findViewById(R.id.main_activity_timer);
-                    if(Configurations.orientation == Configuration.ORIENTATION_LANDSCAPE) handleProgressBarForLandscape(remainTime);
+                    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) handleProgressBarForLandscape(remainTime);
                     ((TextView)(countdown.getChildAt(0))).setText(Integer.toString(h));
                     ((TextView)(countdown.getChildAt(2))).setText(Integer.toString(m));
                     ((TextView)(countdown.getChildAt(4))).setText(Integer.toString(s));
@@ -208,16 +202,5 @@ public class MainActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(runnable);
-    }
-
-    public void triggerAlarmManager() {
-
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND,3);
-        Intent intent = new Intent(MainActivity.this, GeneralSettingsReceiver.class);
-        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        PendingIntent generalTimeSettingIntent = PendingIntent.getBroadcast(MainActivity.this, GENERAL_ALARM_REQUEST_CODE, new Intent(MainActivity.this, GeneralSettingsReceiver.class), 0);
-        AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),generalTimeSettingIntent);
     }
 }

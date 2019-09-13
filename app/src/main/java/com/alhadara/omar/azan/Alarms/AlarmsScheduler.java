@@ -20,7 +20,7 @@ import com.alhadara.omar.azan.Times;
 import java.util.Calendar;
 
 
-public class GeneralSettingsReceiver extends BroadcastReceiver {
+public class AlarmsScheduler extends BroadcastReceiver {
 
 
     public static final int AZAN_REQUEST_CODE = 150;
@@ -31,11 +31,10 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         Toast.makeText(context, "ALAZAN notifications activated", Toast.LENGTH_SHORT).show();
 
 
-        Configurations.Update(context);
+        Configurations.updateTimes(context);
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.SECOND,0);
-        Intent in;
         for(int i=0;i<6;i++) {
             cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
@@ -55,15 +54,7 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         cal.add(Calendar.DATE,1);
         cal.set(Calendar.HOUR_OF_DAY,0);
         cal.set(Calendar.MINUTE,1);
-        in = new Intent(context,GeneralSettingsReceiver.class);
-        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        PendingIntent generalSettingsIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE, in,0);
-        AlarmManagerCompat.setExactAndAllowWhileIdle(
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE),
-                AlarmManager.RTC_WAKEUP,
-                cal.getTimeInMillis(),
-                generalSettingsIntent
-        );
+        fire(context,cal);
 
 
     }
@@ -77,5 +68,17 @@ public class GeneralSettingsReceiver extends BroadcastReceiver {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         else manager.cancel(pendingIntent);
+    }
+    public static void fire(Context context,Calendar cal){
+        Intent in = new Intent(context, AlarmsScheduler.class);
+        cal.add(Calendar.SECOND,3);
+        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        PendingIntent alarmsSchedulerIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE, in,0);
+        AlarmManagerCompat.setExactAndAllowWhileIdle(
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE),
+                AlarmManager.RTC_WAKEUP,
+                cal.getTimeInMillis(),
+                alarmsSchedulerIntent
+        );
     }
 }

@@ -35,8 +35,8 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         context.startService(audioServiceIntent);
         String[] content = {context.getResources().getString(R.string.prayer_time),context.getResources().getString(R.string.iqama_time)};
 
-        id=(type==GeneralSettingsReceiver.AZAN_REQUEST_CODE)?"azan":"iqama";
-        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type==GeneralSettingsReceiver.AZAN_REQUEST_CODE)?0:1]);
+        id=(type== AlarmsScheduler.AZAN_REQUEST_CODE)?"azan":"iqama";
+        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type== AlarmsScheduler.AZAN_REQUEST_CODE)?0:1]);
     }
 
     private boolean isTimeDiffers(int type, int index) {
@@ -46,7 +46,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[index].substring(0,2)));
         calendar.set(Calendar.MINUTE,Integer.parseInt(Times.times[index].substring(3,5)));
         calendar.set(Calendar.SECOND,0);
-        if(type !=GeneralSettingsReceiver.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,Times.iqamaTimes[index]); // for iqama
+        if(type != AlarmsScheduler.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,Times.iqamaTimes[index]); // for iqama
         long time = calendar.getTimeInMillis();
         time = time / 1000;
         return (now - time) > 30;
