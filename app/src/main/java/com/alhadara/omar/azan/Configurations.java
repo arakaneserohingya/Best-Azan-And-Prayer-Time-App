@@ -1,10 +1,12 @@
 package com.alhadara.omar.azan;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.example.omar.azanapkmostafa.R;
 
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class Configurations {
@@ -29,7 +32,7 @@ public class Configurations {
         return reloadMainActivityOnResume;
     }
 
-    public static void initializeMainConfigurations(Context context){
+    public static void initializeMainConfigurations(Activity context){
         if(isAppActive) return;
         isAppActive = true;
         setLocationPreferences(context);
@@ -39,11 +42,24 @@ public class Configurations {
         reloadMainActivityOnResume = false;
     }
 
-    private static void setLocationPreferences(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
+    private static void setLocationPreferences(final Activity activity) {
+        SharedPreferences pref = activity.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         if(!pref.getBoolean("islocationassigned",false)){
-            /*Get Location from network api*/
+            /*Get LocationHandler from network api*/
+            //
+            LocationHandler locationHandler = new LocationHandler(activity, activity.getApplicationContext(),
+                    new LocationHandler.LocationRunnable() {
+                 @Override
+                 public void doWithLocation(Location location, float timeZone,String LocatoinAddress) {
+                     Toast.makeText(activity, "location is "
+                             +location.getLatitude()+" "
+                                     +location.getLongitude()+" "
+                             +location.getTime()+" "
+                             , Toast.LENGTH_SHORT).show();
+                 }
+             });
+
             if (true /*if api not succeed*/){
                 editor.putString("location_name","Damascus, Syria");
                 editor.putFloat("latitude",(float)33.513805);
@@ -52,7 +68,7 @@ public class Configurations {
             }
             editor.putBoolean("islocationassigned",true);
             editor.commit();
-            showDialogLocationUpdateFail(context,pref);
+            showDialogLocationUpdateFail(activity,pref);
         }
     }
     private static void showDialogLocationUpdateFail(final Context context,SharedPreferences pref) {
