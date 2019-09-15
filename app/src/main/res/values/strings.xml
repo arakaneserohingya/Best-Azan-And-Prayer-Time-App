@@ -123,4 +123,6 @@
     <string name="add_location">Add location</string>
     <string name="prayer_time">prayer time</string>
     <string name="iqama_time">iqama time</string>
+    <string name="convert_from_hijri">Convert from hijri</string>
+    <string name="convert_from_gregorian">Convert from gregorian</string>
 </resources>

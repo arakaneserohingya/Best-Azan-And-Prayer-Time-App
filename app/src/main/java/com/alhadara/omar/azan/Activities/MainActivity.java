@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_settings) {
             // Handle the camera action
         } else if (id == R.id.nav_convert_date) {
-
+            startActivity(new Intent(this,ConvertDateActivity.class));
         } else if (id == R.id.nav_compass) {
 
         } else if (id == R.id.nav_location) {

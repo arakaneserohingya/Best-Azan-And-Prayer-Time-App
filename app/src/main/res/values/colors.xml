@@ -10,4 +10,6 @@
     <color name="widgetColorSettings">#1B1D2B</color>
     <color name="widgetColorSettingsBox">@color/widgetColor</color>
     <color name="iconColor">#ffffff</color>
+    <color name="disabled_button">#2E2E2E</color>
+    <color name="enabled_button">@color/colorPrimary</color>
 </resources>

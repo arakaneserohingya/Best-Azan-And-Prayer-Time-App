@@ -3,7 +3,7 @@
     package="com.example.omar.azanapkmostafa">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.alhadara.omar.azan.Activities.ConvertDateActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.alhadara.omar.azan.Activities.TimePointSettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -47,29 +50,27 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.alhadara.omar.azan.Activities.ManuallyLocationCitiesActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <!--  Declare  Alarm Broadcast receiver here  -->
-        <receiver android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Declare  Alarm Broadcast receiver here -->
+        <receiver
+            android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.DATE_CHANGED"/>
-                <action android:name="android.intent.action.TIME_SET"/>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
+        <receiver
+            android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
             android:enabled="true"
-            android:exported="false">
-        </receiver>
+            android:exported="false"></receiver>
 
-        <service android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
+        <service
+            android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
             android:enabled="true"
-            android:exported="false"/>
-
-
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/widgetColorSettings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alhadara.omar.azan.Activities.ConvertDateActivity">
+    <androidx.appcompat.widget.Toolbar
+        app:title="@string/convert_date"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar_convert_date_activity"
+        android:alpha="0.8"
+        android:layout_gravity="top"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <RadioGroup
+        android:id="@+id/convert_date_activity_radio_group"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_convert_date_activity"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/convert_date_activity_from_hijri_radio_button"
+                android:text="@string/convert_from_hijri"
+                android:textColor="@android:color/white"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+            <Button
+                android:id="@+id/convert_date_activity_from_hijri_button"
+                android:layout_gravity="center"
+                android:background="@color/enabled_button"
+                android:alpha="0.7"
+                android:padding="2dp"
+                android:layout_width="200dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/widget_font_size_small"
+                android:text="11 / 11 / 1441"
+                android:layout_height="40dp"/>
+            <RadioButton
+                android:id="@+id/convert_date_activity_from_gregorian_radio_button"
+                android:text="@string/convert_from_gregorian"
+                android:textColor="@android:color/white"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/convert_date_activity_from_gregorian_button"
+                android:layout_gravity="center"
+                android:background="@color/disabled_button"
+                android:clickable="false"
+                android:alpha="0.7"
+                android:padding="2dp"
+                android:layout_width="200dp"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/widget_font_size_small"
+                android:text="11 / 11 / 2019"
+                android:layout_height="40dp"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/convert_date_activity_result"
+        android:gravity="center"
+        android:textSize="@dimen/widget_font_size"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/convert_date_activity_radio_group"
+        app:layout_constraintHeight_percent="0.5"
+        android:background="@android:color/white"
+        android:layout_width="200dp"
+        android:layout_height="50dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
