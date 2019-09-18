@@ -38,6 +38,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         for(int i=0;i<6;i++) {
             cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
+            cal.set(Calendar.SECOND,0);
             if(Configurations.isAlarmActivated(context,"azan",i) &&
                     Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis())
                 alarmTrig(context,AZAN_REQUEST_CODE,i,cal,true);
@@ -61,7 +62,6 @@ public class AlarmsScheduler extends BroadcastReceiver {
     private void alarmTrig(Context context,int type,int index,Calendar calendar,boolean trig){
         Intent in = new Intent(context, TimePrayerReceiver.class);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        in.setAction(calendar.toString());
         in.putExtra("type",type);
         in.putExtra("index",index);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, 0);
