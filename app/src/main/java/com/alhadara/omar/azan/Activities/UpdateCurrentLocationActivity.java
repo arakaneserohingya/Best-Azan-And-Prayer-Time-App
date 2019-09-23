@@ -127,13 +127,11 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         alertDialog.setCancelable(false);
         alertDialog.show();
         final LocationHandler locationHandler = new LocationHandler(this, this.getApplicationContext(), tempLocationFile,2000);
-        Toast.makeText(UpdateCurrentLocationActivity.this," + ",Toast.LENGTH_SHORT).show();
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             int i=0;
             @Override
             public void run() {
-                Toast.makeText(UpdateCurrentLocationActivity.this,Integer.toString(i),Toast.LENGTH_SHORT).show();
                 if(!locationHandler.NEW_LOCATION_FLAG && i<10) {
                     handler.postDelayed(this, 1000);
                     i++;
