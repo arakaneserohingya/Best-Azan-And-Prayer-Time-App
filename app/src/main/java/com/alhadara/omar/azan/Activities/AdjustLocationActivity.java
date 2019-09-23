@@ -3,6 +3,7 @@ package com.alhadara.omar.azan.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -38,16 +39,17 @@ public class AdjustLocationActivity extends AppCompatActivity {
         findViewById(R.id.adjust_location_activity_save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Configurations.setCurrentLocation( getApplicationContext(),
-                        ((EditText)findViewById(R.id.adjust_location_activity_current_location_edittext)).getText().toString(),
-                        Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_latitude_edittext)).getText().toString()),
-                        Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).getText().toString()),
-                        Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).getText().toString())
-                );
+                SharedPreferences pref = AdjustLocationActivity.this.getSharedPreferences(Configurations.mainConFile,MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("location_name",((EditText)findViewById(R.id.adjust_location_activity_current_location_edittext)).getText().toString());
+                editor.putFloat("latitude",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_latitude_edittext)).getText().toString()));
+                editor.putFloat("longitude",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).getText().toString()));
+                editor.putFloat("timezone",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).getText().toString()));
+                editor.commit();
                 Configurations.updateTimes(getApplicationContext());
-                AlarmsScheduler.fire(getApplicationContext(), Calendar.getInstance());
-                LocationsActivity.reloadLocationActivityOnResume = true;
-                finish();
+                AlarmsScheduler.fire(getApplicationContext(),Calendar.getInstance());
+                LocationsActivity.reloadLocationsActivityOnResume = true;
+                AdjustLocationActivity.this.finish();
             }
         });
     }

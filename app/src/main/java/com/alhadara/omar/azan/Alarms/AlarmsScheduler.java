@@ -70,6 +70,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         else manager.cancel(pendingIntent);
     }
     public static void fire(Context context,Calendar cal){
+        if(!Configurations.isLocationAssigned(context)) return;
         Intent in = new Intent(context, AlarmsScheduler.class);
         cal.add(Calendar.SECOND,3);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);

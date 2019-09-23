@@ -3,11 +3,13 @@ package com.alhadara.omar.azan;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.alhadara.omar.azan.Activities.UpdateCurrentLocationActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -15,25 +17,24 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.TimeZone;
 
 public class LocationHandler {
-    interface LocationRunnable {
-        void doWithLocation(android.location.Location location,
-        float timeZone, String LocatoinAddress
-        );
-    }
+
     static final int ACCESS_LOCATION_PERMISSION = 1;
+    public boolean NEW_LOCATION_FLAG;
     private LocationRequest locationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback locationCallbacks;
 
-    LocationHandler(Activity activity, Context context, final LocationRunnable locationRunnable){
+    public LocationHandler(final Activity activity, Context context, final String tempLocationFile, int interval){
 
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(1000);
+        locationRequest.setInterval(interval);
+        locationRequest.setFastestInterval(interval);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        NEW_LOCATION_FLAG = false;
+        final SharedPreferences temp = activity.getSharedPreferences(tempLocationFile, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = temp.edit();
 
         //FusedLocationProviderClient fusedLocationProviderClient;
         //fusedLocationProviderClient.
@@ -60,7 +61,10 @@ public class LocationHandler {
                     @Override
                     public void onSuccess(android.location.Location location) {
 
-                        locationRunnable.doWithLocation(location, 3, "Damascus,Syria");
+                        editor.putFloat("latitude",(float) location.getLatitude());
+                        editor.putFloat("longitude",(float) location.getLongitude());
+                        editor.putBoolean("islocationassigned",true);
+                        editor.commit();
                     }
                 });
 
@@ -72,7 +76,13 @@ public class LocationHandler {
                     return;
                 }
                 android.location.Location location = locationResult.getLastLocation();
-                locationRunnable.doWithLocation(location,3, "Damascus,Syria");
+                NEW_LOCATION_FLAG = true;
+
+                editor.putFloat("latitude",(float) location.getLatitude());
+                editor.putFloat("longitude",(float) location.getLongitude());
+                editor.putBoolean("islocationassigned",true);
+                editor.commit();
+                finish();
             }
 
             @Override
@@ -96,6 +106,10 @@ public class LocationHandler {
             return;
         }
         mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallbacks,activity.getMainLooper());
+    }
+    public void finish(){
+        mFusedLocationClient.removeLocationUpdates(locationCallbacks);
+        mFusedLocationClient.flushLocations();
     }
 }
 

@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alhadara.omar.azan.CountriesRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
@@ -26,11 +28,12 @@ public class ManuallyLocationActivity extends AppCompatActivity {
     private List<TextView> countries ;
     private List<TextView> visibleCountries;
     private RecyclerView recyclerView;
+    private String tempLocationFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_location);
-
+        tempLocationFile = getIntent().getExtras().getString("filename");
         readListFromCSV();
 
         recyclerView = findViewById(R.id.manually_location_activity_countries_layout);
@@ -63,6 +66,7 @@ public class ManuallyLocationActivity extends AppCompatActivity {
         TextView tx;
 
         final Intent intent = new Intent(this,ManuallyLocationCitiesActivity.class);
+        intent.putExtra("filename",tempLocationFile);
         try {
             CSVReader reader = new CSVReader(new InputStreamReader(getApplicationContext().getAssets().open("location_table_countries.csv")));
             String[] nextLine;
@@ -87,6 +91,14 @@ public class ManuallyLocationActivity extends AppCompatActivity {
         } catch (IOException e) {
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences preferences = getSharedPreferences(tempLocationFile,MODE_PRIVATE);
+        if(preferences.getBoolean("islocationassigned",false)) finish();
+        super.onResume();
+
     }
 
 }

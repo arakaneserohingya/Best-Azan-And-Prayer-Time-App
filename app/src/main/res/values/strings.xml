@@ -125,4 +125,5 @@
     <string name="iqama_time">iqama time</string>
     <string name="convert_from_hijri">Convert from hijri</string>
     <string name="convert_from_gregorian">Convert from gregorian</string>
+    <string name="choose_current_location">Choose current location</string>
 </resources>
