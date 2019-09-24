@@ -37,11 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:layout_marginRight="5dp"
-        android:text="details and other informations"
+        android:layout_marginStart="5dp"
+        android:text="details and other informations:"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@id/widget_location_button"
         app:layout_constraintTop_toBottomOf="@id/widget_location_title" />
 
     <TextView
@@ -51,10 +51,11 @@
         android:gravity="center"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toTopOf="@+id/widget_location_time_4"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_2"
+        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_2"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
 
     <TextView
@@ -64,10 +65,11 @@
         android:layout_height="wrap_content"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toTopOf="@+id/widget_location_time_5"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_1"
+        app:layout_constraintStart_toEndOf="@+id/widget_location_time_1"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_3"
+        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_3"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
 
     <TextView
@@ -77,10 +79,11 @@
         android:layout_height="wrap_content"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toTopOf="@+id/widget_location_time_6"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_2"
+        app:layout_constraintStart_toEndOf="@+id/widget_location_time_2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
 
     <TextView
@@ -90,10 +93,11 @@
         android:gravity="center"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_5"
+        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_5"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_time_1" />
 
     <TextView
@@ -103,10 +107,11 @@
         android:layout_height="wrap_content"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_4"
+        app:layout_constraintStart_toEndOf="@+id/widget_location_time_4"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_6"
+        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_6"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_time_2" />
 
     <TextView
@@ -116,10 +121,11 @@
         android:layout_height="wrap_content"
         android:text="hello\nworld"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_5"
+        app:layout_constraintStart_toEndOf="@+id/widget_location_time_5"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/widget_location_time_3" />
 
 

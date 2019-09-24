@@ -1,6 +1,7 @@
 package com.alhadara.omar.azan;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -15,7 +17,15 @@ public class Times {
 
     public static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
     public static int[] iqamaTimes = {30,0,20,20,5,5};
-    public static void initializeTimes(double latitude,double longitude,double timezone ){
+    public static void initializeTimesForCurrent(Context context){
+        times = initializeTimesFor(context,Configurations.mainConFile,Calendar.getInstance());
+    }
+    public static String[] initializeTimesFor(Context context,String locationFile, Calendar time){
+        String[] str = {"","","","","",""};
+        SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
+        float latitude = pref.getFloat("latitude",0);
+        float longitude = pref.getFloat("longitude",0);
+        float timezone = pref.getFloat("timezone",0);
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
@@ -25,27 +35,22 @@ public class Times {
         int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
         prayers.tune(offsets);
 
-        Date now = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(now);
-
-        ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
+        ArrayList<String> prayerTimes = prayers.getPrayerTimes(time,
                 latitude, longitude, timezone);
         ArrayList<String> prayerNames = prayers.getTimeNames();
 
-        System.out.println(now);
-        System.out.println(cal);
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < prayerTimes.size(); i++) {
             System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
             res.append(prayerNames.get(i) + " - " + prayerTimes.get(i)+"\n");
         }
-        times[0]=prayerTimes.get(0);
-        times[1]=prayerTimes.get(1);
-        times[2]=prayerTimes.get(2);
-        times[3]=prayerTimes.get(3);
-        times[4]=prayerTimes.get(5);
-        times[5]=prayerTimes.get(6);
+        str[0]=prayerTimes.get(0);
+        str[1]=prayerTimes.get(1);
+        str[2]=prayerTimes.get(2);
+        str[3]=prayerTimes.get(3);
+        str[4]=prayerTimes.get(5);
+        str[5]=prayerTimes.get(6);
+        return str;
     }
     public static void applyDelay(int index,int delay){
 

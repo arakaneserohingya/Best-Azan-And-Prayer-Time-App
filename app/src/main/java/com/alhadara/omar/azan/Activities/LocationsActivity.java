@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,7 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.Constants;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
+
+import java.util.Calendar;
 
 public class LocationsActivity extends AppCompatActivity {
 
@@ -89,28 +95,87 @@ public class LocationsActivity extends AppCompatActivity {
     }
 
     private void addLocation(String s) {
+        String id = getSharedPreferences(s,MODE_PRIVATE).getString("location_name","").replaceAll("[^a-zA-Z0-9\\.\\-]", "").toLowerCase();
+        if(isAlreadyExistInLocationsFile(id)) {Toast.makeText(this,"Location already exist!",Toast.LENGTH_SHORT).show(); return;}
+        // ID == Location file name should differs, in order to avoid file overwriting
+        assignLocation(this,s,id+".txt");
+        addToLocationsFile(id);
+    }
+    private void addToLocationsFile(String id) {
         SharedPreferences locations = getSharedPreferences(locationsFile,MODE_PRIVATE);
-        SharedPreferences.Editor mainEditor = locations.edit();
-        int index = locations.getInt("locationsnumber",0);
-        assignLocation(this,s,"location_" + Integer.toString(index+1) +".txt");
-        mainEditor.putInt("locationsnumber",index+1);
-        mainEditor.commit();
+        SharedPreferences.Editor editor = locations.edit();
+        int index = locations.getInt("locationsnumber",0) + 1;
+        editor.putString("location" + index ,id);
+        editor.putInt("locationsnumber",index);
+        editor.commit();
+    }
+    private void removeFromLocationsFile(int i) {
+        SharedPreferences locations = getSharedPreferences(locationsFile,MODE_PRIVATE);
+        SharedPreferences.Editor editor = locations.edit();
+        int locationsNumber = locations.getInt("locationsnumber",1);
+        for(int j=i;j<6;j++){
+            editor.putString("location"+j,locations.getString("location"+(j+1),""));
+        }
+        editor.putInt("locationsnumber",locationsNumber-1);
+        editor.commit();
+    }
+    private boolean isAlreadyExistInLocationsFile(String ID) {
+        SharedPreferences locations = getSharedPreferences(locationsFile,MODE_PRIVATE);
+        for(int i=1;i<6;i++){
+            if(locations.getString("location" + i , "").equals(ID)) return true;
+        }
+        return false;
     }
 
     private void locationsWidgets(){
         SharedPreferences locations = getSharedPreferences(locationsFile,MODE_PRIVATE);
         SharedPreferences location_i;
         ViewGroup list = findViewById(R.id.locations_activity_locations_list_layout);
-        for(int i=1; i<=locations.getInt("locationsnumber",0);i++){
-            location_i = getSharedPreferences("location_" + i +".txt",MODE_PRIVATE);
-            list.getChildAt(i-1).setVisibility(
+        for(int i=1; i<6;i++){
+            final int k = i;
+            final String locationID = locations.getString("location"+i,"");
+            final ViewGroup widget = (ViewGroup)list.getChildAt(i-1);
+            if(locationID.equals("")) break;
+            location_i = getSharedPreferences(locationID + ".txt",MODE_PRIVATE);
+            String[] prayertimes = Times.initializeTimesFor(LocationsActivity.this,locationID+".txt", Calendar.getInstance());
+            widget.setVisibility(
                     location_i.getBoolean("islocationassigned",false)?View.VISIBLE:View.INVISIBLE
             );
-            ((TextView)((ViewGroup)list.getChildAt(i-1)).getChildAt(0)).setText(
+            ((TextView)(widget).getChildAt(0)).setText(
                     location_i.getString("location_name","")
             );
+
+            widget.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LocationsActivity.this);
+                    builder.setTitle(getResources().getString(R.string.choose_an_option));
+                    builder.setItems(getResources().getStringArray(R.array.location_widget_options), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (i == 0) {
+                                Configurations.clearFile(LocationsActivity.this,locationID+".txt");
+                                removeFromLocationsFile(k);
+                                LocationsActivity.this.recreate();
+                            } else if(i==1){
+                                assignLocation(LocationsActivity.this,locationID+".txt",Configurations.mainConFile);
+                                Configurations.setReloadMainActivityOnResume(true);
+                                LocationsActivity.this.recreate();
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            });
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(3))).setText(Constants.alias[0] + "\n" + prayertimes[0]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(4))).setText(Constants.alias[1] + "\n" + prayertimes[1]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(5))).setText(Constants.alias[2] + "\n" + prayertimes[2]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(6))).setText(Constants.alias[3] + "\n" + prayertimes[3]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(7))).setText(Constants.alias[4] + "\n" + prayertimes[4]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(8))).setText(Constants.alias[5] + "\n" + prayertimes[5]);
         }
     }
+
 
     public static boolean assignLocation(Context context,String from, String to){
         SharedPreferences From = context.getSharedPreferences(from,MODE_PRIVATE);

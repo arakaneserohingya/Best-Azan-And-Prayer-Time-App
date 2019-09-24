@@ -13,6 +13,7 @@ import com.example.omar.azanapkmostafa.R;
 
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class Configurations {
@@ -67,10 +68,7 @@ public class Configurations {
     }
     public static void updateTimes(Context context){
         if(!isLocationAssigned(context)) return;
-        SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
-        Times.initializeTimes(  pref.getFloat("latitude",0),
-                                pref.getFloat("longitude",0),
-                                pref.getFloat("timezone",0));
+        Times.initializeTimesForCurrent(context);
         adjustTimes(context);
         reloadMainActivityOnResume = true;
     }
@@ -84,25 +82,6 @@ public class Configurations {
                 Times.applyDelay(i,delay);
             }
         }
-    }
-    public static void resetTimeConfigurations(Context context){
-        SharedPreferences pref = context.getSharedPreferences("delaytime.txt",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        pref = context.getSharedPreferences("azan.txt",Context.MODE_PRIVATE);
-        editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        pref = context.getSharedPreferences("iqama.txt",Context.MODE_PRIVATE);
-        editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        pref = context.getSharedPreferences("currentlocation.txt",Context.MODE_PRIVATE);
-        Times.initializeTimes(  pref.getFloat("latitude",0),
-                pref.getFloat("longitude",0),
-                pref.getFloat("timezone",0));
-        reloadMainActivityOnResume = true;
     }
 
     public static boolean isLocationAssigned(Context context){

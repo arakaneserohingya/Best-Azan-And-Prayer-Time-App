@@ -126,4 +126,11 @@
     <string name="convert_from_hijri">Convert from hijri</string>
     <string name="convert_from_gregorian">Convert from gregorian</string>
     <string name="choose_current_location">Choose current location</string>
+    <string name="choose_an_option">Choose an option</string>
+    <string name="delete_location">Delete the location</string>
+    <string name="set_as_current_location">Set as current location</string>
+    <string-array name="location_widget_options">
+        <item>@string/delete_location</item>
+        <item>@string/set_as_current_location</item>
+    </string-array>
 </resources>

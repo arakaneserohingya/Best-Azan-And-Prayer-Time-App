@@ -102,7 +102,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         resetTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Configurations.resetTimeConfigurations(getApplicationContext());
+                //Configurations.resetTimeConfigurations(getApplicationContext());
             }
         });
 

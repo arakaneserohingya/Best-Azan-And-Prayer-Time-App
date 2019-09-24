@@ -18,6 +18,7 @@ import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Times;
 
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AlarmsScheduler extends BroadcastReceiver {
@@ -32,7 +33,6 @@ public class AlarmsScheduler extends BroadcastReceiver {
 
 
         Configurations.updateTimes(context);
-
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.SECOND,0);
         for(int i=0;i<6;i++) {
@@ -40,7 +40,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
             cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
             cal.set(Calendar.SECOND,0);
             if(Configurations.isAlarmActivated(context,"azan",i) &&
-                    Calendar.getInstance().getTimeInMillis() < cal.getTimeInMillis())
+                    System.currentTimeMillis() < cal.getTimeInMillis())
                 alarmTrig(context,AZAN_REQUEST_CODE,i,cal,true);
             else alarmTrig(context,AZAN_REQUEST_CODE,i,cal,false);
             
