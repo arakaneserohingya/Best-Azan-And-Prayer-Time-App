@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class TM {
 
@@ -60,5 +61,9 @@ public class TM {
         Date currentLocalTime = calendar.getTime();
         DateFormat date = new SimpleDateFormat("Z");
         return (float) (Float.parseFloat((date.format(currentLocalTime).substring(1))) / 100.00);
+    }
+    public static float getTimeOffset(float latitude, float longitude) {
+        TimeZone timeZone = TimeZone.getTimeZone(TimezoneMapper.latLngToTimezoneString(latitude,longitude));
+        return TimeUnit.HOURS.convert(timeZone.getOffset(System.currentTimeMillis()), TimeUnit.MILLISECONDS);
     }
 }
