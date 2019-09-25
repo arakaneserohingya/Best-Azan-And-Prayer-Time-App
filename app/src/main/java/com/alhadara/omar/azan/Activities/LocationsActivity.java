@@ -156,11 +156,11 @@ public class LocationsActivity extends AppCompatActivity {
                             if (i == 0) {
                                 Configurations.clearFile(LocationsActivity.this,locationID+".txt");
                                 removeFromLocationsFile(k);
-                                LocationsActivity.this.recreate();
+                                widget.setVisibility(View.GONE);
                             } else if(i==1){
                                 assignLocation(LocationsActivity.this,locationID+".txt",Configurations.mainConFile);
                                 Configurations.setReloadMainActivityOnResume(true);
-                                LocationsActivity.this.recreate();
+                                ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(((TextView)widget.getChildAt(0)).getText());
                             }
                         }
                     });

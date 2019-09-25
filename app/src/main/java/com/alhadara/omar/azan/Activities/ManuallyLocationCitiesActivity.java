@@ -102,8 +102,6 @@ public class ManuallyLocationCitiesActivity extends AppCompatActivity {
         editor.putFloat("longitude",longitude);
         editor.putFloat("timezone",TM.getTimeOffset(latitude,longitude));
         editor.putBoolean("islocationassigned",true);
-
-        Toast.makeText(this, Float.toString(TM.getTimeOffset(latitude,longitude)),Toast.LENGTH_SHORT).show();
         editor.commit();
         finish();
     }
