@@ -5,6 +5,9 @@ package com.alhadara.omar.azan;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class TM {
 
@@ -50,5 +53,12 @@ public class TM {
     public static String getTime(){
         DateFormat dFormat = new SimpleDateFormat("HH:mm:ss");
         return dFormat.format(Calendar.getInstance().getTime());
+    }
+    public static float getCurrentTimeOffset(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"),
+                Locale.getDefault());
+        Date currentLocalTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("Z");
+        return (float) (Float.parseFloat((date.format(currentLocalTime).substring(1))) / 100.00);
     }
 }

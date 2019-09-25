@@ -63,6 +63,7 @@ public class LocationHandler {
 
                         editor.putFloat("latitude",(float) location.getLatitude());
                         editor.putFloat("longitude",(float) location.getLongitude());
+                        editor.putFloat("timezone",TM.getCurrentTimeOffset());
                         editor.putBoolean("islocationassigned",true);
                         editor.commit();
                     }
@@ -80,6 +81,7 @@ public class LocationHandler {
 
                 editor.putFloat("latitude",(float) location.getLatitude());
                 editor.putFloat("longitude",(float) location.getLongitude());
+                editor.putFloat("timezone",TM.getCurrentTimeOffset());
                 editor.putBoolean("islocationassigned",true);
                 editor.commit();
                 finish();
