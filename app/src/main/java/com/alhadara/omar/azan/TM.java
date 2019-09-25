@@ -2,10 +2,13 @@ package com.alhadara.omar.azan;
 
 
 
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -63,7 +66,12 @@ public class TM {
         return (float) (Float.parseFloat((date.format(currentLocalTime).substring(1))) / 100.00);
     }
     public static float getTimeOffset(float latitude, float longitude) {
-        TimeZone timeZone = TimeZone.getTimeZone(TimezoneMapper.latLngToTimezoneString(latitude,longitude));
-        return TimeUnit.HOURS.convert(timeZone.getOffset(System.currentTimeMillis()), TimeUnit.MILLISECONDS);
+        Calendar mCalendar = new GregorianCalendar();
+        TimeZone mTimeZone = TimeZone.getTimeZone(TimezoneMapper.latLngToTimezoneString(latitude,longitude));
+        int mGMTOffset = mTimeZone.getRawOffset();
+        if (mTimeZone.inDaylightTime(mCalendar.getTime())){
+            mGMTOffset += mTimeZone.getDSTSavings();
+        }
+        return TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
     }
 }
