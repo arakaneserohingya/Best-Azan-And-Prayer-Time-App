@@ -19,9 +19,7 @@ import java.util.TimeZone;
 public class Configurations {
     private static boolean reloadMainActivityOnResume = false;
     public static String mainConFile = "mainconfigurations.txt";
-    public static String lastLocation = "lastlocation.txt";
-    public static String locationsFile = "locations.txt";
-    public static boolean isAppActive = false;
+
 
     public static void setReloadMainActivityOnResume(boolean bool) {
         reloadMainActivityOnResume = bool;
@@ -30,12 +28,9 @@ public class Configurations {
         return reloadMainActivityOnResume;
     }
 
-    public static void initializeMainConfigurations(Activity activity){
-        if(isAppActive) return;
-        isAppActive = true;
-        updateTimes(activity);
-        setLanguagePreferences(activity);
-        resolveConstants(activity);
+    public static void initializeMainConfigurations(Context context){
+        updateTimes(context);
+        setLanguagePreferences(context);
         reloadMainActivityOnResume = false;
     }
 
@@ -43,18 +38,12 @@ public class Configurations {
     private static void setLanguagePreferences(Context context) {
         SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
         Configuration configuration = context.getResources().getConfiguration();
-        Locale locale = new Locale(pref.getString("language","en"));
+        Locale locale = new Locale(pref.getString("language","ar"));
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
             context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
         }
-    }
-    private static void resolveConstants(Context context) {
-        Constants.hijriMonthes = context.getResources().getStringArray(R.array.hijri_month);
-        Constants.gregorianMonthes = context.getResources().getStringArray(R.array.gregorian_month);
-        Constants.dayesOfWeek = context.getResources().getStringArray(R.array.day_of_week);
-        Constants.alias = context.getResources().getStringArray(R.array.prayer_time);
     }
     public static boolean isAlarmActivated(Context context,String type, int index){
         return context.getSharedPreferences(type + ".txt",Context.MODE_PRIVATE)
@@ -78,7 +67,7 @@ public class Configurations {
         for (int i=0;i<6;i++) {
             delay = delayTimesPref.getInt(Integer.toString(i),0);
             if(delay != 0) {
-                Toast.makeText(context, "تعديل وقت " + Constants.alias[i] + " بمقدار" + delay + " دقيقة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "تعديل وقت " + context.getResources().getStringArray(R.array.prayer_time)[i] + " بمقدار" + delay + " دقيقة", Toast.LENGTH_SHORT).show();
                 Times.applyDelay(i,delay);
             }
         }

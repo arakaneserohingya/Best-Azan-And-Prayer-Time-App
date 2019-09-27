@@ -62,7 +62,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
             adjustTimeLayout = (LinearLayout) ((LinearLayout) findViewById(R.id.adjust_time_widget_layout)).getChildAt(i);
             final LinearLayout ad = adjustTimeLayout;
             ((TextView) adjustTimeLayout.findViewById(R.id.adjust_time_widget_text)).setText(
-                    Constants.alias[i] + "  " + times[i]);
+                    getResources().getStringArray(R.array.prayer_time)[i] + "  " + times[i]);
             ((TextView) ad.findViewById(R.id.adjust_time_widget_minutes_number)).setText(Integer.toString(delays[i]));
             ((ImageButton) adjustTimeLayout.findViewById(R.id.adjust_time_widget_increase)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +79,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
                         times[j] = h > 9 ? Integer.toString(h) : "0" + Integer.toString(h);
                         times[j] += m > 9 ? ":" + Integer.toString(m) : ":0" + Integer.toString(m);
                         ((TextView) ad.findViewById(R.id.adjust_time_widget_text)).setText(
-                                Constants.alias[j] + "  " + times[j]);
+                                getResources().getStringArray(R.array.prayer_time)[j] + "  " + times[j]);
                         ((TextView) ad.findViewById(R.id.adjust_time_widget_minutes_number)).setText(
                                 Integer.toString(delays[j])
                         );
@@ -102,7 +102,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
                         times[j] = h > 9 ? Integer.toString(h) : "0" + Integer.toString(h);
                         times[j] += m > 9 ? ":" + Integer.toString(m) : ":0" + Integer.toString(m);
                         ((TextView) ad.findViewById(R.id.adjust_time_widget_text)).setText(
-                                Constants.alias[j] + "  " + times[j]);
+                                getResources().getStringArray(R.array.prayer_time)[j] + "  " + times[j]);
                         ((TextView) ad.findViewById(R.id.adjust_time_widget_minutes_number)).setText(
                                 Integer.toString(delays[j])
                         );

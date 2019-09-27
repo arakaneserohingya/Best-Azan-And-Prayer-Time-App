@@ -74,7 +74,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         alertDialog.cancel();
-                        if(!LocationsActivity.assignLocation(UpdateCurrentLocationActivity.this,Configurations.lastLocation,tempLocationFile))
+                        if(!LocationsActivity.assignLocation(UpdateCurrentLocationActivity.this,LocationsActivity.lastLocation,tempLocationFile))
                             Toast.makeText(UpdateCurrentLocationActivity.this,"Failed to find location inforamtion!",Toast.LENGTH_SHORT).show();
                     }
                 },1000);
@@ -108,8 +108,8 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
     }
 
     private void setTitleLocation() {
-        float lo = getSharedPreferences(Configurations.lastLocation,MODE_PRIVATE).getFloat("longitude",-99999);
-        float la = getSharedPreferences(Configurations.lastLocation,MODE_PRIVATE).getFloat("latitude",-99999);
+        float lo = getSharedPreferences(LocationsActivity.lastLocation,MODE_PRIVATE).getFloat("longitude",-99999);
+        float la = getSharedPreferences(LocationsActivity.lastLocation,MODE_PRIVATE).getFloat("latitude",-99999);
         ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setText(lo!=-99999?(la + " , " + lo):"");
     }
 
@@ -144,7 +144,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     LocationsActivity.reloadLocationsActivityOnResume = true;
                     Toast.makeText(UpdateCurrentLocationActivity.this,"Location Updated successfully!",Toast.LENGTH_SHORT).show();
                     if(alertDialog.isShowing())alertDialog.cancel();
-                    LocationsActivity.assignLocation(UpdateCurrentLocationActivity.this,tempLocationFile,Configurations.lastLocation);
+                    LocationsActivity.assignLocation(UpdateCurrentLocationActivity.this,tempLocationFile,LocationsActivity.lastLocation);
                     setTitleLocation();
                 }
             }}, 1000);

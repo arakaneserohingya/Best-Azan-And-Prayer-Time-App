@@ -27,6 +27,7 @@ public class LocationsActivity extends AppCompatActivity {
 
     public static boolean reloadLocationsActivityOnResume = false;
     public final String locationsFile = "locations.txt";
+    public static final String lastLocation = "lastlocation.txt";
     private final int MAXIMUM_SAVED_LOCATIONS = 5;
 
 
@@ -167,12 +168,12 @@ public class LocationsActivity extends AppCompatActivity {
                     builder.show();
                 }
             });
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(3))).setText(Constants.alias[0] + "\n" + prayertimes[0]);
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(4))).setText(Constants.alias[1] + "\n" + prayertimes[1]);
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(5))).setText(Constants.alias[2] + "\n" + prayertimes[2]);
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(6))).setText(Constants.alias[3] + "\n" + prayertimes[3]);
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(7))).setText(Constants.alias[4] + "\n" + prayertimes[4]);
-            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(8))).setText(Constants.alias[5] + "\n" + prayertimes[5]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(3))).setText(getResources().getStringArray(R.array.prayer_time)[0] + "\n" + prayertimes[0]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(4))).setText(getResources().getStringArray(R.array.prayer_time)[1] + "\n" + prayertimes[1]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(5))).setText(getResources().getStringArray(R.array.prayer_time)[2] + "\n" + prayertimes[2]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(6))).setText(getResources().getStringArray(R.array.prayer_time)[3] + "\n" + prayertimes[3]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(7))).setText(getResources().getStringArray(R.array.prayer_time)[4] + "\n" + prayertimes[4]);
+            ((TextView)(((ViewGroup)list.getChildAt(i-1)).getChildAt(8))).setText(getResources().getStringArray(R.array.prayer_time)[5] + "\n" + prayertimes[5]);
         }
     }
 

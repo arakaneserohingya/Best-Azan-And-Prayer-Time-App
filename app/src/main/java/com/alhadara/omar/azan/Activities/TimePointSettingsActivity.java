@@ -36,7 +36,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         index=getIntent().getExtras().getInt("TimePointIndex");
-        getSupportActionBar().setTitle( Constants.alias[index] +" "+ getResources().getString(R.string.prayer_time_settings));
+        getSupportActionBar().setTitle( getResources().getStringArray(R.array.prayer_time)[index] +" "+ getResources().getString(R.string.prayer_time_settings));
 
 
         widgetsAdder();

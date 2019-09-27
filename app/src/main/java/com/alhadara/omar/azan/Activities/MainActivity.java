@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity
     public void initializeDateViews() {
         UmmalquraCalendar hijCal = new UmmalquraCalendar();
         Calendar cal = Calendar.getInstance();
-        ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(Constants.dayesOfWeek[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(getResources().getStringArray(R.array.day_of_week)[cal.get(Calendar.DAY_OF_WEEK) - 1]);
         ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(Integer.toString(hijCal.get(Calendar.DAY_OF_MONTH)));
-        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(Constants.hijriMonthes[hijCal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(Calendar.MONTH)]);
         ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
-        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(Constants.gregorianMonthes[cal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
     }
 
     public void initializeTimePoints() {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 
     public void attributingTimePoint(ViewGroup timepoint, int i) {
         ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText("AM");
-        ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(Constants.alias[i]);
+        ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
 
         String hours = Times.times[i].substring(0, 2);
         int h = Integer.parseInt(hours);
