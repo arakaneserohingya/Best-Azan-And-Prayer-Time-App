@@ -1,11 +1,8 @@
 package com.alhadara.omar.azan;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.location.Location;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -13,7 +10,6 @@ import com.example.omar.azanapkmostafa.R;
 
 
 import java.util.Locale;
-import java.util.TimeZone;
 
 
 public class Configurations {
@@ -35,10 +31,10 @@ public class Configurations {
     }
 
 
-    private static void setLanguagePreferences(Context context) {
+    public static void setLanguagePreferences(Context context) {
         SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
         Configuration configuration = context.getResources().getConfiguration();
-        Locale locale = new Locale(pref.getString("language","ar"));
+        Locale locale = new Locale(pref.getString("language","en"));
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);

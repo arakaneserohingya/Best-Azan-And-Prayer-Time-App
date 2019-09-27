@@ -133,4 +133,41 @@
         <item>@string/delete_location</item>
         <item>@string/set_as_current_location</item>
     </string-array>
+    <string name="prayer_times_settings">إعدادات أوقات الصلاة</string>
+    <string name="hijri_settings">إعدادات التقويم الهجري</string>
+    <string name="location_settings">إعدادات المكان</string>
+    <string name="language_options">إعدادات اللغة</string>
+    <string name="notification_settings">إعدادات الإشعارات</string>
+    <string name="silent_settings">إعدادات الوضع الصامت</string>
+    <string name="smartwatch_settings">إعدادات الساعة الذكية</string>
+    <string name="backup_and_restore">النسخ الاحتياطي والاستعادة</string>
+    <string-array name="settings_menu">
+        <item>@string/prayer_times_settings</item>
+        <item>@string/hijri_settings</item>
+        <item>@string/location_settings</item>
+        <item>@string/language_options</item>
+        <item>@string/notification_settings</item>
+        <item>@string/silent_settings</item>
+        <item>@string/smartwatch_settings</item>
+        <item>@string/backup_and_restore</item>
+    </string-array>
+    <string name="settings_for_calculating_prayer_times">ضبط الإعدادات الخاصة بحساب أوقات الصلاة</string>
+    <string name="choose_hijri_date_settings">ضبط إعدادات التاريخ الهجري</string>
+    <string name="choose_your_location_settings">اختيار إعدادات تحديد الموقع</string>
+    <string name="change_language_settings">تغيير الإعدادات الخاصة باللغة</string>
+    <string name="select_your_notifications_and_reminders_settings">ضبط إعدادات التنبيه بأوقات الصلاة</string>
+    <string name="adjust_the_silent_mode_settings_for_each_prayer">ضبط الوضع الصامت لكل وقت صلاة</string>
+    <string name="settings_that_apply_only_on_smartwatch">الإعدادات المخصصة للساعة الذكية</string>
+    <string name="settings_backup_and_restore">الإعدادات الخاصة بالنسخ الاحتياطي والاستعادة</string>
+    <string-array name="settings_submenu">
+        <item>@string/settings_for_calculating_prayer_times</item>
+        <item>@string/choose_hijri_date_settings</item>
+        <item>@string/choose_your_location_settings</item>
+        <item>@string/change_language_settings</item>
+        <item>@string/select_your_notifications_and_reminders_settings</item>
+        <item>@string/adjust_the_silent_mode_settings_for_each_prayer</item>
+        <item>@string/settings_that_apply_only_on_smartwatch</item>
+        <item>@string/settings_backup_and_restore</item>
+    </string-array>
+    <string name="choose_display_language">اختر لغة العرض</string>
 </resources>

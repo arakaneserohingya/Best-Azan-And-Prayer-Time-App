@@ -8,4 +8,14 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="widget_font_size">25sp</dimen>
     <dimen name="widget_font_size_small">18sp</dimen>
+    <integer-array name="settings_image">
+        <item>@drawable/ic_settings_box_1</item>
+        <item>@drawable/ic_settings_box_2</item>
+        <item>@drawable/ic_settings_box_3</item>
+        <item>@drawable/ic_settings_box_4</item>
+        <item>@drawable/ic_settings_box_5</item>
+        <item>@drawable/ic_settings_box_7</item>
+        <item>@drawable/ic_settings_box_8</item>
+        <item>@drawable/ic_settings_box_9</item>
+    </integer-array>
 </resources>
