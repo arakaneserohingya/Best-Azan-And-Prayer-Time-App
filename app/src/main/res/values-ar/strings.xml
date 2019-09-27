@@ -1,0 +1,136 @@
+<resources>
+    <string name="app_name">ALAZAN</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="Background">background</string>
+    <string name="current_location">الموقع الحالي</string>
+    <string name="choose_location_manually">اختيار الموقع يدويا</string>
+    <string name="internet_search">البحث عن طريق الإنترنت</string>
+    <string name="update_current_location">تحديث الموقع الحالي</string>
+    <string name="adjust_current_location">تعديل الموقع الحالي</string>
+    <string name="last_known_device_location">آخر موقع معروف</string>
+    <string name="gps">GPS</string>
+    <string name="the_network">الشبكة</string>
+    <string name="save">حفظ</string>
+    <string name="the_time_location">Time Location</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="choose_the_country">اختر البلد</string>
+    <string name="search">بحث</string>
+    <string name="choose_the_city">اختر المدينة</string>
+    <string name="stop">إيقاف</string>
+    <string name="settings">الإعدادات</string>
+    <string name="convert_date">تحويل التاريخ</string>
+    <string name="compass">البوصلة</string>
+    <string name="about_application">حول التطبيق</string>
+    <string name="problems_and_suggestions">المشاكل والاقتراحات</string>
+    <string name="locations">المواقع</string>
+    <string name="share_application">مشاركة التطبيق</string>
+    <string name="hijri_month_1">محرم</string>
+    <string name="hijri_month_2">صفر</string>
+    <string name="hijri_month_3">ربيع الأول</string>
+    <string name="hijri_month_4">ربيع الثاني</string>
+    <string name="hijri_month_5">جمادى الأولى</string>
+    <string name="hijri_month_6">جمادى الثاني</string>
+    <string name="hijri_month_7">رجب</string>
+    <string name="hijri_month_8">شعبان</string>
+    <string name="hijri_month_9">رمضان</string>
+    <string name="hijri_month_10">شوال</string>
+    <string name="hijri_month_11">ذو القعدة</string>
+    <string name="hijri_month_12">ذو الحجة</string>
+    <string-array name="hijri_month">
+        <item>@string/hijri_month_1</item>
+        <item>@string/hijri_month_2</item>
+        <item>@string/hijri_month_3</item>
+        <item>@string/hijri_month_4</item>
+        <item>@string/hijri_month_5</item>
+        <item>@string/hijri_month_6</item>
+        <item>@string/hijri_month_7</item>
+        <item>@string/hijri_month_8</item>
+        <item>@string/hijri_month_9</item>
+        <item>@string/hijri_month_10</item>
+        <item>@string/hijri_month_11</item>
+        <item>@string/hijri_month_12</item>
+    </string-array>
+    <string name="gregorian_month_1">كانون الثاني</string>
+    <string name="gregorian_month_2">شباط</string>
+    <string name="gregorian_month_3">آذار</string>
+    <string name="gregorian_month_4">نيسان</string>
+    <string name="gregorian_month_5">أيار</string>
+    <string name="gregorian_month_6">حزيران</string>
+    <string name="gregorian_month_7">تموز</string>
+    <string name="gregorian_month_8">آب</string>
+    <string name="gregorian_month_9">أيلول</string>
+    <string name="gregorian_month_10">تشرين الأول</string>
+    <string name="gregorian_month_11">تشرين الثاني</string>
+    <string name="gregorian_month_12">كانون الأول</string>
+    <string-array name="gregorian_month">
+        <item>@string/gregorian_month_1</item>
+        <item>@string/gregorian_month_2</item>
+        <item>@string/gregorian_month_3</item>
+        <item>@string/gregorian_month_4</item>
+        <item>@string/gregorian_month_5</item>
+        <item>@string/gregorian_month_6</item>
+        <item>@string/gregorian_month_7</item>
+        <item>@string/gregorian_month_8</item>
+        <item>@string/gregorian_month_9</item>
+        <item>@string/gregorian_month_10</item>
+        <item>@string/gregorian_month_11</item>
+        <item>@string/gregorian_month_12</item>
+    </string-array>
+    <string name="day_of_week1">الأحد</string>
+    <string name="day_of_week2">الإثنين</string>
+    <string name="day_of_week3">الثلاثاء</string>
+    <string name="day_of_week4">الأربعاء</string>
+    <string name="day_of_week5">الخميس</string>
+    <string name="day_of_week6">الجمعة</string>
+    <string name="day_of_week7">السبت</string>
+    <string-array name="day_of_week">
+        <item>@string/day_of_week1</item>
+        <item>@string/day_of_week2</item>
+        <item>@string/day_of_week3</item>
+        <item>@string/day_of_week4</item>
+        <item>@string/day_of_week5</item>
+        <item>@string/day_of_week6</item>
+        <item>@string/day_of_week7</item>
+    </string-array>
+    <string name="prayer_time1">الفجر</string>
+    <string name="prayer_time2">الشروق</string>
+    <string name="prayer_time3">الظهر</string>
+    <string name="prayer_time4">العصر</string>
+    <string name="prayer_time5">المغرب</string>
+    <string name="prayer_time6">العشاء</string>
+    <string-array name="prayer_time">
+        <item>@string/prayer_time1</item>
+        <item>@string/prayer_time2</item>
+        <item>@string/prayer_time3</item>
+        <item>@string/prayer_time4</item>
+        <item>@string/prayer_time5</item>
+        <item>@string/prayer_time6</item>
+    </string-array>
+    <string name="adjust_time_manually">تعديل الوقت يدويا</string>
+    <string name="reset_time_settings">استعادة الإعدادات الإفتراضية</string>
+    <string name="activate_azan_notifications">تفعيل التنبيه للأذان</string>
+    <string name="activate_iqama_notifications">تفعيل التنبيه للإقامة</string>
+    <string name="choose_alarm_tone">اختيار نغمة التنبيه</string>
+    <string name="prayer_time_settings">إعدادات الوقت لصلاة</string>
+    <string name="saved_locations">الأماكن المحفوظة</string>
+    <string name="remaining_time">الوقت المتبقي</string>
+    <string name="add_location">إضافة موقع</string>
+    <string name="prayer_time">وقت صلاة</string>
+    <string name="iqama_time">وقت إقامة</string>
+    <string name="convert_from_hijri">التحويل من هجري</string>
+    <string name="convert_from_gregorian">التحويل من ميلادي</string>
+    <string name="choose_current_location">اختيار المكان الحالي</string>
+    <string name="choose_an_option">انتق أحد الخيارات</string>
+    <string name="delete_location">حذف الموقع</string>
+    <string name="set_as_current_location">ضبط كموقع حالي</string>
+    <string-array name="location_widget_options">
+        <item>@string/delete_location</item>
+        <item>@string/set_as_current_location</item>
+    </string-array>
+</resources>
