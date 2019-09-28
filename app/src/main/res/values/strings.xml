@@ -99,7 +99,7 @@
         <item>@string/day_of_week7</item>
     </string-array>
     <string name="prayer_time1">Fajer</string>
-    <string name="prayer_time2">Shorooq</string>
+    <string name="prayer_time2">Sunrise</string>
     <string name="prayer_time3">Dhuhr</string>
     <string name="prayer_time4">\'Aser</string>
     <string name="prayer_time5">Maghrib</string>

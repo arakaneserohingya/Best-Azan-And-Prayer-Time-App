@@ -129,18 +129,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void attributingTimePoint(ViewGroup timepoint, int i) {
-        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText("AM");
-        ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
 
-        String hours = Times.times[i].substring(0, 2);
-        int h = Integer.parseInt(hours);
-        if (h > 12) {
-            h = h - 12;
-            ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText("PM");
-            hours = "0" + Integer.toString(h);
-        }
-        String tm = hours + Times.times[i].substring(2, 5);
-        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(tm);
+        ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
+        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(Integer.parseInt(Times.times[i].substring(0, 2))>12?"PM":"AM");
+        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(
+                (Integer.parseInt(Times.times[i].substring(0, 2))<12?
+                        Times.times[i].substring(0, 2):(Integer.parseInt(Times.times[i].substring(0, 2))-12)<10?
+                        "0" + (Integer.parseInt(Times.times[i].substring(0, 2))-12):
+                        Integer.toString(Integer.parseInt(Times.times[i].substring(0, 2))-12))
+                        + Times.times[i].substring(2, 5));
     }
 
     public void reorderTimePointForPortrait() {
