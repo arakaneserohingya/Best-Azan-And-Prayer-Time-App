@@ -11,7 +11,6 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-import com.alhadara.omar.azan.Activities.MainActivity;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
@@ -57,8 +56,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         //get pending intent
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         //Create notification
 
@@ -68,13 +66,16 @@ public class TimePrayerReceiver extends BroadcastReceiver {
             if (mChannel == null) {
                 mChannel = new NotificationChannel(id, msg, NotificationManager.IMPORTANCE_HIGH);
                 mChannel.enableVibration(true);
+                mChannel.setSound(null,null);
                 alarmNotificationManager.createNotificationChannel(mChannel);
             }
         }
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, id);
 
         audioServiceIntent.putExtra("mode",false);
-
+        PendingIntent contentIntent = PendingIntent.getService(
+                context,0,audioServiceIntent,PendingIntent.FLAG_CANCEL_CURRENT
+        );
 
         builder.setContentTitle(Constants.APP_NAME)
                 .setSmallIcon(R.drawable.logo)
@@ -83,9 +84,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent)
                 .setTicker(Constants.APP_NAME)
-                .addAction(R.drawable.ic_stop_black_24dp, context.getApplicationContext().getResources().getString(R.string.stop),PendingIntent.getService(
-                        context,0,audioServiceIntent,PendingIntent.FLAG_CANCEL_CURRENT
-                ));
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         alarmNotificationManager.notify(Constants.APP_NOTIFICATION_ID, builder.build());
     }
