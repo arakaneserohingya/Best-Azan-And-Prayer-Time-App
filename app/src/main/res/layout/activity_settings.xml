@@ -33,8 +33,6 @@
             <include layout="@layout/settings_box"/>
             <include layout="@layout/settings_box"/>
             <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
         </LinearLayout>
     </ScrollView>
 

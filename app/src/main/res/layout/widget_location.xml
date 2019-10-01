@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
-        android:text="details and other informations:"
+        android:text="@string/location_widget_details"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@id/widget_location_button"

@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.RadioDialog;
+import com.alhadara.omar.azan.SeekBarDialog;
 import com.example.omar.azanapkmostafa.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -34,34 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
             ((TextView)((ViewGroup)group.getChildAt(i)).getChildAt(2)).setText(getResources().getStringArray(R.array.settings_submenu)[i]);
 
         }
-        group.getChildAt(3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final SharedPreferences pref = getSharedPreferences(Configurations.mainConFile,MODE_PRIVATE);
-                final SharedPreferences.Editor editor = pref.edit();
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setTitle(getResources().getString(R.string.choose_display_language));
-                builder.setItems(new String[]{"English", "عربي"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(i==0){
-                            editor.putString("language","en");
-                            editor.commit();
-                            Configurations.setLanguagePreferences(SettingsActivity.this);
-                            Configurations.setReloadMainActivityOnResume(true);
-                            SettingsActivity.this.recreate();
-                        }else{
-                            editor.putString("language","ar");
-                            editor.commit();
-                            Configurations.setLanguagePreferences(SettingsActivity.this);
-                            Configurations.setReloadMainActivityOnResume(true);
-                            SettingsActivity.this.recreate();
-                        }
-                    }
-                });
-                builder.show();
-            }
-        });
+
 
     }
     @Override
