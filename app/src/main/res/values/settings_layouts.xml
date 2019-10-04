@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="settings_layouts_array">
+        <item>@layout/settings_layouts_prayer_times</item>
+        <item>@layout/settings_layouts_hijri</item>
+        <item>@layout/settings_layouts_display_options</item>
+        <item>@layout/settings_layouts_notifications</item>
+        <item>@layout/settings_layouts_fajr_and_sahoor_alarms</item>
+        <item>@layout/settings_layouts_silent</item>
+        <item>@layout/settings_layouts_backup_and_restore</item>
+    </array>
+    <array name="settings_layouts_headers">
+        <item>@array/settings_layout_header_prayer_times</item>
+        <item>@array/settings_layout_header_hijri</item>
+        <item>@array/settings_layout_header_display_options</item>
+        <item>@array/settings_layout_header_notifications</item>
+        <item>@array/settings_layout_header_fajr_and_sahoor_alarms</item>
+        <item>@array/settings_layout_header_silent</item>
+        <item>@array/settings_layout_header_backup_and_restore</item>
+    </array>
+    <array name="settings_layouts_details">
+        <item>@array/settings_layout_details_prayer_times</item>
+        <item>@array/settings_layout_details_hijri</item>
+        <item>@array/settings_layout_details_display_options</item>
+        <item>@array/settings_layout_details_notifications</item>
+        <item>@array/settings_layout_details_fajr_and_sahoor_alarms</item>
+        <item>@array/settings_layout_details_silent</item>
+        <item>@array/settings_layout_details_backup_and_restore</item>
+    </array>
+    <string-array name="settings_second_activity_toolbar_title">
+        <item>@string/settings_prayer_times_title</item>
+        <item>@string/settings_hijri_title</item>
+        <item>@string/settings_display_options_title</item>
+        <item>@string/settings_notifications_title</item>
+        <item>@string/settings_fajr_and_sahoor_alarms_title</item>
+        <item>@string/settings_silent_title</item>
+        <item>@string/settings_backup_and_restore_title</item>
+    </string-array>
+    <integer-array name="settings_image">
+        <item>@drawable/ic_settings_box_1</item>
+        <item>@drawable/ic_settings_box_2</item>
+        <item>@drawable/ic_settings_box_3</item>
+        <item>@drawable/ic_settings_box_4</item>
+        <item>@drawable/ic_settings_box_5</item>
+        <item>@drawable/ic_settings_box_6</item>
+        <item>@drawable/ic_settings_box_7</item>
+    </integer-array>
+</resources>

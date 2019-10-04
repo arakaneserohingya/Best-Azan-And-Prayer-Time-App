@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alhadara.omar.azan.Activities.SettingsActivity">
+    tools:context="com.alhadara.omar.azan.Activities.SettingsSecondActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_settings_activity"
+        android:id="@+id/toolbar_settings_second_activity"
         android:alpha="0.8"
         android:layout_gravity="top"
         android:theme="@style/ToolbarTheme"
@@ -18,23 +18,12 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     <ScrollView
+        android:id="@+id/settings_second_activity_scrollview"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_settings_activity"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_settings_second_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <LinearLayout
-            android:id="@+id/settings_activity_layout"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-            <include layout="@layout/settings_box"/>
-        </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

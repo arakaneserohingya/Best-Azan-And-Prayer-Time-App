@@ -59,6 +59,9 @@
         <activity
             android:name="com.alhadara.omar.azan.Activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.Activities.SettingsSecondActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
