@@ -13,6 +13,7 @@ public class RadioDialog extends AlertDialog.Builder {
     private SharedPreferences.Editor editor;
     private String filekey;
     private int checkeditem;
+
     public RadioDialog(@NonNull Context context,String filename,String fileKey,String title) {
         super(context);
         preferences = context.getSharedPreferences(filename,Context.MODE_PRIVATE);
@@ -21,7 +22,7 @@ public class RadioDialog extends AlertDialog.Builder {
         checkeditem = -1;
         this.setTitle(Html.fromHtml("<b>"+title+"</b>"));
     }
-    public void initialize(String[] shownItems, final String[] values, final Runnable onSelect){
+    public void initialize(String[] shownItems, final String[] values, final run onSelect){
         for(int i=0;i<shownItems.length;i++){
             if(preferences.getString(filekey,"").equals(values[i])) {checkeditem = i; break;}
         }
@@ -30,12 +31,12 @@ public class RadioDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialogInterface, int i) {
                 editor.putString(filekey,values[i]);
                 editor.commit();
-                onSelect.run();
+                onSelect.go(i);
                 dialogInterface.dismiss();
             }
         });
     }
-    public void initialize(String[] shownItems, final int[] values, final Runnable onSelect){
+    public void initialize(String[] shownItems, final int[] values, final run onSelect){
         for(int i=0;i<shownItems.length;i++){
             if(preferences.getInt(filekey,-9999) == values[i]) {checkeditem = i; break;}
         }
@@ -44,12 +45,12 @@ public class RadioDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialogInterface, int i) {
                 editor.putInt(filekey,values[i]);
                 editor.commit();
-                onSelect.run();
+                onSelect.go(i);
                 dialogInterface.dismiss();
             }
         });
     }
-    public void initialize(String[] shownItems, final float[] values, final Runnable onSelect){
+    public void initialize(String[] shownItems, final float[] values, final run onSelect){
         for(int i=0;i<shownItems.length;i++){
             if(preferences.getFloat(filekey, (float) -9999.9) == values[i]) {checkeditem = i; break;}
         }
@@ -58,9 +59,13 @@ public class RadioDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialogInterface, int i) {
                 editor.putFloat(filekey,values[i]);
                 editor.commit();
-                onSelect.run();
+                onSelect.go(i);
                 dialogInterface.dismiss();
             }
         });
+    }
+
+    public interface run{
+        void go(int checked);
     }
 }

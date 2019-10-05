@@ -29,7 +29,7 @@ public class SeekBarDialog extends AlertDialog.Builder {
         this.setTitle(Html.fromHtml("<b>"+title+"</b>"));
         this.setView(seekBarLayout);
     }
-    public void initialize(final int min, final int max, final Runnable onOk){
+    public void initialize(final int min, final int max, final run onOk){
         ((AppCompatSeekBar) seekBarLayout.getChildAt(3)).setProgress(getProgressFromValue(min,max,preferences.getInt(filekey,min)));
         ((TextView) seekBarLayout.getChildAt(1)).setText(Integer.toString(min));
         ((TextView) seekBarLayout.getChildAt(2)).setText(Integer.toString(max));
@@ -55,7 +55,7 @@ public class SeekBarDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialogInterface, int i) {
                 editor.putInt(filekey,Integer.parseInt(((TextView) seekBarLayout.getChildAt(0)).getText().toString()));
                 editor.commit();
-                onOk.run();
+                onOk.go(i);
                 dialogInterface.dismiss();
             }
         });
@@ -71,5 +71,8 @@ public class SeekBarDialog extends AlertDialog.Builder {
     }
     private int getValueFromProgress(int min,int max,int pro){
         return (((max-min)*pro)/100) + min;
+    }
+    public interface run{
+        void go(int checked);
     }
 }
