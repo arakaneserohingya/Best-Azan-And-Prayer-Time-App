@@ -8,20 +8,23 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class FajrSahoorAlarmLayout extends LinearLayout {
     private Activity activity;
+    private LinearLayout layout;
     public FajrSahoorAlarmLayout(Activity ac) {
         super(ac);
         activity = ac;
-        LinearLayout layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_fajr_and_sahoor_alarms,this);
+        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_fajr_and_sahoor_alarms,this);
         layout = (LinearLayout) layout.getChildAt(0);
         String[] headers = getResources().getStringArray(R.array.settings_layout_header_fajr_and_sahoor_alarms);
         String[] details = getResources().getStringArray(R.array.settings_layout_details_fajr_and_sahoor_alarms);
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
+            sublayout.setId(SettingsActivity.generateViewID(5,k+1,0));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );

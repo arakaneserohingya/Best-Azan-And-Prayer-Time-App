@@ -68,6 +68,40 @@
         <item>@string/settings_layouts_backup_and_restore_widget_details5</item>
         <item>@string/settings_layouts_backup_and_restore_widget_details6</item>
     </string-array>
+    <string-array name="settings_layout_details_manual_times_adjustments" >
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details1</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details2</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details3</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details4</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details5</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details6</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget_details7</item>
+    </string-array>
+    <string-array name="settings_layout_details_prayer_notification_time" >
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+    </string-array>
+    <string-array name="settings_layout_details_prayer_notification_tone" >
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details3</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details4</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
+    </string-array>
 
 
 </resources>

@@ -8,23 +8,22 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.example.omar.azanapkmostafa.R;
 
-public class BackupRestoreLayout extends LinearLayout {
+public class ManualTimesAdjustmentsLayout extends LinearLayout {
     private Activity activity;
     private LinearLayout layout;
-    public BackupRestoreLayout(Activity ac) {
+    public ManualTimesAdjustmentsLayout(Activity ac) {
         super(ac);
         activity = ac;
-        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_backup_and_restore,this);
+        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_manual_times_adjustments,this);
         layout = (LinearLayout) layout.getChildAt(0);
-        String[] headers = getResources().getStringArray(R.array.settings_layout_header_backup_and_restore);
-        String[] details = getResources().getStringArray(R.array.settings_layout_details_backup_and_restore);
+        String[] headers = getResources().getStringArray(R.array.settings_layout_header_manual_times_adjustments);
+        String[] details = getResources().getStringArray(R.array.settings_layout_details_manual_times_adjustments);
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(SettingsActivity.generateViewID(7,k+1,0));
+            sublayout.setId(View.generateViewId());
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );
@@ -36,10 +35,12 @@ public class BackupRestoreLayout extends LinearLayout {
 
         }
     }
-    private void clicker(View view, final int k) {
-        view.setOnClickListener(new OnClickListener() {
+
+    private void clicker(final View sublayout,final int k) {
+        sublayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
     }

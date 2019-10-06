@@ -6,7 +6,6 @@
     android:paddingEnd="10dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:background="@android:color/white"
     android:foreground="@drawable/selectable_item_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView

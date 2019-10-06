@@ -31,7 +31,7 @@
     </style>
 
     <style name="fontStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/gill_sans_mt</item>
+        <item name="android:fontFamily">@font/general</item>
     </style>
 
 </resources>

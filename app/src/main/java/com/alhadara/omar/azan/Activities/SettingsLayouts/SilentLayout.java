@@ -8,20 +8,23 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.example.omar.azanapkmostafa.R;
 
 public class SilentLayout extends LinearLayout {
     private Activity activity;
+    private LinearLayout layout;
     public SilentLayout(Activity ac) {
         super(ac);
         activity = ac;
-        LinearLayout layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_silent,this);
+        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_silent,this);
         layout = (LinearLayout) layout.getChildAt(0);
         String[] headers = getResources().getStringArray(R.array.settings_layout_header_silent);
         String[] details = getResources().getStringArray(R.array.settings_layout_details_silent);
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
+            sublayout.setId(SettingsActivity.generateViewID(6,k+1,0));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );

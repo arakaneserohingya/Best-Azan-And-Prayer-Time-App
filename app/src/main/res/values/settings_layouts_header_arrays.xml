@@ -68,4 +68,38 @@
         <item>@string/settings_layouts_backup_and_restore_widget5</item>
         <item>@string/settings_layouts_backup_and_restore_widget6</item>
     </string-array>
+    <string-array name="settings_layout_header_manual_times_adjustments"  >
+        <item>@string/settings_layouts_manual_times_adjustments_widget1</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget2</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget3</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget4</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget5</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget6</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget7</item>
+    </string-array>
+    <string-array name="settings_layout_header_prayer_notification_time" >
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget4</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget6</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget8</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget10</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget12</item>
+    </string-array>
+    <string-array name="settings_layout_header_prayer_notification_tone" >
+        <item>@string/settings_layouts_prayer_notification_tone_widget1</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget2</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget3</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget4</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget5</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget6</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget7</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget8</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget9</item>
+    </string-array>
 </resources>
