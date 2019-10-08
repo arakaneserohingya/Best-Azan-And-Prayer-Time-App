@@ -102,6 +102,25 @@
         <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
         <item>@string/settings_layouts_prayer_notification_tone_widget_details5</item>
     </string-array>
+    <string-array name="settings_layout_details_iqama_reminder_tone" >
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_tone_widget_details3</item>
+    </string-array>
+    <string-array name="settings_layout_details_iqama_reminder_time" >
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details1</item>
+        <item>@string/settings_layouts_prayer_notification_time_widget_details2</item>
+    </string-array>
 
 
 </resources>

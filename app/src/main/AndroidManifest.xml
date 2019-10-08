@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -64,7 +65,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.alhadara.omar.azan.Activities.SettingsThirdActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.Activities.SettingsForthActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
 
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"

@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import androidx.core.app.AlarmManagerCompat;
 
-import com.alhadara.omar.azan.Activities.MainActivity;
-import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.RadioDialog;
 import com.example.omar.azanapkmostafa.R;
@@ -35,7 +33,7 @@ public class DisplayOptions extends LinearLayout {
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(SettingsActivity.generateViewID(3,k+1,0));
+            sublayout.setId(_SET.generateViewID(3,k+1,0));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );
@@ -94,10 +92,10 @@ public class DisplayOptions extends LinearLayout {
                     });
                     dialog.show();
                 }else if(k==4){
-                    SettingsActivity.setCheckBox(group,!SettingsActivity.isChecked(group));
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
                     SharedPreferences pref = activity.getSharedPreferences(Configurations.mainConFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("time24",SettingsActivity.isChecked(group));
+                    editor.putBoolean("time24",_SET.isChecked(group));
                     editor.commit();
                     Configurations.setReloadMainActivityOnResume(true);
                 }else{

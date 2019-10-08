@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Configurations;
@@ -32,23 +31,19 @@ public class PrayerTimesLayout extends LinearLayout {
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(SettingsActivity.generateViewID(1,k+1,0));
+            sublayout.setId(_SET.generateViewID(1,k+1,0));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );
             ((TextView)sublayout.getChildAt(1)).setText(
                     details[k]
             );
-            if(sublayout.getChildCount() == 3) setCheckBoxStatus((CheckBox) sublayout.getChildAt(2),k);
             clicker(sublayout,k);
             k++;
 
         }
     }
 
-    private void setCheckBoxStatus(CheckBox child,int k) {
-        child.setChecked(SettingsActivity.settingsPref.getBoolean("ischecked0_" + k,false));
-    }
 
     private void clicker(final ViewGroup group, final int k) {
         group.setOnClickListener(new OnClickListener() {
@@ -62,24 +57,24 @@ public class PrayerTimesLayout extends LinearLayout {
                             /*Modify Times to change method according to mainConFile*/
                             Configurations.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
-                            SettingsActivity.setStatus(layout.getChildAt(3), checked != 0 && checked != 7);
-                            SettingsActivity.setStatus(layout.getChildAt(5), checked == 0);
+                            _SET.setStatus(layout.getChildAt(3), checked != 0 && checked != 7);
+                            _SET.setStatus(layout.getChildAt(5), checked == 0);
                         }
                     });
                     dialog.show();
                 }else if (k == 1) {
-                    SettingsActivity.setCheckBox(group,!SettingsActivity.isChecked(group));
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
                     SharedPreferences pref = activity.getSharedPreferences(Configurations.mainConFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("angle_based_method",SettingsActivity.isChecked(group));
+                    editor.putBoolean("angle_based_method",_SET.isChecked(group));
                     editor.commit();
                     Configurations.updateTimes(activity);
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                 } else if (k == 2) {
-                    SettingsActivity.setCheckBox(group,!SettingsActivity.isChecked(group));
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
                     SharedPreferences pref = activity.getSharedPreferences(Configurations.mainConFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("adjust_isha_in_ramadan",SettingsActivity.isChecked(group));
+                    editor.putBoolean("adjust_isha_in_ramadan",_SET.isChecked(group));
                     editor.commit();
                     Configurations.updateTimes(activity);
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
@@ -111,7 +106,7 @@ public class PrayerTimesLayout extends LinearLayout {
                 }
             }
         });
-        SettingsActivity.setStatus(group);
-        if(group.getChildCount()>2) SettingsActivity.setCheckBox(group);
+        _SET.setStatus(group);
+        if(group.getChildCount()>2) _SET.setCheckBox(group);
     }
 }

@@ -363,6 +363,17 @@
     <string name="settings_layouts_prayer_notification_tone_widget_details4">Use different notification tone for each prayer</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details5">Select the prayer notification tone</string>
     <string name="settings_prayer_notification_tone_title">Prayer Notification Tone</string>
+    <string name="settings_layouts_iqama_reminder_time_widget1">Iqama Time</string>
+    <string name="settings_layouts_iqama_reminder_time_widget2">Fajr Reminder</string>
+    <string name="settings_layouts_iqama_reminder_time_widget4">Zuhr Reminder</string>
+    <string name="settings_layouts_iqama_reminder_time_widget6">Asr Reminder</string>
+    <string name="settings_layouts_iqama_reminder_time_widget8">Magrib Reminder</string>
+    <string name="settings_layouts_iqama_reminder_time_widget10">Isha Reminder</string>
+    <string name="settings_layouts_iqama_reminder_time_widget12">Jumuah Reminder</string>
+    <string name="settings_iqama_reminder_time_title">Iqama Times</string>
+    <string name="settings_iqama_reminder_tone_title">Iqama Reminder Tone</string>
+    <string name="before_prayer_time">Before Prayer Time</string>
+    <string name="no_tone_set">No tone set</string>
 
 
 </resources>

@@ -23,7 +23,7 @@ public class ManualTimesAdjustmentsLayout extends LinearLayout {
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(View.generateViewId());
+            sublayout.setId(_SET.generateViewID(1,7,k+1));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );

@@ -8,7 +8,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.RadioDialog;
 import com.example.omar.azanapkmostafa.R;
@@ -26,7 +25,7 @@ public class HijriLayout extends LinearLayout {
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(SettingsActivity.generateViewID(2,k+1,0));
+            sublayout.setId(_SET.generateViewID(2,k+1,0));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );

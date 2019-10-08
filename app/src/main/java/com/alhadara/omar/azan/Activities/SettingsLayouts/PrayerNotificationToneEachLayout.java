@@ -8,32 +8,31 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.alhadara.omar.azan.Activities.SettingsForthActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
 
-public class PrayerNotificationToneLayout extends LinearLayout {
+public class PrayerNotificationToneEachLayout extends LinearLayout {
     private Activity activity;
     private LinearLayout layout;
-    public PrayerNotificationToneLayout(Activity ac) {
+    public PrayerNotificationToneEachLayout(Activity ac) {
         super(ac);
         activity = ac;
-        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_prayer_notification_tone,this);
+        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_prayer_notification_tone_each,this);
         layout = (LinearLayout) layout.getChildAt(0);
-        String[] headers = getResources().getStringArray(R.array.settings_layout_header_prayer_notification_tone);
-        String[] details = getResources().getStringArray(R.array.settings_layout_details_prayer_notification_tone);
+        String[] headers = getResources().getStringArray(R.array.settings_layout_header_iqama_reminder_tone);
+        String[] details = getResources().getStringArray(R.array.settings_layout_details_iqama_reminder_tone);
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(_SET.generateViewID(4,4,k+1));
+            sublayout.setId(activity.getIntent().getExtras().getInt("id")+((k+1)*10));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );
@@ -61,7 +60,7 @@ public class PrayerNotificationToneLayout extends LinearLayout {
                     _SET.setCheckBox(group,!_SET.isChecked(group));
                     SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("use_sd",_SET.isChecked(group));
+                    editor.putBoolean("use_sd_for" + activity.getIntent().getExtras().getInt("index"),_SET.isChecked(group));
                     editor.commit();
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                     _SET.setStatus(layout.getChildAt(0),!_SET.isChecked(group));
@@ -80,34 +79,11 @@ public class PrayerNotificationToneLayout extends LinearLayout {
                         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
                     }
                     activity.startActivityForResult(intent , group.getId());
-                }else if(k==3){
-                    _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("use_different",_SET.isChecked(group));
-                    editor.commit();
-                    AlarmsScheduler.fire(activity, Calendar.getInstance());
-                    _SET.setStatus(layout.getChildAt(0),!_SET.isChecked(group));
-                    _SET.setStatus(layout.getChildAt(2),!_SET.isChecked(group));
-                    _SET.setCheckBox(layout.getChildAt(2),false);
-                    _SET.setStatus(layout.getChildAt(4),false);
-                    _SET.setStatus(layout.getChildAt(9),_SET.isChecked(group));
-                    _SET.setStatus(layout.getChildAt(11),_SET.isChecked(group));
-                    _SET.setStatus(layout.getChildAt(13),_SET.isChecked(group));
-                    _SET.setStatus(layout.getChildAt(15),_SET.isChecked(group));
-                    _SET.setStatus(layout.getChildAt(17),_SET.isChecked(group));
-                }else{
-                    Intent intent = new Intent(activity, SettingsForthActivity.class);
-                    intent.putExtra("id",group.getId());
-                    intent.putExtra("index",k-4);
-                    activity.startActivity(intent);
                 }
             }
         });
         _SET.setStatus(group);
         if(group.getChildCount()>2) _SET.setCheckBox(group);
-        if(group.getId() == 40403 ) _SET.setDescription(group);
+        if(k==2) _SET.setDescription(group);
     }
-
-
 }

@@ -23,7 +23,8 @@ import java.util.Date;
 
 public class AlarmsScheduler extends BroadcastReceiver {
 
-
+    public static final String azanFile = "notifications.txt";
+    public static final String iqamaFile = "reminders.txt";
     public static final int AZAN_REQUEST_CODE = 150;
     public static final int IQAMA_REQUEST_CODE = 160;
     private static final int GENERAL_ALARM_REQUEST_CODE = 133;

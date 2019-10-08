@@ -7,28 +7,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.SeekBarDialog;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
 
-public class PrayerNotificationTimesLayout extends LinearLayout {
-    private Activity activity;
+public class IqamaReminderTimesLayout extends LinearLayout {
     private LinearLayout layout;
-    public PrayerNotificationTimesLayout(Activity ac) {
+    private Activity activity;
+    public IqamaReminderTimesLayout(Activity ac) {
         super(ac);
         activity = ac;
-        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_prayer_notification_time,this);
+        layout = (LinearLayout) inflate(ac, R.layout.settings_layouts_iqama_reminder_time,this);
         layout = (LinearLayout) layout.getChildAt(0);
-        String[] headers = getResources().getStringArray(R.array.settings_layout_header_prayer_notification_time);
-        String[] details = getResources().getStringArray(R.array.settings_layout_details_prayer_notification_time);
+        String[] headers = getResources().getStringArray(R.array.settings_layout_header_iqama_reminder_time);
+        String[] details = getResources().getStringArray(R.array.settings_layout_details_iqama_reminder_time);
         for(int i=0,k=0;i<layout.getChildCount();i++){
             if(layout.getChildAt(i) instanceof TextView) continue;
             ViewGroup sublayout = (ViewGroup) layout.getChildAt(i);
-            sublayout.setId(_SET.generateViewID(4,1,k+1));
+            sublayout.setId(_SET.generateViewID(4,7,k+1));
             ((TextView)sublayout.getChildAt(0)).setText(
                     headers[k]
             );
@@ -46,7 +46,7 @@ public class PrayerNotificationTimesLayout extends LinearLayout {
             @Override
             public void onClick(View view) {
                 if((k%2)==0){
-                    SeekBarDialog dialog = new SeekBarDialog(activity, AlarmsScheduler.azanFile,"notification_time_"+(k/2),getResources().getString(R.string.before_prayer_time));
+                    SeekBarDialog dialog = new SeekBarDialog(activity, AlarmsScheduler.iqamaFile,"remind_time_"+(k/2),getResources().getString(R.string.before_prayer_time));
                     dialog.initialize(0, 60, new SeekBarDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -56,9 +56,9 @@ public class PrayerNotificationTimesLayout extends LinearLayout {
                     dialog.show();
                 }else{
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("notify_"+((k-1)/2),_SET.isChecked(group));
+                    editor.putBoolean("remind_"+((k-1)/2),_SET.isChecked(group));
                     editor.commit();
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                     _SET.setStatus(layout.getChildAt((((5*k)-5)/2)+1),_SET.isChecked(group));
