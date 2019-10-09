@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationToneEachLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts._SET;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
 
 public class SettingsForthActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class SettingsForthActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 40415: case 40416: case 40417: case 40418: case 40419:
-                    pref = getSharedPreferences(AlarmsScheduler.azanFile,MODE_PRIVATE);
+                    pref = getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE);
                     editor = pref.edit();
                     uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     if(uri!=null) {
@@ -62,7 +63,7 @@ public class SettingsForthActivity extends AppCompatActivity {
                     }
                     break;
                 case 40435: case 40436: case 40437: case 40438: case 40439:
-                    pref = getSharedPreferences(AlarmsScheduler.azanFile,MODE_PRIVATE);
+                    pref = getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE);
                     editor = pref.edit();
                     uri = data.getData();
                     if(uri!=null) {

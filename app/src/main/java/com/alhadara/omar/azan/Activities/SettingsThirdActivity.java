@@ -19,6 +19,7 @@ import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationTimes
 import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationToneLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts._SET;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.io.File;
@@ -76,7 +77,7 @@ public class SettingsThirdActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 40401: case 41001:
-                    pref = getSharedPreferences(requestCode==40401?AlarmsScheduler.azanFile:AlarmsScheduler.iqamaFile,MODE_PRIVATE);
+                    pref = getSharedPreferences(requestCode==40401?_AlarmSET.azanFile:_AlarmSET.iqamaFile,MODE_PRIVATE);
                     editor = pref.edit();
                     uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     if(uri!=null) {
@@ -89,7 +90,7 @@ public class SettingsThirdActivity extends AppCompatActivity {
                     }
                     break;
                 case 40403: case 41003:
-                    pref = getSharedPreferences(requestCode==40403?AlarmsScheduler.azanFile:AlarmsScheduler.iqamaFile,MODE_PRIVATE);
+                    pref = getSharedPreferences(requestCode==40403? _AlarmSET.azanFile:_AlarmSET.iqamaFile,MODE_PRIVATE);
                     editor = pref.edit();
                     uri = data.getData();
                     if(uri!=null) {

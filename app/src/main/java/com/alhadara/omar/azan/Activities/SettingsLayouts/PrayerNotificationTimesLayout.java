@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.SeekBarDialog;
 import com.example.omar.azanapkmostafa.R;
 
@@ -46,17 +47,18 @@ public class PrayerNotificationTimesLayout extends LinearLayout {
             @Override
             public void onClick(View view) {
                 if((k%2)==0){
-                    SeekBarDialog dialog = new SeekBarDialog(activity, AlarmsScheduler.azanFile,"notification_time_"+(k/2),getResources().getString(R.string.before_prayer_time));
+                    SeekBarDialog dialog = new SeekBarDialog(activity, _AlarmSET.azanFile,"notification_time_"+(k/2),getResources().getString(R.string.before_prayer_time));
                     dialog.initialize(0, 60, new SeekBarDialog.run() {
                         @Override
                         public void go(int checked) {
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
+                            _SET.setDescription(group,Integer.toString(checked));
                         }
                     });
                     dialog.show();
                 }else{
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("notify_"+((k-1)/2),_SET.isChecked(group));
                     editor.commit();

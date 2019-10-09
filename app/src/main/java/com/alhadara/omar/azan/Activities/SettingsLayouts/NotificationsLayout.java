@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.RadioDialog;
 import com.alhadara.omar.azan.SeekBarDialog;
@@ -62,7 +63,7 @@ public class NotificationsLayout extends LinearLayout {
                     activity.startActivity(intent);
                 }else if(k==1){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("notify",_SET.isChecked(group));
                     editor.commit();
@@ -71,7 +72,7 @@ public class NotificationsLayout extends LinearLayout {
                     _SET.setStatus(layout.getChildAt(5),_SET.isChecked(group));
                     _SET.setStatus(layout.getChildAt(7),_SET.isChecked(group));
                 }else if(k==2){
-                    RadioDialog dialog = new RadioDialog(activity,AlarmsScheduler.azanFile,"notification_type",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity,_AlarmSET.azanFile,"notification_type",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(getResources().getStringArray(R.array.notification_audio_type), new int[]{0,1,2,3}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -86,19 +87,20 @@ public class NotificationsLayout extends LinearLayout {
                     activity.startActivity(intent);
                 }else if(k==4){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("clear_notification",_SET.isChecked(group));
                     editor.commit();
                     _SET.setStatus((ViewGroup) layout.getChildAt(11),_SET.isChecked(group));
                 }else if(k==5){
-                    SeekBarDialog dialog = new SeekBarDialog(activity,AlarmsScheduler.azanFile,"clear_time",((TextView)group.getChildAt(0)).getText().toString());
+                    SeekBarDialog dialog = new SeekBarDialog(activity,_AlarmSET.azanFile,"clear_time",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(1, 60, new SeekBarDialog.run() {
                         @Override
                         public void go(int checked) {
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
                         }
                     });
+                    dialog.show();
                 }else if(k==6){
                     Intent intent = new Intent(activity, SettingsThirdActivity.class);
                     intent.putExtra("layout",3);
@@ -106,7 +108,7 @@ public class NotificationsLayout extends LinearLayout {
                     activity.startActivity(intent);
                 }else if(k==7){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.iqamaFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("remind",_SET.isChecked(group));
                     editor.commit();
@@ -114,7 +116,7 @@ public class NotificationsLayout extends LinearLayout {
                     _SET.setStatus(layout.getChildAt(18),_SET.isChecked(group));
                     _SET.setStatus(layout.getChildAt(20),_SET.isChecked(group));
                 }else if(k==8){
-                    RadioDialog dialog = new RadioDialog(activity,AlarmsScheduler.iqamaFile,"reminder_type",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity,_AlarmSET.iqamaFile,"reminder_type",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(getResources().getStringArray(R.array.notification_audio_type), new int[]{0,1,2,3}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -129,36 +131,37 @@ public class NotificationsLayout extends LinearLayout {
                     activity.startActivity(intent);
                 }else if(k==10){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.iqamaFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("clear_reminder",_SET.isChecked(group));
                     editor.commit();
                     _SET.setStatus(layout.getChildAt(24),_SET.isChecked(group));
                 }else if(k==11){
-                    SeekBarDialog dialog = new SeekBarDialog(activity,AlarmsScheduler.iqamaFile,"clear_time",((TextView)group.getChildAt(0)).getText().toString());
+                    SeekBarDialog dialog = new SeekBarDialog(activity,_AlarmSET.iqamaFile,"clear_time",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(1, 60, new SeekBarDialog.run() {
                         @Override
                         public void go(int checked) {
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
                         }
                     });
+                    dialog.show();
                 }else if(k==12){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("vibrate",_SET.isChecked(group));
                     editor.commit();
-                    pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
+                    pref = activity.getSharedPreferences(_AlarmSET.iqamaFile, Context.MODE_PRIVATE);
                     editor = pref.edit();
                     editor.putBoolean("vibrate",_SET.isChecked(group));
                     editor.commit();
                 }else if(k==13){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("led",_SET.isChecked(group));
                     editor.commit();
-                    pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
+                    pref = activity.getSharedPreferences(_AlarmSET.iqamaFile, Context.MODE_PRIVATE);
                     editor = pref.edit();
                     editor.putBoolean("led",_SET.isChecked(group));
                     editor.commit();

@@ -55,7 +55,7 @@ public class SeekBarDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialogInterface, int i) {
                 editor.putInt(filekey,Integer.parseInt(((TextView) seekBarLayout.getChildAt(0)).getText().toString()));
                 editor.commit();
-                onOk.go(i);
+                onOk.go(Integer.parseInt(((TextView) seekBarLayout.getChildAt(0)).getText().toString()));
                 dialogInterface.dismiss();
             }
         });

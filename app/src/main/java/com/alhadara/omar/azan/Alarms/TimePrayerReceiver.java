@@ -1,5 +1,6 @@
 package com.alhadara.omar.azan.Alarms;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.alhadara.omar.azan.Constants;
@@ -23,22 +25,25 @@ public class TimePrayerReceiver extends BroadcastReceiver {
 
     private String id;
     private Intent audioServiceIntent;
+    private PendingIntent cancelIntent;
     @Override
     public void onReceive(Context context, Intent intent) {
         int type = intent.getExtras().getInt("type");
         int index = intent.getExtras().getInt("index");
-        if(isTimeDiffers(type,index)) return;
+        //if(isTimeDiffers(type,index)) return;
         audioServiceIntent = new Intent(context,TimePrayerService.class);
         audioServiceIntent.putExtra("type",type);
+        audioServiceIntent.putExtra("index",index);
         audioServiceIntent.putExtra("mode",true);
         context.startService(audioServiceIntent);
         String[] content = {context.getResources().getString(R.string.prayer_time),context.getResources().getString(R.string.iqama_time)};
 
-        id=(type== AlarmsScheduler.AZAN_REQUEST_CODE)?"azan":"iqama";
-        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type== AlarmsScheduler.AZAN_REQUEST_CODE)?0:1]);
+        id=(type== _AlarmSET.AZAN_REQUEST_CODE)?"azan":"iqama";
+        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type== _AlarmSET.AZAN_REQUEST_CODE)?0:1]);
+        setCancellation(context,type);
     }
 
-    private boolean isTimeDiffers(int type, int index) {
+    /*private boolean isTimeDiffers(int type, int index) {
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
         now = now / 1000;
@@ -49,16 +54,12 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         long time = calendar.getTimeInMillis();
         time = time / 1000;
         return (now - time) > 30;
-    }
+    }*/
 
     private void sendNotification(Context context,String msg) {
         NotificationManager alarmNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        //get pending intent
-
-
-        //Create notification
 
         if (Build.VERSION.SDK_INT >= 26) {
 
@@ -73,20 +74,25 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, id);
 
         audioServiceIntent.putExtra("mode",false);
-        PendingIntent contentIntent = PendingIntent.getService(
+        cancelIntent = PendingIntent.getService(
                 context,0,audioServiceIntent,PendingIntent.FLAG_CANCEL_CURRENT
         );
 
         builder.setContentTitle(Constants.APP_NAME)
                 .setSmallIcon(R.drawable.logo)
                 .setContentText(msg)
-                .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
-                .setContentIntent(contentIntent)
+                .setContentIntent(cancelIntent)
                 .setTicker(Constants.APP_NAME)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         alarmNotificationManager.notify(Constants.APP_NOTIFICATION_ID, builder.build());
+    }
+
+    private void setCancellation(Context context,int type){
+        if(_AlarmSET.clearNotify(context,type)){
+            AlarmManagerCompat.setExactAndAllowWhileIdle((AlarmManager) context.getSystemService(Context.ALARM_SERVICE),AlarmManager.RTC_WAKEUP,_AlarmSET.getClearTimeInMillis(context,type),cancelIntent);
+        }
     }
 
 }

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -57,7 +58,7 @@ public class IqamaReminderToneLayout extends LinearLayout {
                     activity.startActivityForResult(intent , group.getId());
                 }else if(k==1){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.iqamaFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.iqamaFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("use_sd",_SET.isChecked(group));
                     editor.commit();

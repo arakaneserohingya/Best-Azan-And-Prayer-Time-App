@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -58,7 +59,7 @@ public class PrayerNotificationToneEachLayout extends LinearLayout {
                     activity.startActivityForResult(intent , group.getId());
                 }else if(k==1){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(AlarmsScheduler.azanFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("use_sd_for" + activity.getIntent().getExtras().getInt("index"),_SET.isChecked(group));
                     editor.commit();
