@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
         ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(Integer.parseInt(Times.times[i].substring(0, 2))>12?"PM":"AM");
         ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(
-                (Integer.parseInt(Times.times[i].substring(0, 2))<12?
+                (Integer.parseInt(Times.times[i].substring(0, 2))<13?
                         Times.times[i].substring(0, 2):(Integer.parseInt(Times.times[i].substring(0, 2))-12)<10?
                         "0" + (Integer.parseInt(Times.times[i].substring(0, 2))-12):
                         Integer.toString(Integer.parseInt(Times.times[i].substring(0, 2))-12))
