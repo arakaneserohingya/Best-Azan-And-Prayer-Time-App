@@ -376,4 +376,34 @@
     <string name="no_tone_set">No tone set</string>
     <string name="after_prayer_time">After Prayer Time</string>
     <string name="please_set_location_first">Please set location first!</string>
+    <string name="prayer_time_notification1">Fajr prayer time</string>
+    <string name="prayer_time_notification2">Zuhr prayer time</string>
+    <string name="prayer_time_notification3">Asr prayer time</string>
+    <string name="prayer_time_notification4">Magrib prayer time</string>
+    <string name="prayer_time_notification5">Isha prayer time</string>
+    <string name="prayer_time_notification6">Jumuah prayer time</string>
+    <string name="iqama_time_notification1">Fajr iqama time</string>
+    <string name="iqama_time_notification2">Zuhr iqama time</string>
+    <string name="iqama_time_notification3">Asr iqama time</string>
+    <string name="iqama_time_notification4">Magrib iqama time</string>
+    <string name="iqama_time_notification5">Isha iqama time</string>
+    <string name="iqama_time_notification6">Jumuah iqama time</string>
+
+    <string-array name="prayer_time_notifications" >
+        <item>@string/prayer_time_notification1</item>
+        <item>@string/prayer_time_notification2</item>
+        <item>@string/prayer_time_notification3</item>
+        <item>@string/prayer_time_notification4</item>
+        <item>@string/prayer_time_notification5</item>
+        <item>@string/prayer_time_notification6</item>
+    </string-array>
+    <string-array name="iqama_time_notifications" >
+        <item>@string/iqama_time_notification1</item>
+        <item>@string/iqama_time_notification2</item>
+        <item>@string/iqama_time_notification3</item>
+        <item>@string/iqama_time_notification4</item>
+        <item>@string/iqama_time_notification5</item>
+        <item>@string/iqama_time_notification6</item>
+    </string-array>
+
 </resources>

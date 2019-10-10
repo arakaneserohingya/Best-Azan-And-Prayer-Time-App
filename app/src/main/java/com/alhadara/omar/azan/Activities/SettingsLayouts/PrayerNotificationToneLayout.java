@@ -63,10 +63,12 @@ public class PrayerNotificationToneLayout extends LinearLayout {
                     SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("use_sd",_SET.isChecked(group));
+                    editor.remove("uri");
                     editor.commit();
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                     _SET.setStatus(layout.getChildAt(0),!_SET.isChecked(group));
                     _SET.setStatus(layout.getChildAt(4),_SET.isChecked(group));
+                    _SET.setDescription((ViewGroup) layout.getChildAt(4),"");
                 }else if(k==2){
                     System.gc();
                     Intent intent = new Intent();

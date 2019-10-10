@@ -77,4 +77,12 @@ public class _AlarmSET {
     public static boolean isFirstTime(Context context){
         return context.getSharedPreferences(azanFile,Context.MODE_PRIVATE).getBoolean("firsttime",true);
     }
+
+    public static boolean isVibrateActivated(Context context) {
+        return context.getSharedPreferences(azanFile,Context.MODE_PRIVATE).getBoolean("vibrate",false);
+    }
+
+    public static boolean isLEDActivated(Context context) {
+        return context.getSharedPreferences(azanFile,Context.MODE_PRIVATE).getBoolean("led",false);
+    }
 }

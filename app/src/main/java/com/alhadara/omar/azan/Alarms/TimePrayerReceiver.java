@@ -1,7 +1,6 @@
 package com.alhadara.omar.azan.Alarms;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,7 +13,6 @@ import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.alhadara.omar.azan.Constants;
-import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -24,23 +22,27 @@ public class TimePrayerReceiver extends BroadcastReceiver {
 
 
     private String id;
-    private Intent audioServiceIntent;
-    private PendingIntent cancelIntent;
     @Override
     public void onReceive(Context context, Intent intent) {
         int type = intent.getExtras().getInt("type");
         int index = intent.getExtras().getInt("index");
-        //if(isTimeDiffers(type,index)) return;
-        audioServiceIntent = new Intent(context,TimePrayerService.class);
+        startSoundService(context,type,index);
+
+        String[] content = type== _AlarmSET.AZAN_REQUEST_CODE?
+                context.getResources().getStringArray(R.array.prayer_time_notifications):
+                context.getResources().getStringArray(R.array.iqama_time_notifications);
+
+        id=(type== _AlarmSET.AZAN_REQUEST_CODE)?"azan":"iqama";
+        sendNotification(context, content[index==0?0:(_AlarmSET.isJumuah(Calendar.getInstance())&&index==2)?5:index-1]);
+        setCancellation(context,type);
+    }
+
+    private void startSoundService(Context context, int type, int index) {
+        Intent audioServiceIntent = new Intent(context,TimePrayerService.class);
         audioServiceIntent.putExtra("type",type);
         audioServiceIntent.putExtra("index",index);
         audioServiceIntent.putExtra("mode",true);
         context.startService(audioServiceIntent);
-        String[] content = {context.getResources().getString(R.string.prayer_time),context.getResources().getString(R.string.iqama_time)};
-
-        id=(type== _AlarmSET.AZAN_REQUEST_CODE)?"azan":"iqama";
-        sendNotification(context, context.getResources().getStringArray(R.array.prayer_time)[index]+" "+ content[(type== _AlarmSET.AZAN_REQUEST_CODE)?0:1]);
-        setCancellation(context,type);
     }
 
     /*private boolean isTimeDiffers(int type, int index) {
@@ -60,7 +62,6 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         NotificationManager alarmNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
-
         if (Build.VERSION.SDK_INT >= 26) {
 
             NotificationChannel mChannel = alarmNotificationManager.getNotificationChannel(id);
@@ -72,27 +73,28 @@ public class TimePrayerReceiver extends BroadcastReceiver {
             }
         }
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, id);
-
-        audioServiceIntent.putExtra("mode",false);
-        cancelIntent = PendingIntent.getService(
-                context,0,audioServiceIntent,PendingIntent.FLAG_CANCEL_CURRENT
-        );
-
         builder.setContentTitle(Constants.APP_NAME)
                 .setSmallIcon(R.drawable.logo)
                 .setContentText(msg)
                 .setAutoCancel(true)
-                .setContentIntent(cancelIntent)
+                .setContentIntent(cancelIntent(context))
                 .setTicker(Constants.APP_NAME)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
-
         alarmNotificationManager.notify(Constants.APP_NOTIFICATION_ID, builder.build());
     }
 
     private void setCancellation(Context context,int type){
         if(_AlarmSET.clearNotify(context,type)){
-            AlarmManagerCompat.setExactAndAllowWhileIdle((AlarmManager) context.getSystemService(Context.ALARM_SERVICE),AlarmManager.RTC_WAKEUP,_AlarmSET.getClearTimeInMillis(context,type),cancelIntent);
+            AlarmManagerCompat.setExactAndAllowWhileIdle((AlarmManager) context.getSystemService(Context.ALARM_SERVICE),AlarmManager.RTC_WAKEUP,_AlarmSET.getClearTimeInMillis(context,type),cancelIntent(context));
         }
+    }
+    private PendingIntent cancelIntent(Context context){
+        Intent intent = new Intent(context,TimePrayerService.class);
+        intent.putExtra("mode",false);
+        PendingIntent cIntent = PendingIntent.getService(
+                context,0,intent,PendingIntent.FLAG_CANCEL_CURRENT
+        );
+        return  cIntent;
     }
 
 }
