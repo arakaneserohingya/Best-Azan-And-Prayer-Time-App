@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
+
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
@@ -97,6 +98,11 @@
         </receiver>
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.alhadara.omar.azan.Alarms.SilentTimeReceiver"
             android:enabled="true"
             android:exported="false" />
 

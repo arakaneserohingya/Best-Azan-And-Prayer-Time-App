@@ -394,6 +394,18 @@
     <string name="alarm_time_from_fajr_time">Alarm time (from fajr time)</string>
     <string name="sahoor_activty_fajr_time_apex">Fajr Prayer:</string>
     <string name="sahoor_activity_time_to_stop_dialog_title">After Fajr Alarm</string>
+    <string name="settings_layouts_silent_time_settings_widget1">Fajr Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget2">Zuhr Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget3">Asr Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget4">Magrib Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget5">Isha Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget6">Jumuah Switch Time</string>
+    <string name="settings_layouts_silent_time_settings_widget7">Silent Period</string>
+    <string name="settings_layouts_silent_time_settings_widget8">Activate</string>
+    <string name="settings_layouts_silent_time_settings_widget_details1">Current value in minutes:</string>
+    <string name="settings_layouts_silent_time_settings_widget_details2" />
+    <string name="silent_period_in_minutes">Silent period in Minutes</string>
+    <string name="the_device_is_set_on_silent_mode">The device is set on silent mode</string>
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>

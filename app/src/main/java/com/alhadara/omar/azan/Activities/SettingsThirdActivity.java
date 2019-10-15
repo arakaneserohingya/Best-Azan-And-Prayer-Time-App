@@ -17,6 +17,7 @@ import com.alhadara.omar.azan.Activities.SettingsLayouts.IqamaReminderToneLayout
 import com.alhadara.omar.azan.Activities.SettingsLayouts.ManualTimesAdjustmentsLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationTimesLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationToneLayout;
+import com.alhadara.omar.azan.Activities.SettingsLayouts.SilentTimeSettingsLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts._SET;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
@@ -65,6 +66,10 @@ public class SettingsThirdActivity extends AppCompatActivity {
         }else if(i==3&&j==9){
             getSupportActionBar().setTitle(getResources().getString(R.string.settings_iqama_reminder_tone_title));
             IqamaReminderToneLayout layout = new IqamaReminderToneLayout(this);
+            scroll.addView(layout);
+        }else if(i==5&&j==1){
+            getSupportActionBar().setTitle(getResources().getString(R.string.settings_silent_time_settings_title));
+            SilentTimeSettingsLayout layout = new SilentTimeSettingsLayout(this);
             scroll.addView(layout);
         }
     }

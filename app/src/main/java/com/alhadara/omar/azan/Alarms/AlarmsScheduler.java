@@ -51,6 +51,12 @@ public class AlarmsScheduler extends BroadcastReceiver {
                 alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,true);
             else alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,false);
 
+            cal = _AlarmSET.getSilentTimeFor(context,i);
+            if(_AlarmSET.silentActivated(context)&&_AlarmSET.silentActivatedFor(context,i) &&
+                    Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis())
+                SilentTimeReceiver.fire(context,i,cal,true);
+            else SilentTimeReceiver.fire(context,i,cal,false);;
+
         }
         cal = _AlarmSET.getSahoorTime(context);
         if(_AlarmSET.sahoorActivated(context) && Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis()){
@@ -75,7 +81,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         in.putExtra("type",type);
         in.putExtra("index",index);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         else manager.cancel(pendingIntent);

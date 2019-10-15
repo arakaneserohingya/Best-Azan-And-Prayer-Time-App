@@ -2,13 +2,20 @@ package com.alhadara.omar.azan.Activities.SettingsLayouts;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
+import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
+
+import java.util.Calendar;
 
 public class SilentLayout extends LinearLayout {
     private Activity activity;
@@ -35,24 +42,48 @@ public class SilentLayout extends LinearLayout {
 
         }
     }
-    private void clicker(View view, final int k) {
-        view.setOnClickListener(new OnClickListener() {
+    private void clicker(final ViewGroup group, final int k) {
+        group.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(k==0){
-                    CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
-                    box.setChecked(!box.isChecked());
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.silentFile, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("active",_SET.isChecked(group));
+                    editor.commit();
+                    AlarmsScheduler.fire(activity, Calendar.getInstance());
+                    _SET.setStatus(layout.getChildAt(3),_SET.isChecked(group));
+                    _SET.setStatus(layout.getChildAt(5),_SET.isChecked(group));
+                    _SET.setStatus(layout.getChildAt(7),_SET.isChecked(group));
+                    _SET.setStatus(layout.getChildAt(9),_SET.isChecked(group));
+                }else if(k==1){
+                    Intent intent = new Intent(activity, SettingsThirdActivity.class);
+                    intent.putExtra("layout",5);
+                    intent.putExtra("key",1);
+                    activity.startActivity(intent);
                 }else if(k==2){
-                    CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
-                    box.setChecked(!box.isChecked());
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.silentFile, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("vibrate_on_set",_SET.isChecked(group));
+                    editor.commit();
                 }else if(k==3){
-                    CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
-                    box.setChecked(!box.isChecked());
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.silentFile, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("vibrate",_SET.isChecked(group));
+                    editor.commit();
                 }else if(k==4){
-                    CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
-                    box.setChecked(!box.isChecked());
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
+                    SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.silentFile, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("msg",_SET.isChecked(group));
+                    editor.commit();
                 }
             }
         });
+        _SET.setStatus(group);
+        if(group.getChildCount()>2) _SET.setCheckBox(group);
     }
 }

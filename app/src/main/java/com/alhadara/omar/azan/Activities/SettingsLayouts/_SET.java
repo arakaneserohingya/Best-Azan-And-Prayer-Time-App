@@ -133,6 +133,32 @@ public class _SET {
         settingsEditor.putBoolean("checked50700",true);
         settingsEditor.putBoolean("checked50600",true);
         settingsEditor.putBoolean("checked50500",true);
+        settingsEditor.putBoolean("checked60100",false);
+        settingsEditor.putBoolean("status60200",false);
+        settingsEditor.putBoolean("status60300",false);
+        settingsEditor.putBoolean("status60400",false);
+        settingsEditor.putBoolean("status60500",false);
+        settingsEditor.putBoolean("checked60300",true);
+        settingsEditor.putBoolean("checked60400",true);
+        settingsEditor.putBoolean("checked60500",true);
+        settingsEditor.putString("description60201", Integer.toString(Times.iqamaTimes[0]));
+        settingsEditor.putString("description60204",Integer.toString(Times.iqamaTimes[2]));
+        settingsEditor.putString("description60207",Integer.toString(Times.iqamaTimes[3]));
+        settingsEditor.putString("description60210",Integer.toString(Times.iqamaTimes[4]));
+        settingsEditor.putString("description60213",Integer.toString(Times.iqamaTimes[5]));
+        settingsEditor.putString("description60216",Integer.toString(Times.iqamaTimes[2]));
+        settingsEditor.putString("description60202", "10");
+        settingsEditor.putString("description60205", "10");
+        settingsEditor.putString("description60208", "10");
+        settingsEditor.putString("description60211", "10");
+        settingsEditor.putString("description60214", "10");
+        settingsEditor.putString("description60217", "10");
+        settingsEditor.putBoolean("checked60203",true);
+        settingsEditor.putBoolean("checked60206",true);
+        settingsEditor.putBoolean("checked60209",true);
+        settingsEditor.putBoolean("checked60212",true);
+        settingsEditor.putBoolean("checked60215",true);
+        settingsEditor.putBoolean("checked60218",true);
         settingsEditor.commit();
     }
 }

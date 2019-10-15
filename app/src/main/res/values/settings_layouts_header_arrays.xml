@@ -121,4 +121,24 @@
         <item>@string/settings_layouts_iqama_reminder_time_widget1</item>
         <item>@string/settings_layouts_iqama_reminder_time_widget12</item>
     </string-array>
+    <string-array name="settings_layout_header_silent_time_settings" >
+        <item>@string/settings_layouts_silent_time_settings_widget1</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+        <item>@string/settings_layouts_silent_time_settings_widget2</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+        <item>@string/settings_layouts_silent_time_settings_widget3</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+        <item>@string/settings_layouts_silent_time_settings_widget4</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+        <item>@string/settings_layouts_silent_time_settings_widget5</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+        <item>@string/settings_layouts_silent_time_settings_widget6</item>
+        <item>@string/settings_layouts_silent_time_settings_widget7</item>
+        <item>@string/settings_layouts_silent_time_settings_widget8</item>
+    </string-array>
 </resources>
