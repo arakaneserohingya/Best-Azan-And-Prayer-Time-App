@@ -1,10 +1,16 @@
 package com.alhadara.omar.azan.Activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alhadara.omar.azan.Activities.SettingsLayouts.BackupRestoreLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.DisplayOptions;
@@ -13,6 +19,7 @@ import com.alhadara.omar.azan.Activities.SettingsLayouts.HijriLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.NotificationsLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerTimesLayout;
 import com.alhadara.omar.azan.Activities.SettingsLayouts.SilentLayout;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.example.omar.azanapkmostafa.R;
 
 public class SettingsSecondActivity extends AppCompatActivity {
@@ -64,5 +71,30 @@ public class SettingsSecondActivity extends AppCompatActivity {
             scroll.addView(layout);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        SharedPreferences pref = null;
+        SharedPreferences.Editor editor = null;
+        Uri uri = null;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 50400:
+                    pref = getSharedPreferences(_AlarmSET.sahoorFile,MODE_PRIVATE);
+                    editor = pref.edit();
+                    uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    if(uri!=null) {
+                        editor.putString("uri", uri.toString());
+                        editor.commit();
+                    } else {
+                        editor.remove("uri");
+                        editor.commit();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

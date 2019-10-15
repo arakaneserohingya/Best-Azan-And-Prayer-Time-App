@@ -388,6 +388,12 @@
     <string name="iqama_time_notification4">Magrib iqama time</string>
     <string name="iqama_time_notification5">Isha iqama time</string>
     <string name="iqama_time_notification6">Jumuah iqama time</string>
+    <string name="sahoor_alarm_stop">Stop</string>
+    <string name="sahoor_alarm_snooze">Snooze</string>
+    <string name="wake_up_fajr_prayer_is_near">Wake Up! Fajr prayer is near</string>
+    <string name="alarm_time_from_fajr_time">Alarm time (from fajr time)</string>
+    <string name="sahoor_activty_fajr_time_apex">Fajr Prayer:</string>
+    <string name="sahoor_activity_time_to_stop_dialog_title">After Fajr Alarm</string>
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>

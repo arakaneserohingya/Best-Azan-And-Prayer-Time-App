@@ -50,7 +50,12 @@ public class AlarmsScheduler extends BroadcastReceiver {
                     Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis())
                 alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,true);
             else alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,false);
+
         }
+        cal = _AlarmSET.getSahoorTime(context);
+        if(_AlarmSET.sahoorActivated(context) && Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis()){
+            alarmTrig(context,_AlarmSET.SAHOOR_REQUEST_CODE,0,cal,true);
+        } else alarmTrig(context,_AlarmSET.SAHOOR_REQUEST_CODE,0,cal,false);
 
         //Activate this for tomorrow
         cal = Calendar.getInstance();

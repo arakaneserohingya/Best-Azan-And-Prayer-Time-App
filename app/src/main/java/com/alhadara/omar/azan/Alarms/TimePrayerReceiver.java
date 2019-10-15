@@ -8,10 +8,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.widget.Toast;
 
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
+import com.alhadara.omar.azan.Activities.SahoorActivity;
 import com.alhadara.omar.azan.Constants;
 import com.example.omar.azanapkmostafa.R;
 
@@ -26,15 +28,21 @@ public class TimePrayerReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int type = intent.getExtras().getInt("type");
         int index = intent.getExtras().getInt("index");
-        startSoundService(context,type,index);
+        if(type == _AlarmSET.SAHOOR_REQUEST_CODE) startSahoor(context);
+        else {
+            startSoundService(context, type, index);
+            String[] content = type == _AlarmSET.AZAN_REQUEST_CODE ?
+                    context.getResources().getStringArray(R.array.prayer_time_notifications) :
+                    context.getResources().getStringArray(R.array.iqama_time_notifications);
+            id = (type == _AlarmSET.AZAN_REQUEST_CODE) ? "azan" : "iqama";
+            sendNotification(context, content[index == 0 ? 0 : (_AlarmSET.isJumuah(Calendar.getInstance()) && index == 2) ? 5 : index - 1]);
+            setCancellation(context, type);
+        }
+    }
 
-        String[] content = type== _AlarmSET.AZAN_REQUEST_CODE?
-                context.getResources().getStringArray(R.array.prayer_time_notifications):
-                context.getResources().getStringArray(R.array.iqama_time_notifications);
-
-        id=(type== _AlarmSET.AZAN_REQUEST_CODE)?"azan":"iqama";
-        sendNotification(context, content[index==0?0:(_AlarmSET.isJumuah(Calendar.getInstance())&&index==2)?5:index-1]);
-        setCancellation(context,type);
+    private void startSahoor(Context context) {
+        Intent intent = new Intent(context,SahoorAlarmSnoozeService.class);
+        context.startService(intent);
     }
 
     private void startSoundService(Context context, int type, int index) {

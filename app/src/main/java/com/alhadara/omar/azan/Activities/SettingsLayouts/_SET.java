@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
@@ -117,6 +118,21 @@ public class _SET {
         settingsEditor.putBoolean("status40438",false);
         settingsEditor.putBoolean("checked40429",false);
         settingsEditor.putBoolean("status40439",false);
+        settingsEditor.putBoolean("checked50200",false);
+        settingsEditor.putBoolean("status50300",false);
+        settingsEditor.putBoolean("status50400",false);
+        settingsEditor.putBoolean("status50500",false);
+        settingsEditor.putBoolean("status50600",false);
+        settingsEditor.putBoolean("status50700",false);
+        settingsEditor.putBoolean("status50800",false);
+        settingsEditor.putBoolean("status50900",false);
+        settingsEditor.putBoolean("status51000",false);
+        settingsEditor.putString("description50300", Integer.toString(_AlarmSET.SAHOOR_ALARM_TIME));
+        settingsEditor.putString("description50900", "20");
+        settingsEditor.putBoolean("checked50800",false);
+        settingsEditor.putBoolean("checked50700",true);
+        settingsEditor.putBoolean("checked50600",true);
+        settingsEditor.putBoolean("checked50500",true);
         settingsEditor.commit();
     }
 }

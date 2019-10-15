@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     intent.putExtra("index",k);
-                    if((k==0||k==3) && !Configurations.isLocationAssigned(SettingsActivity.this))
+                    if((k==0||k==3||k==4||k==5) && !Configurations.isLocationAssigned(SettingsActivity.this))
                         Toast.makeText(SettingsActivity.this,getResources().getString(R.string.please_set_location_first),Toast.LENGTH_SHORT).show();
                     else startActivity(intent);
                 }

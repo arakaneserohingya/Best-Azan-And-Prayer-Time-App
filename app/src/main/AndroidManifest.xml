@@ -12,9 +12,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <permission android:name="android.permission.FLASHLIGHT"
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <permission
+        android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-        android:protectionLevel="normal"/>
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -73,8 +76,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.alhadara.omar.azan.Activities.SettingsForthActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.Activities.SahoorActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"/>
 
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
@@ -94,6 +102,11 @@
 
         <service
             android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name="com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService"
             android:enabled="true"
             android:exported="false" />
     </application>

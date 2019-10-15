@@ -57,7 +57,6 @@ public class SettingsForthActivity extends AppCompatActivity {
                         editor.putString("uri"+((requestCode%10)-5), uri.toString());
                         editor.commit();
                     } else {
-                        Toast.makeText(this,getResources().getString(R.string.no_tone_set),Toast.LENGTH_SHORT).show();
                         editor.remove("uri"+((requestCode%10)-5));
                         editor.commit();
                     }
@@ -72,7 +71,6 @@ public class SettingsForthActivity extends AppCompatActivity {
                         String name= Uri.decode(uri.toString());
                         _SET.setDescription((ViewGroup) findViewById(requestCode)," "+ name.substring(name.lastIndexOf('/')+1));
                     } else {
-                        Toast.makeText(this,getResources().getString(R.string.no_tone_set),Toast.LENGTH_SHORT).show();
                         editor.remove("uri"+((requestCode%10)-5));
                         editor.commit();
                     }
