@@ -27,13 +27,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/time_point_time_container"
-        android:layout_width="0dp"
+        android:layout_width="120sp"
         android:layout_height="match_parent"
-        android:paddingEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/time_point_text"
-        app:layout_constraintWidth_percent="0.45"
-        tools:layout_editor_absoluteY="2dp">
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/time_point_ampm"
