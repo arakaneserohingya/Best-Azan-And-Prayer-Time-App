@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="none">
         <item
+            android:id="@+id/nab_remembrance"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/remembrance" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/settings" />

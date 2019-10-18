@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
-
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
@@ -80,10 +79,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.alhadara.omar.azan.Activities.SahoorActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.alhadara.omar.azan.Activities.AzkarActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
@@ -100,7 +102,6 @@
             android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
             android:enabled="true"
             android:exported="false" />
-
         <receiver
             android:name="com.alhadara.omar.azan.Alarms.SilentTimeReceiver"
             android:enabled="true"
@@ -110,7 +111,6 @@
             android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name="com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService"
             android:enabled="true"

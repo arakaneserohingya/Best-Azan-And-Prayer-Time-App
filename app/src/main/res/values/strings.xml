@@ -408,6 +408,11 @@
     <string name="settings_silent_time_settings_title">Silent Time Settings</string>
     <string name="silent_period_in_minutes">Silent period in Minutes</string>
     <string name="the_device_is_set_on_silent_mode">The device is set on silent mode</string>
+    <string name="remembrance">Remembrance</string>
+    <string name="azkar_spinner_list1">Morning Remembrance</string>
+    <string name="azkar_spinner_list2">Evening Remembrance</string>
+    <string name="azkar_spinner_list3">After Prayer</string>
+    <string name="azkar_spinner_list4">Before Sleeping</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

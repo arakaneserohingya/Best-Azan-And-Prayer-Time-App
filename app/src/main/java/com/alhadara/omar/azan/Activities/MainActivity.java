@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_location) {
             startActivity(new Intent(this, LocationsActivity.class));
+        } else if (id == R.id.nab_remembrance) {
+            startActivity(new Intent(this, AzkarActivity.class));
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_problems) {
