@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.alhadara.omar.azan.LocationHandler;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
@@ -58,7 +61,9 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_gps_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocationFromNetwork();
+                if(!checkGpsAvailability()) Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.this_device_has_no_gps_equipment),Toast.LENGTH_SHORT).show();
+                else if(!checkGpsEnabled()) Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.please_enable_gps_first),Toast.LENGTH_SHORT).show();
+                else getLocationFromNetwork();
             }
         });
         findViewById(R.id.update_current_location_activity_last_location_button).setOnClickListener(new View.OnClickListener() {
@@ -83,7 +88,8 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_network_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocationFromNetwork();
+                if(!checkNetworkAvailability()) Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.please_check_for_internet_connection),Toast.LENGTH_SHORT).show();
+                else getLocationFromNetwork();
             }
         });
         findViewById(R.id.update_current_location_activity_save_button).setOnClickListener(new View.OnClickListener() {
@@ -95,7 +101,6 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                 Configurations.setReloadMainActivityOnResume(true);
                 LocationsActivity.reloadLocationsActivityOnResume = true;
                 AlarmsScheduler.fire(UpdateCurrentLocationActivity.this,Calendar.getInstance());
-                Toast.makeText(UpdateCurrentLocationActivity.this,"Adjust timezone offset by yourself!",Toast.LENGTH_SHORT).show();
                 UpdateCurrentLocationActivity.this.finish();
             }
         });
@@ -105,6 +110,24 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                 startActivity(new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class));
             }
         });
+    }
+
+    private boolean checkNetworkAvailability() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    private boolean checkGpsEnabled() {
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private boolean checkGpsAvailability() {
+        final LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if ( mgr == null ) return false;
+        final List<String> providers = mgr.getAllProviders();
+        if ( providers == null ) return false;
+        return providers.contains(LocationManager.GPS_PROVIDER);
     }
 
     private void setTitleLocation() {

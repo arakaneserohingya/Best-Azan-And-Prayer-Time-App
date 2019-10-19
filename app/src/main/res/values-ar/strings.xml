@@ -411,6 +411,9 @@
     <string name="azkar_spinner_list2">Evening Remembrance</string>
     <string name="azkar_spinner_list3">After Prayer</string>
     <string name="azkar_spinner_list4">Before Sleeping</string>
+    <string name="please_enable_gps_first">Please check the gps is turned on!</string>
+    <string name="this_device_has_no_gps_equipment">This device has no gps equibment</string>
+    <string name="please_check_for_internet_connection">Please check for internet connection</string>
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>
