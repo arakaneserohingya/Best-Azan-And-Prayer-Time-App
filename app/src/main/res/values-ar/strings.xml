@@ -298,9 +298,8 @@
     <string name="settings_dialogs_prayer_calculations_methods3">University of Islamic Sciences,Karachi</string>
     <string name="settings_dialogs_prayer_calculations_methods4">Egyption General Authority of Survey</string>
     <string name="settings_dialogs_prayer_calculations_methods5">Islamic Union of North America</string>
-    <string name="settings_dialogs_prayer_calculations_methods6">Union of Islamic Organisations in France</string>
-    <string name="settings_dialogs_prayer_calculations_methods7">Ministry of Awqaf and Islamic Affairs, Kuwait</string>
-    <string name="settings_dialogs_prayer_calculations_methods8">One-Seventh of the Night</string>
+    <string name="settings_dialogs_prayer_calculations_methods6">Institute of Geophysics, University of Tehran</string>
+    <string name="settings_dialogs_prayer_calculations_methods7">One-Seventh of the Night</string>
     <string name="settings_dialogs_asr_methods1">Shafi (and Others)</string>
     <string name="settings_dialogs_asr_methods2">Hanafi</string>
     <string name="adjustments">Adjustments</string>
@@ -311,12 +310,9 @@
     <string name="settings_layouts_manual_times_adjustments_widget5">Maghrib Time</string>
     <string name="settings_layouts_manual_times_adjustments_widget6">Isha Time</string>
     <string name="settings_layouts_manual_times_adjustments_widget7">Reset Default Times</string>
+    <string name="settings_layouts_manual_times_adjustments_widget8">Sunrise Time</string>
     <string name="settings_layouts_manual_times_adjustments_widget_details1">Before modifying times, make sure to select the best settings for your area, and choose the correct Time Zone from device settings</string>
     <string name="settings_layouts_manual_times_adjustments_widget_details2">Current value in minutes:</string>
-    <string name="settings_layouts_manual_times_adjustments_widget_details3">Current value in minutes:</string>
-    <string name="settings_layouts_manual_times_adjustments_widget_details4">Current value in minutes:</string>
-    <string name="settings_layouts_manual_times_adjustments_widget_details5">Current value in minutes:</string>
-    <string name="settings_layouts_manual_times_adjustments_widget_details6">Current value in minutes:</string>
     <string name="settings_layouts_manual_times_adjustments_widget_details7">Change the times of all prayers back to original values</string>
     <string name="settings_manual_times_adjustments_title">Manual Times Adjustments</string>
     <string name="app_language">App Language</string>
@@ -404,6 +400,7 @@
     <string name="settings_layouts_silent_time_settings_widget8">Activate</string>
     <string name="settings_layouts_silent_time_settings_widget_details1">Current value in minutes:</string>
     <string name="settings_layouts_silent_time_settings_widget_details2" />
+    <string name="settings_silent_time_settings_title">Silent Time Settings</string>
     <string name="silent_period_in_minutes">Silent period in Minutes</string>
     <string name="the_device_is_set_on_silent_mode">The device is set on silent mode</string>
     <string name="remembrance">Remembrance</string>
@@ -412,8 +409,11 @@
     <string name="azkar_spinner_list3">After Prayer</string>
     <string name="azkar_spinner_list4">Before Sleeping</string>
     <string name="please_enable_gps_first">Please check the gps is turned on!</string>
-    <string name="this_device_has_no_gps_equipment">This device has no gps equibment</string>
+    <string name="this_device_has_no_gps_equipment">This device has no gps equipment</string>
     <string name="please_check_for_internet_connection">Please check for internet connection</string>
+    <string name="settings_dialogs_jumuah_time_different_array1">Use Zuhr time</string>
+    <string name="settings_dialogs_jumuah_time_different_array2">Choose different time</string>
+    <string name="adjustments_is_reset">Times adjustments is reset</string>
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>

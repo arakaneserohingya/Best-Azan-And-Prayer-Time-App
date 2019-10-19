@@ -7,6 +7,7 @@
     tools:context="com.alhadara.omar.azan.Activities.AzkarActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar_azkar_activity"
+        android:background="@color/mdtp_circle_color"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">

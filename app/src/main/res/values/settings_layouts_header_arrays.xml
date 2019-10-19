@@ -71,6 +71,7 @@
     <string-array name="settings_layout_header_manual_times_adjustments"  >
         <item>@string/settings_layouts_manual_times_adjustments_widget1</item>
         <item>@string/settings_layouts_manual_times_adjustments_widget2</item>
+        <item>@string/settings_layouts_manual_times_adjustments_widget8</item>
         <item>@string/settings_layouts_manual_times_adjustments_widget3</item>
         <item>@string/settings_layouts_manual_times_adjustments_widget4</item>
         <item>@string/settings_layouts_manual_times_adjustments_widget5</item>

@@ -159,6 +159,13 @@ public class _SET {
         settingsEditor.putBoolean("checked60212",true);
         settingsEditor.putBoolean("checked60215",true);
         settingsEditor.putBoolean("checked60218",true);
+        settingsEditor.putBoolean("status10300",false);
+        settingsEditor.putString("description10702", "0");
+        settingsEditor.putString("description10703", "0");
+        settingsEditor.putString("description10704", "0");
+        settingsEditor.putString("description10705", "0");
+        settingsEditor.putString("description10706", "0");
+        settingsEditor.putString("description10707", "0");
         settingsEditor.commit();
     }
 }

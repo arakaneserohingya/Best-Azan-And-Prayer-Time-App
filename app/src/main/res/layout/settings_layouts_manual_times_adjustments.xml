@@ -36,4 +36,8 @@
     android:background="@android:color/darker_gray"
     android:layout_width="match_parent"
     android:layout_height="0.5dp"/>
+    <include layout="@layout/settings_dialog_box"/><TextView
+    android:background="@android:color/darker_gray"
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"/>
 </LinearLayout>

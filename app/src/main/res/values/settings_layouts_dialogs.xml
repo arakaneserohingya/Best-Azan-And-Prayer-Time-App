@@ -9,7 +9,6 @@
         <item>@string/settings_dialogs_prayer_calculations_methods5</item>
         <item>@string/settings_dialogs_prayer_calculations_methods6</item>
         <item>@string/settings_dialogs_prayer_calculations_methods7</item>
-        <item>@string/settings_dialogs_prayer_calculations_methods8</item>
     </string-array>
     <string-array name="asr_methods" >
         <item>@string/settings_dialogs_asr_methods1</item>
@@ -33,5 +32,9 @@
         <item>@string/settings_dialogs_notification_audio_type2</item>
         <item>@string/settings_dialogs_notification_audio_type3</item>
         <item>@string/settings_dialogs_notification_audio_type4</item>
+    </string-array>
+    <string-array name="jumuah_time_different_array" >
+        <item>@string/settings_dialogs_jumuah_time_different_array1</item>
+        <item>@string/settings_dialogs_jumuah_time_different_array2</item>
     </string-array>
 </resources>

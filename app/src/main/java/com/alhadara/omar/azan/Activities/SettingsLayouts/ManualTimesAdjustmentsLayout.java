@@ -2,13 +2,22 @@ package com.alhadara.omar.azan.Activities.SettingsLayouts;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.SeekBarDialog;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
+
+import java.util.Calendar;
 
 public class ManualTimesAdjustmentsLayout extends LinearLayout {
     private Activity activity;
@@ -36,12 +45,34 @@ public class ManualTimesAdjustmentsLayout extends LinearLayout {
         }
     }
 
-    private void clicker(final View sublayout,final int k) {
-        sublayout.setOnClickListener(new OnClickListener() {
+    private void clicker(final ViewGroup group,final int k) {
+        group.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(k>0 && k<7){
+                    SeekBarDialog dialog = new SeekBarDialog(activity, Times.adjustTimesFile,"adjust_"+(k-1),((TextView)group.getChildAt(0)).getText().toString());
+                    dialog.initialize(-60, 60, new SeekBarDialog.run() {
+                        @Override
+                        public void go(int checked) {
+                            Configurations.updateTimes(activity);
+                            AlarmsScheduler.fire(activity, Calendar.getInstance());
+                            _SET.setDescription(group,Integer.toString(checked));
+                        }
+                    });
+                    dialog.show();
+                }
+                else if(k==7){
+                    SharedPreferences p = activity.getSharedPreferences(Times.adjustTimesFile,Context.MODE_PRIVATE);
+                    SharedPreferences.Editor e = p.edit();
+                    for(int i=2;i<8;i++){
+                        e.putInt("adjust_" +(i-2),0);
+                        _SET.setDescription((ViewGroup) findViewById(10700 + i),"0");
+                    }
+                    e.commit();
+                    Toast.makeText(activity,getResources().getString(R.string.adjustments_is_reset),Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        if(k>0 && k<7) _SET.setDescription(group);
     }
 }

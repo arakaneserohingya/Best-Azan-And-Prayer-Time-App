@@ -65,6 +65,20 @@ public class RadioDialog extends AlertDialog.Builder {
         });
     }
 
+    public void initialize(String[] shownItems, final boolean[] values, final run onSelect) {
+        if(preferences.getBoolean(filekey,false) == values[0]) checkeditem =0;
+        else checkeditem = 1;
+        this.setSingleChoiceItems(shownItems, checkeditem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                editor.putBoolean(filekey,values[i]);
+                editor.commit();
+                onSelect.go(i);
+                dialogInterface.dismiss();
+            }
+        });
+    }
+
     public interface run{
         void go(int checked);
     }

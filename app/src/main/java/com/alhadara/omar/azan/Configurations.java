@@ -54,19 +54,7 @@ public class Configurations {
     public static void updateTimes(Context context){
         if(!isLocationAssigned(context)) return;
         Times.initializeTimesForCurrent(context);
-        adjustTimes(context);
         reloadMainActivityOnResume = true;
-    }
-    private static void adjustTimes(Context context){
-        SharedPreferences delayTimesPref = context.getSharedPreferences("delaytime.txt",Context.MODE_PRIVATE);
-        int delay;
-        for (int i=0;i<6;i++) {
-            delay = delayTimesPref.getInt(Integer.toString(i),0);
-            if(delay != 0) {
-                Toast.makeText(context, "تعديل وقت " + context.getResources().getStringArray(R.array.prayer_time)[i] + " بمقدار" + delay + " دقيقة", Toast.LENGTH_SHORT).show();
-                Times.applyDelay(i,delay);
-            }
-        }
     }
 
     public static boolean isLocationAssigned(Context context){
