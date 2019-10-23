@@ -9,17 +9,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 
 import androidx.core.app.AlarmManagerCompat;
 
 import com.alhadara.omar.azan.Configurations;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Locations._LocationSET;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class AlarmsScheduler extends BroadcastReceiver {
@@ -87,7 +85,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         else manager.cancel(pendingIntent);
     }
     public static void fire(Context context,Calendar cal){
-        if(!Configurations.isLocationAssigned(context)) return;
+        if(!_LocationSET.isLocationAssigned(context)) return;
         Intent in = new Intent(context, AlarmsScheduler.class);
         cal.add(Calendar.SECOND,3);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);

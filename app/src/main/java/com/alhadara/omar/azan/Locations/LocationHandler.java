@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Locations;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.alhadara.omar.azan.Activities.UpdateCurrentLocationActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -20,7 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LocationHandler {
 
-    static final int ACCESS_LOCATION_PERMISSION = 1;
+    public static final int ACCESS_LOCATION_PERMISSION = 1;
     public boolean NEW_LOCATION_FLAG;
     private LocationRequest locationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -63,7 +62,7 @@ public class LocationHandler {
 
                         editor.putFloat("latitude",(float) location.getLatitude());
                         editor.putFloat("longitude",(float) location.getLongitude());
-                        editor.putFloat("timezone",TM.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
+                        editor.putFloat("timezone", _LocationSET.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
                         editor.putBoolean("islocationassigned",true);
                         editor.commit();
                     }
@@ -81,7 +80,7 @@ public class LocationHandler {
 
                 editor.putFloat("latitude",(float) location.getLatitude());
                 editor.putFloat("longitude",(float) location.getLongitude());
-                editor.putFloat("timezone",TM.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
+                editor.putFloat("timezone", _LocationSET.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
                 editor.putBoolean("islocationassigned",true);
                 editor.commit();
                 finish();

@@ -1,12 +1,11 @@
 package com.alhadara.omar.azan;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
-import android.widget.Toast;
 
-import com.example.omar.azanapkmostafa.R;
+import com.alhadara.omar.azan.Locations._LocationSET;
 
 
 import java.util.Locale;
@@ -14,7 +13,7 @@ import java.util.Locale;
 
 public class Configurations {
     private static boolean reloadMainActivityOnResume = false;
-    public static String mainConFile = "mainconfigurations.txt";
+    public static String displayFile = "display.txt";
 
 
     public static void setReloadMainActivityOnResume(boolean bool) {
@@ -24,15 +23,16 @@ public class Configurations {
         return reloadMainActivityOnResume;
     }
 
-    public static void initializeMainConfigurations(Context context){
-        updateTimes(context);
-        setLanguagePreferences(context);
+    public static void initializeMainConfigurations(Activity ac){
+        _LocationSET.checkCurrentLocation(ac);
+        updateTimes(ac);
+        setLanguagePreferences(ac);
         reloadMainActivityOnResume = false;
     }
 
 
     public static void setLanguagePreferences(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(displayFile,Context.MODE_PRIVATE);
         Configuration configuration = context.getResources().getConfiguration();
         Locale locale = new Locale(pref.getString("language","en"));
         configuration.setLocale(locale);
@@ -50,19 +50,9 @@ public class Configurations {
         editor.commit();
     }
     public static void updateTimes(Context context){
-        if(!isLocationAssigned(context)) return;
+        if(!_LocationSET.isLocationAssigned(context)) return;
         Times.initializeTimesForCurrent(context);
         reloadMainActivityOnResume = true;
-    }
-
-    public static boolean isLocationAssigned(Context context){
-        return context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE).getBoolean("islocationassigned",false);
-    }
-    public static void setLocationAssigned(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("islocationassigned",true);
-        editor.commit();
     }
 
     public static void clearFile(Context context,String s) {

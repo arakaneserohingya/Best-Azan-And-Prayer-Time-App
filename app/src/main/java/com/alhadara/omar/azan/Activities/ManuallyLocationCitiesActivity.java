@@ -11,11 +11,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alhadara.omar.azan.CountriesRecyclerViewAdapter;
-import com.alhadara.omar.azan.TM;
-import com.alhadara.omar.azan.TimezoneMapper;
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.example.omar.azanapkmostafa.R;
 import com.opencsv.CSVReader;
 
@@ -23,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 public class ManuallyLocationCitiesActivity extends AppCompatActivity {
 
@@ -100,7 +97,7 @@ public class ManuallyLocationCitiesActivity extends AppCompatActivity {
         editor.putString("location_name",s);
         editor.putFloat("latitude",latitude);
         editor.putFloat("longitude",longitude);
-        editor.putFloat("timezone",TM.getTimeOffset(latitude,longitude));
+        editor.putFloat("timezone", _LocationSET.getTimeOffset(latitude,longitude));
         editor.putBoolean("islocationassigned",true);
         editor.commit();
         finish();

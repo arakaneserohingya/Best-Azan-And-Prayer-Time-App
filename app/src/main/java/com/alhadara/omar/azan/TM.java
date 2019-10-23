@@ -65,13 +65,4 @@ public class TM {
         DateFormat date = new SimpleDateFormat("Z");
         return (float) (Float.parseFloat((date.format(currentLocalTime).substring(1))) / 100.00);
     }
-    public static float getTimeOffset(float latitude, float longitude) {
-        Calendar mCalendar = new GregorianCalendar();
-        TimeZone mTimeZone = TimeZone.getTimeZone(TimezoneMapper.latLngToTimezoneString(latitude,longitude));
-        int mGMTOffset = mTimeZone.getRawOffset();
-        if (mTimeZone.inDaylightTime(mCalendar.getTime())){
-            mGMTOffset += mTimeZone.getDSTSavings();
-        }
-        return TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
-    }
 }

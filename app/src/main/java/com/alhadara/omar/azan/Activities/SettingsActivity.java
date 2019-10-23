@@ -11,8 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Settings._SET;
-import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
 
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     intent.putExtra("index",z);
                     intent.putExtra("title",((TextView) group.getChildAt(k).findViewById(R.id.settings_box_header)).getText().toString());
-                    if((k==0||k==3||k==4||k==5) && !Configurations.isLocationAssigned(SettingsActivity.this))
+                    if((k==0||k==3||k==4||k==5) && !_LocationSET.isLocationAssigned(SettingsActivity.this))
                         Toast.makeText(SettingsActivity.this,getResources().getString(R.string.please_set_location_first),Toast.LENGTH_SHORT).show();
                     else startActivity(intent);
                 }

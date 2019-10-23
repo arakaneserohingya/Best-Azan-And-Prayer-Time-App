@@ -1,18 +1,14 @@
 package com.alhadara.omar.azan;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -24,7 +20,7 @@ public class Times {
     public static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
     public static int[] iqamaTimes = {30,0,20,20,5,5};
     public static void initializeTimesForCurrent(Context context){
-        times = initializeTimesFor(context,Configurations.mainConFile,Calendar.getInstance());
+        times = initializeTimesFor(context, _LocationSET.currentLocation,Calendar.getInstance());
     }
     public static String[] initializeTimesFor(Context context,String locationFile, Calendar time){
         firsttime(context);

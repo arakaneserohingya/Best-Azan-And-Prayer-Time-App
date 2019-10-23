@@ -31,6 +31,7 @@ import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.RadioDialog;
 import com.alhadara.omar.azan.SeekBarDialog;
 import com.alhadara.omar.azan.Times;
@@ -278,7 +279,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
             @Override
             public void onClick(View view) {
                 if(k==0 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity, Configurations.mainConFile,"language",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Configurations.displayFile,"language",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"English", "عربي"}, new String[]{"en", "ar"}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -289,7 +290,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==1&& layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Configurations.mainConFile,"numbers_language",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Configurations.displayFile,"numbers_language",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"English","عربي",activity.getResources().getString(R.string.app_language)}, new int[]{0,1,2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -299,7 +300,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==2 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Configurations.mainConFile,"theme",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Configurations.displayFile,"theme",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(activity.getResources().getStringArray(R.array.app_theme), new int[]{0,1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -309,7 +310,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==3 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Configurations.mainConFile,"font",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Configurations.displayFile,"font",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(activity.getResources().getStringArray(R.array.app_font), new int[]{0,1,2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -320,14 +321,14 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
                 else if(k==4 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(Configurations.mainConFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(Configurations.displayFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("time24",_SET.isChecked(group));
                     editor.commit();
                     Configurations.setReloadMainActivityOnResume(true);
                 }
                 else if(layoutNumber == DISPLAY_OPTIONS_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Configurations.mainConFile,"widget_theme_"+(k-5),((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Configurations.displayFile,"widget_theme_"+(k-5),((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(activity.getResources().getStringArray(R.array.widget_theme), new int[]{0,1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -428,7 +429,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 else if(k==0 && layoutNumber ==HIJRI_LAYOUT_NUM){
 
                 }else if(layoutNumber ==HIJRI_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity, Configurations.mainConFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, Times.adjustTimesFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"+2", "+1", "0", "-1", "-2"}, new int[]{2, 1, 0, -1, -2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {

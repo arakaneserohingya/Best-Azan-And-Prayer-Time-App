@@ -434,6 +434,7 @@
     <string name="settings_layout_titles_prayer_notification_tone_title1" >@string/asr</string>
     <string name="settings_layout_titles_prayer_times_title1" >@string/calculations</string>
     <string name="settings_layout_titles_silent_title1" >@string/silent_mode</string>
+    <string name="current_location_not_found">Your current location so the app will use the last known location ont the device.\nIf it was wrong, try again agter restarting the device.</string>
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>

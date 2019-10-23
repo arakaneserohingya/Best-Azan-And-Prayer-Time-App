@@ -1,9 +1,7 @@
 package com.alhadara.omar.azan.Activities;
 
-import android.Manifest;
 import android.content.Intent;
 
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Configurations;
-import com.alhadara.omar.azan.Constants;
-import com.alhadara.omar.azan.LocationHandler;
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
@@ -106,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initializeTimePoints() {
-        if(!Configurations.isLocationAssigned(this)) return;
+        if(!_LocationSET.isLocationAssigned(this)) return;
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
         ViewGroup timepoint;
         for (int i = 0; i < 6; i++) {
@@ -172,7 +168,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public void startTimer() {
-        if(!Configurations.isLocationAssigned(this)) return;
+        if(!_LocationSET.isLocationAssigned(this)) return;
         handler = new Handler();
         runnable = new Runnable() {
             @Override
