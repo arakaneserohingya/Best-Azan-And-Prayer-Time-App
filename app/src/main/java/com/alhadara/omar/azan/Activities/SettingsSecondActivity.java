@@ -3,23 +3,17 @@ package com.alhadara.omar.azan.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.alhadara.omar.azan.Activities.SettingsLayouts.BackupRestoreLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.DisplayOptions;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.FajrSahoorAlarmLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.HijriLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.NotificationsLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerTimesLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.SilentLayout;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
 
 public class SettingsSecondActivity extends AppCompatActivity {
@@ -40,7 +34,13 @@ public class SettingsSecondActivity extends AppCompatActivity {
         return true;
     }
     private void setLayout(){
-        ViewGroup scroll = findViewById(R.id.settings_second_activity_scrollview);
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("title"));
+        RecyclerView recyclerView = findViewById(R.id.settings_second_activity_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemViewCacheSize(0);
+        recyclerView.setAdapter(new SettingsRecyclerViewAdapter(this,getIntent().getExtras().getInt("index")));
+
+        /*ViewGroup scroll = findViewById(R.id.settings_second_activity_scrollview);
         if(getIntent().getExtras().getInt("index") == 0){
             getSupportActionBar().setTitle(getResources().getString(R.string.settings_prayer_times_title));
             PrayerTimesLayout layout = new PrayerTimesLayout(this);
@@ -70,7 +70,7 @@ public class SettingsSecondActivity extends AppCompatActivity {
             BackupRestoreLayout layout = new BackupRestoreLayout(this);
             scroll.addView(layout);
         }
-
+*/
     }
 
     @Override

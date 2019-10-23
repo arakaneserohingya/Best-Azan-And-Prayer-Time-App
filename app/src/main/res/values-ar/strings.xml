@@ -415,6 +415,26 @@
     <string name="settings_dialogs_jumuah_time_different_array2">Choose different time</string>
     <string name="adjustments_is_reset">Times adjustments is reset</string>
 
+    <string name="settings_layouts_notifications_title1">@string/prayer_notification</string>
+    <string name="settings_layouts_notifications_title2">@string/iqama_reminders</string>
+    <string name="settings_layouts_notifications_title3">@string/general</string>
+    <string name="settings_layout_titles_backup_and_restore_title1" >@string/settings</string>
+    <string name="settings_layout_titles_backup_and_restore_title2" >@string/locations</string>
+    <string name="settings_layout_titles_display_options_title1" >@string/app_options</string>
+    <string name="settings_layout_titles_display_options_title2" >@string/widgets_options</string>
+    <string name="settings_layout_titles_fajr_and_sahoor_alarms_title1" >@string/alarm_settings</string>
+    <string name="settings_layout_titles_hijri_title1">@string/hijri_calendar</string>
+    <string name="settings_layout_titles_manual_times_adjustments_title1" >@string/adjustments</string>
+    <string name="settings_layout_titles_prayer_notification_time_title1" >@string/fajr</string>
+    <string name="settings_layout_titles_prayer_notification_time_title2" >@string/zuhr</string>
+    <string name="settings_layout_titles_prayer_notification_time_title3" >@string/asr</string>
+    <string name="settings_layout_titles_prayer_notification_time_title4" >@string/magrib</string>
+    <string name="settings_layout_titles_prayer_notification_time_title5" >@string/isha</string>
+    <string name="settings_layout_titles_prayer_notification_time_title6" >@string/jumuah</string>
+    <string name="settings_layout_titles_prayer_notification_tone_title1" >@string/asr</string>
+    <string name="settings_layout_titles_prayer_times_title1" >@string/calculations</string>
+    <string name="settings_layout_titles_silent_title1" >@string/silent_mode</string>
+
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>
         <item>@string/prayer_time_notification2</item>

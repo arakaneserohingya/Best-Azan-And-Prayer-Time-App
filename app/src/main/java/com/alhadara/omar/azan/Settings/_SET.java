@@ -1,11 +1,15 @@
-package com.alhadara.omar.azan.Activities.SettingsLayouts;
+package com.alhadara.omar.azan.Settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Times;
@@ -15,6 +19,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class _SET {
     private final static String settingsFile = "settings.txt";
+    private final static String displayFile = "display.txt";
     private static SharedPreferences settingsPref;
     private static SharedPreferences.Editor settingsEditor;
     public static void startSettings(Activity settingsAc){
@@ -22,6 +27,7 @@ public class _SET {
         settingsEditor = settingsPref.edit();
         if(settingsPref.getBoolean("firsttime",true)) firstTime();
     }
+
 
 
     public static boolean isActivated(View view){
@@ -37,18 +43,37 @@ public class _SET {
         view.setClickable(bool);
         view.setAlpha(bool?1.0f:0.2f);
     }
+    public static void setStatus(Activity activity, int id, boolean bool) {
+        settingsEditor.putBoolean("status"+id,bool);
+        settingsEditor.commit();
+        if(activity.findViewById(id) != null){
+            activity.findViewById(id).setClickable(false);
+            activity.findViewById(id).setAlpha(bool?1.0f:0.2f);
+        }
+    }
     public static boolean isChecked(View view) {
         return settingsPref.getBoolean("checked"+view.getId(),false);
     }
-    public static void setCheckBox(View view) {
-        CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
+    public static boolean isChecked(int id) {
+        return settingsPref.getBoolean("checked"+id,false);
+    }
+    public static void setCheckBox(ViewGroup view) {
+        CheckBox box = (CheckBox) view.getChildAt(2);
         box.setChecked(isChecked(view));
     }
-    public static void setCheckBox(View view,boolean bool) {
-        CheckBox box = view.findViewById(R.id.settings_check_box_checkbox);
+    public static void setCheckBox(ViewGroup view,boolean bool) {
+        CheckBox box = (CheckBox) view.getChildAt(2);
         box.setChecked(bool);
         settingsEditor.putBoolean("checked"+view.getId(),bool);
         settingsEditor.commit();
+    }
+    public static void setCheckBox(Activity activity, int id, boolean bool) {
+        settingsEditor.putBoolean("checked"+id,bool);
+        settingsEditor.commit();
+        if(activity.findViewById(id)!=null){
+            CheckBox box = (CheckBox) ((ViewGroup)activity.findViewById(id)).getChildAt(2);
+            box.setChecked(bool);
+        }
     }
     public static void setDescription(ViewGroup group) {
         ((TextView) group.getChildAt(1)).setText(((TextView) group.getChildAt(1)).getText().toString() +settingsPref.getString("description"+group.getId(),""));
@@ -59,6 +84,24 @@ public class _SET {
         settingsEditor.putString("description"+group.getId(),description);
         settingsEditor.commit();
         ((TextView) group.getChildAt(1)).setText(apex + description);
+    }
+    public static void setDescription(Activity activity,int id,String description) {
+        settingsEditor.putString("description"+id,description);
+        settingsEditor.commit();
+        ViewGroup group = activity.findViewById(id);
+        if(group != null) {
+            String lastDesc = settingsPref.getString("description" + group.getId(), "");
+            String apex = ((TextView) group.getChildAt(1)).getText().toString().replace(lastDesc, "");
+            ((TextView) group.getChildAt(1)).setText(apex + description);
+        }
+    }
+    public static Typeface getTypeFace(Context context) {
+        switch (context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("font",0)){
+            case 0: return ResourcesCompat.getFont(context, R.font.general);
+            case 1: return Typeface.create("sans-serif-medium",Typeface.NORMAL);
+            case 2: return Typeface.create("sans-serif-medium",Typeface.BOLD);
+            default: return ResourcesCompat.getFont(context, R.font.general);
+        }
     }
     public static int generateViewID(int l1,int l2,int l3){
         return (l1*10000)+(l2*100)+(l3);

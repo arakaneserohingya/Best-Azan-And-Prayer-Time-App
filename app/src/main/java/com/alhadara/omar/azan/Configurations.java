@@ -35,11 +35,9 @@ public class Configurations {
         SharedPreferences pref = context.getSharedPreferences(mainConFile,Context.MODE_PRIVATE);
         Configuration configuration = context.getResources().getConfiguration();
         Locale locale = new Locale(pref.getString("language","en"));
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
-            configuration.setLocale(locale);
-            configuration.setLayoutDirection(locale);
-            context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
-        }
+        configuration.setLocale(locale);
+        configuration.setLayoutDirection(locale);
+        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
     }
     public static boolean isAlarmActivated(Context context,String type, int index){
         return context.getSharedPreferences(type + ".txt",Context.MODE_PRIVATE)

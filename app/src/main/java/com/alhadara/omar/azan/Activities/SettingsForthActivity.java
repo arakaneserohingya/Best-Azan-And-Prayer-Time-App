@@ -3,6 +3,8 @@ package com.alhadara.omar.azan.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,12 +12,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationToneEachLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts._SET;
-import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
 
 public class SettingsForthActivity extends AppCompatActivity {
@@ -32,9 +31,11 @@ public class SettingsForthActivity extends AppCompatActivity {
     }
 
     private void setLayout() {
-        ViewGroup scroll = findViewById(R.id.settings_forth_activity_scrollview);
-        PrayerNotificationToneEachLayout layout = new PrayerNotificationToneEachLayout(this);
-        scroll.addView(layout);
+        RecyclerView recyclerView = findViewById(R.id.settings_forth_activity_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemViewCacheSize(0);
+        recyclerView.setAdapter(new SettingsRecyclerViewAdapter(this,SettingsRecyclerViewAdapter.PRAYER_NOTIFICATIONS_TONE_EACH_LAYOUT_NUM));
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("title"));
     }
 
     @Override

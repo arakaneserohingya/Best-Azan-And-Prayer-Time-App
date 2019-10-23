@@ -3,6 +3,8 @@ package com.alhadara.omar.azan.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,21 +12,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.alhadara.omar.azan.Activities.SettingsLayouts.IqamaReminderTimesLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.IqamaReminderToneLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.ManualTimesAdjustmentsLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationTimesLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.PrayerNotificationToneLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts.SilentTimeSettingsLayout;
-import com.alhadara.omar.azan.Activities.SettingsLayouts._SET;
-import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
-
-import java.io.File;
-import java.net.URLDecoder;
 
 public class SettingsThirdActivity extends AppCompatActivity {
 
@@ -44,34 +35,11 @@ public class SettingsThirdActivity extends AppCompatActivity {
         return true;
     }
     private void setLayout() {
-        ViewGroup scroll = findViewById(R.id.settings_third_activity_scrollview);
-        int i = getIntent().getExtras().getInt("layout");
-        int j = getIntent().getExtras().getInt("key");
-        if(i==0&&j==6){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_manual_times_adjustments_title));
-            ManualTimesAdjustmentsLayout layout = new ManualTimesAdjustmentsLayout(this);
-            scroll.addView(layout);
-        }else if(i==3&&j==0){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_prayer_notification_time_title));
-            PrayerNotificationTimesLayout layout = new PrayerNotificationTimesLayout(this);
-            scroll.addView(layout);
-        }else if(i==3&&j==3){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_prayer_notification_tone_title));
-            PrayerNotificationToneLayout layout = new PrayerNotificationToneLayout(this);
-            scroll.addView(layout);
-        }else if(i==3&&j==6){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_iqama_reminder_time_title));
-            IqamaReminderTimesLayout layout = new IqamaReminderTimesLayout(this);
-            scroll.addView(layout);
-        }else if(i==3&&j==9){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_iqama_reminder_tone_title));
-            IqamaReminderToneLayout layout = new IqamaReminderToneLayout(this);
-            scroll.addView(layout);
-        }else if(i==5&&j==1){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_silent_time_settings_title));
-            SilentTimeSettingsLayout layout = new SilentTimeSettingsLayout(this);
-            scroll.addView(layout);
-        }
+        RecyclerView recyclerView = findViewById(R.id.settings_third_activity_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemViewCacheSize(0);
+        recyclerView.setAdapter(new SettingsRecyclerViewAdapter(this,getIntent().getExtras().getInt("index")));
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("title"));
     }
 
     @Override
