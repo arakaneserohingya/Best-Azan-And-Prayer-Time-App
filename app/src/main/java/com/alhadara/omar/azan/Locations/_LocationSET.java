@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -27,53 +29,78 @@ import java.util.concurrent.TimeUnit;
 
 public class _LocationSET {
 
+    public static final int ACCESS_LOCATION_PERMISSION = 1;
+    private static boolean IS_PERMISSION_REQUEST_HAD_SHOWN_BEFORE = false; // true if permission request shown for one run time
     public final static String locationsFile = "locations.txt";
-    public static String currentLocation = "currentlocation.txt";
+    public final static String currentLocation = "currentlocation.txt";
+    private static Runnable onUpdateLocationTimesUp;
+    public final static int GPS_REQUEST = 1,NETWORK_REQUEST =2,GPS_AND_NETWORK_REQUEST=3;
 
-    public static void getLocationFromNetwork(final Activity activity, final String tempLocationFile, final locationSuccess success) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        final AlertDialog alertDialog = builder.setMessage("Updating location ...").create();
-        alertDialog.show();
-        final LocationHandler locationHandler = new LocationHandler(activity, activity.getApplicationContext(), tempLocationFile, 2000);
+    public static void getLocation(final Activity activity, final String tempLocationFile,int request_type, final locationUpdateResult todo) {
         final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            int i = 0;
-
+        final AlertDialog builder = new AlertDialog.Builder(activity).create();
+        builder.setMessage("Updating Location...");
+        final LocationManager locationManger = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        final LocationListener listener = new LocationListener() {
             @Override
-            public void run() {
-                if (!locationHandler.NEW_LOCATION_FLAG && i < 10) {
-                    handler.postDelayed(this, 1000);
-                    i++;
-                    if (!alertDialog.isShowing()) alertDialog.show();
-                    success.onFail();
-                } else if (!locationHandler.NEW_LOCATION_FLAG) {
-                    Toast.makeText(activity, "Location update failed!", Toast.LENGTH_SHORT).show();
-                    locationHandler.finish();
-                    if (alertDialog.isShowing()) alertDialog.cancel();
-                    success.onFail();
-                } else {
-
-                    Toast.makeText(activity, "Location Updated successfully!", Toast.LENGTH_SHORT).show();
-                    if (alertDialog.isShowing()) alertDialog.cancel();
-                    success.onSuccess();
-                    //LocationsActivity.assignLocation(activity, tempLocationFile, LocationsActivity.lastLocation);
+            public void onLocationChanged(Location location) {
+                if (location != null) {
+                    handler.removeCallbacks(onUpdateLocationTimesUp);
+                    builder.cancel();
+                    assignLocation(activity, location, tempLocationFile);
+                    todo.onSuccess();
+                    locationManger.removeUpdates(this);
                 }
             }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
         };
-        handler.postDelayed(runnable,1000);
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        onUpdateLocationTimesUp = new Runnable() {
+            @Override
+            public void run() {
+                builder.cancel();
+                todo.onFail();
+                locationManger.removeUpdates(listener);
+            }
+        };
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                handler.removeCallbacks(runnable);
             }
         });
+       if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+               && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+           // TODO: Consider calling
+           //    Activity#requestPermissions
+           // here to request the missing permissions, and then overriding
+           //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+           //                                          int[] grantResults)
+           // to handle the case where the user grants the permission. See the documentation
+           // for Activity#requestPermissions for more details.
+           todo.onFail();
+           return;
+       }
+       builder.show();
+        if(request_type == NETWORK_REQUEST || request_type == GPS_AND_NETWORK_REQUEST)
+            locationManger.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+       if(request_type == GPS_REQUEST || request_type == GPS_AND_NETWORK_REQUEST)
+           locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+       handler.postDelayed(onUpdateLocationTimesUp,20000);
     }
-
     public static boolean getLastLocation(Activity activity, String tempLocationFile) {
-        final boolean[] b = new boolean[] {false};
-        final SharedPreferences temp = activity.getSharedPreferences(tempLocationFile, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = temp.edit();
         LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -81,13 +108,11 @@ public class _LocationSET {
                 // Permission is not granted
 
                 // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(activity,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LocationHandler.ACCESS_LOCATION_PERMISSION);
 
                 // ACCESS_LOCATION_PERMISSION is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
+                return false;
             }
             Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Location location;
@@ -96,16 +121,13 @@ public class _LocationSET {
             } else {
                 location =  locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             }
-            editor.putFloat("latitude",(float) location.getLatitude());
-            editor.putFloat("longitude",(float) location.getLongitude());
-            editor.putFloat("timezone", getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
-            editor.putBoolean("islocationassigned",true);
-            editor.commit();
-            b[0] = true;
+            if(location !=null) {
+                assignLocation(activity, location, tempLocationFile);
+                return true;
+            }
         }
-        return b[0];
+        return false;
     }
-
     public static boolean assignLocation(Context context, String from, String to){
         SharedPreferences From = context.getSharedPreferences(from, Context.MODE_PRIVATE);
         SharedPreferences To = context.getSharedPreferences(to, Context.MODE_PRIVATE);
@@ -122,32 +144,103 @@ public class _LocationSET {
         editor.commit();
         return true;
     }
+    public static boolean assignLocation(Context context, Location from, String to){
 
+        SharedPreferences To = context.getSharedPreferences(to, Context.MODE_PRIVATE);
+        if(from == null){
+
+            return false;
+        }
+        SharedPreferences.Editor editor = To.edit();
+        editor.putString("location_name","");
+        editor.putFloat("latitude", (float) from.getLatitude());
+        editor.putFloat("longitude", (float) from.getLongitude());
+        editor.putFloat("timezone",getTimeOffset((float) from.getLatitude(),(float) from.getLongitude()));
+        editor.putBoolean("islocationassigned",true);
+        editor.commit();
+        return true;
+    }
     public static void checkCurrentLocation(final Activity activity) {
         if(!isLocationAssigned(activity)){
-            getLocationFromNetwork(activity, currentLocation, new locationSuccess() {
+            getLocationWithRequests(activity, currentLocation, new locationUpdateResult() {
                 @Override
                 public void onSuccess() {
                     activity.recreate();
+                    Toast.makeText(activity,"Location updated successfully!",Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFail() {
-                    getLastLocation(activity,currentLocation);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setMessage(activity.getResources().getString(R.string.current_location_not_found));
-                    builder.setNeutralButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    activity.recreate();
+                    if(getLastLocation(activity, currentLocation)){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setMessage(activity.getResources().getString(R.string.current_location_not_found));
+                        builder.setNeutralButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.show();
+                        activity.recreate();
+                    }else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setMessage(activity.getResources().getString(R.string.current_location_not_found));
+                        builder.setNeutralButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }
+
                 }
             });
         }
     }
+    public static void getRequests(final Activity activity){
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED )
+        ActivityCompat.requestPermissions(activity,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                ACCESS_LOCATION_PERMISSION);
+    }
+    public static void getLocationWithRequests(final Activity activity, final String tempLocationFile, final locationUpdateResult result){
+        final Handler handler = new Handler();
+        final AlertDialog builder = new AlertDialog.Builder(activity).create();
+        builder.setMessage("Updating Location...");
+        builder.show();
+        builder.setCancelable(false);
+        Runnable runnable = new Runnable() {
+            int i=0;
+            @Override
+            public void run() {
+                ++i;
+                if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED ) {
+                    builder.cancel();
+                    getLocation(activity,tempLocationFile,GPS_AND_NETWORK_REQUEST,result);
+                    Toast.makeText(activity,"Thanksss you!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(i==15 /* i==10 -> 5 sec*/) {
 
+                    Toast.makeText(activity,"bashh you!",Toast.LENGTH_SHORT).show();
+                    builder.cancel();
+                    result.onFail();
+                    return;
+                }
+                if(!IS_PERMISSION_REQUEST_HAD_SHOWN_BEFORE){
+                    IS_PERMISSION_REQUEST_HAD_SHOWN_BEFORE = true;
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            ACCESS_LOCATION_PERMISSION);
+                }
+                handler.postDelayed(this,500);
+            }
+        };
+        handler.postDelayed(runnable,0);
+    }
     public static void addToLocationsFile(Context context, String id) {
         SharedPreferences locations = context.getSharedPreferences(locationsFile, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = locations.edit();
@@ -156,7 +249,6 @@ public class _LocationSET {
         editor.putInt("locationsnumber",index);
         editor.commit();
     }
-
     public static void removeFromLocationsFile(Context context, int i) {
         SharedPreferences locations = context.getSharedPreferences(locationsFile, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = locations.edit();
@@ -223,7 +315,14 @@ public class _LocationSET {
         return TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
     }
 
-    public interface locationSuccess{
+    public static void clearTempLocationFile(Context context, String s) {
+        SharedPreferences pref = context.getSharedPreferences(s,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    public interface locationUpdateResult {
         void onSuccess();
         void onFail();
     }

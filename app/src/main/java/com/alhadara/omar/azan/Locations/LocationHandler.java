@@ -3,7 +3,6 @@ package com.alhadara.omar.azan.Locations;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LocationHandler {
 
-    public static final int ACCESS_LOCATION_PERMISSION = 1;
     public boolean NEW_LOCATION_FLAG;
     private LocationRequest locationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -32,8 +30,6 @@ public class LocationHandler {
         locationRequest.setFastestInterval(interval);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         NEW_LOCATION_FLAG = false;
-        final SharedPreferences temp = activity.getSharedPreferences(tempLocationFile, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = temp.edit();
 
         //FusedLocationProviderClient fusedLocationProviderClient;
         //fusedLocationProviderClient.
@@ -45,7 +41,7 @@ public class LocationHandler {
             // No explanation needed; request the permission
             ActivityCompat.requestPermissions(activity,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    ACCESS_LOCATION_PERMISSION);
+                    _LocationSET.ACCESS_LOCATION_PERMISSION);
 
             // ACCESS_LOCATION_PERMISSION is an
             // app-defined int constant. The callback method gets the
@@ -60,11 +56,7 @@ public class LocationHandler {
                     @Override
                     public void onSuccess(android.location.Location location) {
 
-                        editor.putFloat("latitude",(float) location.getLatitude());
-                        editor.putFloat("longitude",(float) location.getLongitude());
-                        editor.putFloat("timezone", _LocationSET.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
-                        editor.putBoolean("islocationassigned",true);
-                        editor.commit();
+                        _LocationSET.assignLocation(activity,location,tempLocationFile);
                     }
                 });
 
@@ -78,11 +70,7 @@ public class LocationHandler {
                 android.location.Location location = locationResult.getLastLocation();
                 NEW_LOCATION_FLAG = true;
 
-                editor.putFloat("latitude",(float) location.getLatitude());
-                editor.putFloat("longitude",(float) location.getLongitude());
-                editor.putFloat("timezone", _LocationSET.getTimeOffset((float) location.getLatitude(),(float) location.getLongitude()));
-                editor.putBoolean("islocationassigned",true);
-                editor.commit();
+                _LocationSET.assignLocation(activity,location,tempLocationFile);
                 finish();
             }
 

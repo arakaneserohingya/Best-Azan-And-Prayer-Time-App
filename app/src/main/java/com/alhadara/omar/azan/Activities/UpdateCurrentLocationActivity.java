@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
-import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Locations._LocationSET;
+import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -34,7 +34,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.update_current_location));
         setTitleLocation();
-
+        _LocationSET.getRequests(this);
         findViewById(R.id.update_current_location_activity_internet_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.this_device_has_no_gps_equipment), Toast.LENGTH_SHORT).show();
                 else if (!_LocationSET.checkGpsEnabled(UpdateCurrentLocationActivity.this))
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.please_enable_gps_first), Toast.LENGTH_SHORT).show();
-                else _LocationSET.getLocationFromNetwork(UpdateCurrentLocationActivity.this, tempLocationFile, new _LocationSET.locationSuccess() {
+                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile,_LocationSET.GPS_REQUEST, new _LocationSET.locationUpdateResult() {
                         @Override
                         public void onSuccess() {
                             setTitleLocation();
@@ -82,6 +82,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                 alertDialog.show();
                 if(_LocationSET.getLastLocation(UpdateCurrentLocationActivity.this,tempLocationFile)){
                     setTitleLocation();
+                    alertDialog.cancel();
                     LocationsActivity.reloadLocationsActivityOnResume = true;
                 }
             }
@@ -91,7 +92,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!_LocationSET.checkNetworkAvailability(UpdateCurrentLocationActivity.this))
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.please_check_for_internet_connection), Toast.LENGTH_SHORT).show();
-                else _LocationSET.getLocationFromNetwork(UpdateCurrentLocationActivity.this, tempLocationFile, new _LocationSET.locationSuccess() {
+                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile,_LocationSET.NETWORK_REQUEST, new _LocationSET.locationUpdateResult() {
                     @Override
                     public void onSuccess() {
                         setTitleLocation();
@@ -112,8 +113,8 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     return;
                 }
                 _LocationSET.setLocationAssigned(UpdateCurrentLocationActivity.this);
-                Configurations.updateTimes(UpdateCurrentLocationActivity.this);
-                Configurations.setReloadMainActivityOnResume(true);
+                Times.updateTimes(UpdateCurrentLocationActivity.this);
+                MainActivity.reloadMainActivityOnResume = true;
                 LocationsActivity.reloadLocationsActivityOnResume = true;
                 AlarmsScheduler.fire(UpdateCurrentLocationActivity.this, Calendar.getInstance());
                 UpdateCurrentLocationActivity.this.finish();
@@ -142,13 +143,13 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        Configurations.clearFile(this,tempLocationFile);
+        _LocationSET.clearTempLocationFile(this,tempLocationFile);
         super.finish();
     }
 
     @Override
     protected void onStop() {
-        Configurations.clearFile(this,tempLocationFile);
+        _LocationSET.clearTempLocationFile(this,tempLocationFile);
         super.onStop();
     }
 
@@ -156,7 +157,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
     protected void onResume() {
         if(getSharedPreferences("temp.txt",MODE_PRIVATE).getBoolean("islocationassigned",false)){
             _LocationSET.assignLocation(UpdateCurrentLocationActivity.this,"temp.txt",tempLocationFile);
-            Configurations.clearFile(UpdateCurrentLocationActivity.this,"temp.txt");
+            _LocationSET.clearTempLocationFile(UpdateCurrentLocationActivity.this,"temp.txt");
             Toast.makeText(UpdateCurrentLocationActivity.this,"Location Updated successfully!",Toast.LENGTH_SHORT).show();
         }
         super.onResume();
