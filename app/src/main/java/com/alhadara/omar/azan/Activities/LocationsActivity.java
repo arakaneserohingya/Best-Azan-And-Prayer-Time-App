@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alhadara.omar.azan.Configurations;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
@@ -82,7 +81,7 @@ public class LocationsActivity extends AppCompatActivity {
         if(preferences.getBoolean("islocationassigned",false)) {
             _LocationSET.addLocationToSavedLocations(LocationsActivity.this,"newlocation.txt");
             reloadLocationsActivityOnResume = true;
-            Configurations.clearFile(this,"newlocation.txt");
+            _LocationSET.clearTempLocationFile(this,"newlocation.txt");
         }
         if(reloadLocationsActivityOnResume){
             reloadLocationsActivityOnResume = false;
@@ -118,12 +117,12 @@ public class LocationsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (i == 0) {
-                                Configurations.clearFile(LocationsActivity.this,locationID+".txt");
+                                _LocationSET.clearTempLocationFile(LocationsActivity.this,locationID+".txt");
                                 _LocationSET.removeFromLocationsFile(LocationsActivity.this,k);
                                 widget.setVisibility(View.GONE);
                             } else if(i==1){
                                 _LocationSET.assignLocation(LocationsActivity.this,locationID+".txt", _LocationSET.currentLocation);
-                                Configurations.setReloadMainActivityOnResume(true);
+                                MainActivity.reloadMainActivityOnResume = true;
                                 ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(((TextView)widget.getChildAt(0)).getText());
                             }
                         }

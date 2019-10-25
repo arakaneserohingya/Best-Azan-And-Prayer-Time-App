@@ -4,17 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,7 +18,8 @@ import android.widget.TextView;
 
 import com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
-import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.Display._DisplaySET;
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
@@ -39,7 +35,10 @@ public class SahoorActivity extends AppCompatActivity implements MediaPlayer.OnP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Configurations.initializeMainConfigurations(this);
+        _LocationSET.checkCurrentLocation(this);
+        Times.updateTimes(this);
+        _DisplaySET.setLanguagePreferences(this);
+        MainActivity.reloadMainActivityOnResume = false;
         setContentView(R.layout.activity_sahoor);
         ((AppCompatTextView) findViewById(R.id.sahoor_activity_fajr_time)).setText(getResources().getString(R.string.sahoor_activty_fajr_time_apex) + getFajrIn12());
         ((Button) findViewById(R.id.sahoor_activity_middle_ball)).setText((new SimpleDateFormat("hh:mm aa")).format(new Date()));

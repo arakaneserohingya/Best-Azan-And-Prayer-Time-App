@@ -1,7 +1,9 @@
 package com.alhadara.omar.azan.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -16,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
-import com.alhadara.omar.azan.Configurations;
-import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
@@ -27,6 +27,19 @@ public class TimePointSettingsActivity extends AppCompatActivity {
     private int index;
     private Handler handler;
     private Runnable runnable;
+
+    public static void setAlarmActivated(Context context, String type, int index, boolean isActivated) {
+        SharedPreferences pref = context.getSharedPreferences(type + ".txt", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(Integer.toString(index),isActivated);
+        editor.commit();
+    }
+
+    public static boolean isAlarmActivated(Context context, String type, int index){
+        return context.getSharedPreferences(type + ".txt", MODE_PRIVATE)
+                .getBoolean(Integer.toString(index),true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +62,14 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
         ((TextView) azanBox.findViewById(R.id.switch_box_text)).setText(getResources().getString(R.string.activate_azan_notifications));
         ((TextView) azanBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.choose_alarm_tone));
-        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"azan",index));
+        ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setChecked(isAlarmActivated(this,"azan",index));
         ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                 ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                Configurations.setAlarmActivated(getApplicationContext(),"azan",index,((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
+                setAlarmActivated(getApplicationContext(),"azan",index,((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
                 ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
             }
@@ -69,14 +82,14 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
         ((TextView) iqamaBox.findViewById(R.id.switch_box_text)).setText(getResources().getString(R.string.activate_iqama_notifications));
         ((TextView) iqamaBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.choose_alarm_tone));
-        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(Configurations.isAlarmActivated(this,"iqama",index));
+        ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setChecked(isAlarmActivated(this,"iqama",index));
         ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                 ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
         ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                Configurations.setAlarmActivated(getApplicationContext(),"iqama",index,((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked());
+                setAlarmActivated(getApplicationContext(),"iqama",index,((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked());
                 ((LinearLayout) iqamaBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
                         ((SwitchCompat) iqamaBox.findViewById(R.id.switch_box_trigger)).isChecked()? View.VISIBLE:View.GONE);
             }
@@ -102,7 +115,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         resetTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Configurations.resetTimeConfigurations(getApplicationContext());
+                //_DisplaySET.resetTimeConfigurations(getApplicationContext());
             }
         });
 

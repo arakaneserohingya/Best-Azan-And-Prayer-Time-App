@@ -9,10 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alhadara.omar.azan.Configurations;
-import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
@@ -49,7 +46,7 @@ public class AdjustTimesActivity extends AppCompatActivity {
                     Times.times[i] = times[i];
                     finish();
                 }
-                Configurations.setReloadMainActivityOnResume(true);
+                MainActivity.reloadMainActivityOnResume = true;
             }
         });
     }

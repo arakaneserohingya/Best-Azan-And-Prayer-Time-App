@@ -19,7 +19,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
-import com.alhadara.omar.azan.Configurations;
+import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
@@ -33,6 +33,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static boolean reloadMainActivityOnResume = false;
     private int upComingTimePoint;
     private Handler handler;
     private Runnable runnable;
@@ -41,7 +42,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Configurations.initializeMainConfigurations(this);
+
+        /*      Initialization Methods      */
+        _LocationSET.checkCurrentLocation(this);
+        Times.updateTimes(this);
+        _DisplaySET.setLanguagePreferences(this);
+        reloadMainActivityOnResume = false;
+        /*              ********            */
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -201,8 +210,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if(Configurations.getReloadMainActivityOnResume()){
-            Configurations.setReloadMainActivityOnResume(false);
+        if(reloadMainActivityOnResume){
+            reloadMainActivityOnResume = false;
             recreate();
         }
     }

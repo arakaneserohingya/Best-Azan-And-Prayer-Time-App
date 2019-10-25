@@ -4,6 +4,7 @@ package com.alhadara.omar.azan;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.alhadara.omar.azan.Activities.MainActivity;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
@@ -128,5 +129,9 @@ public class Times {
     }
 
 
-
+    public static void updateTimes(Context context){
+        if(!_LocationSET.isLocationAssigned(context)) return;
+        initializeTimesForCurrent(context);
+        MainActivity.reloadMainActivityOnResume = true;
+    }
 }
