@@ -4,13 +4,17 @@ import android.content.Intent;
 
 import android.content.res.Configuration;
 
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
+import android.util.LayoutDirection;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -144,7 +148,12 @@ public class MainActivity extends AppCompatActivity
         ((TextView) timepoint.findViewById(R.id.time_point_text)).setTypeface(_DisplaySET.getTypeFace(this));
         ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(TM.getPrayerPhaseString(this,i));
         ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setVisibility(_DisplaySET.isTime24(this)?View.GONE:View.VISIBLE);
-        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setTypeface(_DisplaySET.getTypeFace(this));
+        if(getResources().getConfiguration().getLayoutDirection() == LayoutDirection.LTR) {
+            View view = timepoint.findViewById(R.id.time_point_ampm);
+            ViewGroup layout = (ViewGroup) view.getParent();
+            layout.removeView(view);
+            layout.addView(view);
+        }
         ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(TM.getPrayerTimeString(this,i));
     }
 
