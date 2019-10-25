@@ -19,7 +19,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class _SET {
     private final static String settingsFile = "settings.txt";
-    private final static String displayFile = "display.txt";
     private static SharedPreferences settingsPref;
     private static SharedPreferences.Editor settingsEditor;
     public static void startSettings(Activity settingsAc){
@@ -95,14 +94,7 @@ public class _SET {
             ((TextView) group.getChildAt(1)).setText(apex + description);
         }
     }
-    public static Typeface getTypeFace(Context context) {
-        switch (context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("font",0)){
-            case 0: return ResourcesCompat.getFont(context, R.font.general);
-            case 1: return Typeface.create("sans-serif-medium",Typeface.NORMAL);
-            case 2: return Typeface.create("sans-serif-medium",Typeface.BOLD);
-            default: return ResourcesCompat.getFont(context, R.font.general);
-        }
-    }
+
     public static int generateViewID(int l1,int l2,int l3){
         return (l1*10000)+(l2*100)+(l3);
     }

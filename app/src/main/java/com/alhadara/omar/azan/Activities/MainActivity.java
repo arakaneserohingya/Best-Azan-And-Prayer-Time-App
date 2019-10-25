@@ -104,10 +104,13 @@ public class MainActivity extends AppCompatActivity
         UmmalquraCalendar hijCal = new UmmalquraCalendar();
         Calendar cal = Calendar.getInstance();
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(getResources().getStringArray(R.array.day_of_week)[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setTypeface(_DisplaySET.getTypeFace(this));
         ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(Integer.toString(hijCal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
         ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
     }
 
     public void initializeTimePoints() {
@@ -138,13 +141,11 @@ public class MainActivity extends AppCompatActivity
     public void attributingTimePoint(ViewGroup timepoint, int i) {
 
         ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
-        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(Integer.parseInt(Times.times[i].substring(0, 2))>12?"PM":"AM");
-        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(
-                (Integer.parseInt(Times.times[i].substring(0, 2))<13?
-                        Times.times[i].substring(0, 2):(Integer.parseInt(Times.times[i].substring(0, 2))-12)<10?
-                        "0" + (Integer.parseInt(Times.times[i].substring(0, 2))-12):
-                        Integer.toString(Integer.parseInt(Times.times[i].substring(0, 2))-12))
-                        + Times.times[i].substring(2, 5));
+        ((TextView) timepoint.findViewById(R.id.time_point_text)).setTypeface(_DisplaySET.getTypeFace(this));
+        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(TM.getPrayerPhaseString(this,i));
+        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setVisibility(_DisplaySET.isTime24(this)?View.GONE:View.VISIBLE);
+        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setTypeface(_DisplaySET.getTypeFace(this));
+        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(TM.getPrayerTimeString(this,i));
     }
 
     public void reorderTimePointForPortrait() {

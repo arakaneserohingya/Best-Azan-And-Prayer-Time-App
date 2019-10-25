@@ -2,7 +2,10 @@ package com.alhadara.omar.azan;
 
 
 
+import android.content.Context;
 import android.widget.Toast;
+
+import com.alhadara.omar.azan.Display._DisplaySET;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,11 +34,7 @@ public class TM {
         if(time.length() < 6) return 0;
         else return Integer.parseInt(time.substring(6,8));
     }
-    public static String AmPm(String time) {
-        int i = Integer.parseInt(time.substring(0,2));
-        if(i>12) return "PM";
-        return "AM";
-    }
+
     public static int difference(String time1, String time2) {
         String dif = "";
         int res,h,m,s;
@@ -58,11 +57,16 @@ public class TM {
         DateFormat dFormat = new SimpleDateFormat("HH:mm:ss");
         return dFormat.format(Calendar.getInstance().getTime());
     }
-    public static float getCurrentTimeOffset(){
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"),
-                Locale.getDefault());
-        Date currentLocalTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("Z");
-        return (float) (Float.parseFloat((date.format(currentLocalTime).substring(1))) / 100.00);
+    public static String getPrayerTimeString(Context context,int i){
+        if(_DisplaySET.isTime24(context)) return Times.times[i];
+        else return (Integer.parseInt(Times.times[i].substring(0, 2))<13?
+                Times.times[i].substring(0, 2):(Integer.parseInt(Times.times[i].substring(0, 2))-12)<10?
+                "0" + (Integer.parseInt(Times.times[i].substring(0, 2))-12):
+                Integer.toString(Integer.parseInt(Times.times[i].substring(0, 2))-12))
+                + Times.times[i].substring(2, 5);
+    }
+    public static String getPrayerPhaseString(Context context,int i){
+        if(_DisplaySET.isTime24(context)) return "";
+        else return Integer.parseInt(Times.times[i].substring(0, 2))>12?"PM":"AM";
     }
 }

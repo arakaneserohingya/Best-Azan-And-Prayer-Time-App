@@ -76,13 +76,8 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(UpdateCurrentLocationActivity.this);
-                final AlertDialog alertDialog = builder.setMessage("Updating location ...").create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
                 if(_LocationSET.getLastLocation(UpdateCurrentLocationActivity.this,tempLocationFile)){
                     setTitleLocation();
-                    alertDialog.cancel();
                     LocationsActivity.reloadLocationsActivityOnResume = true;
                 }
             }

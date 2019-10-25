@@ -20,6 +20,7 @@ import com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
+import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
@@ -40,7 +41,8 @@ public class SahoorActivity extends AppCompatActivity implements MediaPlayer.OnP
         _DisplaySET.setLanguagePreferences(this);
         MainActivity.reloadMainActivityOnResume = false;
         setContentView(R.layout.activity_sahoor);
-        ((AppCompatTextView) findViewById(R.id.sahoor_activity_fajr_time)).setText(getResources().getString(R.string.sahoor_activty_fajr_time_apex) + getFajrIn12());
+        ((AppCompatTextView) findViewById(R.id.sahoor_activity_fajr_time)).setText(getResources().getString(R.string.sahoor_activty_fajr_time_apex)
+                + TM.getPrayerTimeString(this,0) + " " + TM.getPrayerPhaseString(this,0));
         ((Button) findViewById(R.id.sahoor_activity_middle_ball)).setText((new SimpleDateFormat("hh:mm aa")).format(new Date()));
         initializeDateViews();
         startRingtonePlayer();
@@ -119,14 +121,6 @@ public class SahoorActivity extends AppCompatActivity implements MediaPlayer.OnP
         }else{
             player.setAudioStreamType(AudioManager.STREAM_ALARM);
         }
-    }
-
-    private String getFajrIn12() {
-        return (Integer.parseInt(Times.times[0].substring(0, 2))<13?
-                Times.times[0].substring(0, 2):(Integer.parseInt(Times.times[0].substring(0, 2))-12)<10?
-                "0" + (Integer.parseInt(Times.times[0].substring(0, 2))-12):
-                Integer.toString(Integer.parseInt(Times.times[0].substring(0, 2))-12))
-                + Times.times[0].substring(2, 5) + (Integer.parseInt(Times.times[0].substring(0, 2))>12?" PM":" AM");
     }
 
     public void initializeDateViews() {

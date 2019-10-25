@@ -18,9 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.TM;
 import com.alhadara.omar.azan.Times;
 import com.example.omar.azanapkmostafa.R;
+
+import static com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter.MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM;
 
 public class TimePointSettingsActivity extends AppCompatActivity {
 
@@ -51,7 +54,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         index=getIntent().getExtras().getInt("TimePointIndex");
         getSupportActionBar().setTitle( getResources().getStringArray(R.array.prayer_time)[index] +" "+ getResources().getString(R.string.prayer_time_settings));
 
-
+        _SET.startSettings(this);
         widgetsAdder();
         startTimer();
     }
@@ -68,6 +71,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         ((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
 
                 setAlarmActivated(getApplicationContext(),"azan",index,((SwitchCompat) azanBox.findViewById(R.id.switch_box_trigger)).isChecked());
                 ((LinearLayout) azanBox.findViewById(R.id.switch_box_configuration_box)).setVisibility(
@@ -104,7 +108,10 @@ public class TimePointSettingsActivity extends AppCompatActivity {
         adjustTimesBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TimePointSettingsActivity.this,AdjustTimesActivity.class));
+                Intent intent = new Intent(TimePointSettingsActivity.this, SettingsThirdActivity.class);
+                intent.putExtra("title",((TextView) adjustTimesBox.findViewById(R.id.configuration_text)).getText().toString());
+                intent.putExtra("index",MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM);
+                TimePointSettingsActivity.this.startActivity(intent);
             }
         });
 

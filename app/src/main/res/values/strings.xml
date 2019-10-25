@@ -185,7 +185,6 @@
     <string name="settings_layouts_notifications_widget12">Clear Time</string>
     <string name="settings_layouts_notifications_widget13">Vibrate</string>
     <string name="settings_layouts_notifications_widget14">LED Notification</string>
-    <string name="settings_notifications_title">Notifications Settings</string>
     <string name="settings_layouts_notifications_widget_details1">Prayer notification settings for each prayer</string>
     <string name="settings_layouts_notifications_widget_details2">Notification on prayer time</string>
     <string name="settings_layouts_notifications_widget_details3">Link notifications to a system sound type.\nPreferably use alarm type to notify on silent</string>
@@ -215,13 +214,11 @@
     <string name="settings_layouts_prayer_times_widget3">Adjust Isha in Ramadan</string>
     <string name="settings_layouts_prayer_times_widget2">Angle-Based Method</string>
     <string name="settings_layouts_prayer_times_widget1">Methods</string>
-    <string name="settings_prayer_times_title">Prayer Times Settings</string>
     <string name="settings_layouts_hijri_widget1">Use Umm al-Qura Calender</string>
     <string name="settings_layouts_hijri_widget2">Manuall Adjustment</string>
     <string name="settings_layouts_hijri_widget_details1">Activate the automatic Umm al-Qura Calendar provided by Google.\nOnlyfor Android 7.0 and above</string>
     <string name="settings_layouts_hijri_widget_details2">Changing the Hijri date manually</string>
     <string name="hijri_calendar">Hijri Calendar</string>
-    <string name="settings_hijri_title">Hijri Settings</string>
     <string name="app_options">App Options</string>
     <string name="widgets_options">Widgets Options</string>
     <string name="settings_layouts_display_options_widget_details1">تغيير لغة العرض وأسماء الصلوات</string>
@@ -244,7 +241,6 @@
     <string name="settings_layouts_display_options_widget8">My Prayers (Horizontal) Widget</string>
     <string name="settings_layouts_display_options_widget9">My Next Prayer (Big) Widget</string>
     <string name="settings_layouts_display_options_widget10">My Prayer Lock Screen Widget</string>
-    <string name="settings_display_options_title">Display Options</string>
     <string name="alarm_settings">Alarm Settings</string>
     <string name="settings_layouts_fajr_and_sahoor_alarms_widget1">Important Notice</string>
     <string name="settings_layouts_fajr_and_sahoor_alarms_widget2">Activate Fajr Alarm</string>
@@ -266,7 +262,6 @@
     <string name="settings_layouts_fajr_and_sahoor_alarms_widget_details8">Stop the alarm after a given time</string>
     <string name="settings_layouts_fajr_and_sahoor_alarms_widget_details9">Current value in minutes:</string>
     <string name="settings_layouts_fajr_and_sahoor_alarms_widget_details10">Choose snooze time in minutes</string>
-    <string name="settings_fajr_and_sahoor_alarms_title">Fajr and Sahoor Alarm</string>
     <string name="silent_mode">Silent Mode</string>
     <string name="settings_layouts_silent_widget1">Switch to Silent</string>
     <string name="settings_layouts_silent_widget2">Silent Time Settings</string>
@@ -278,7 +273,6 @@
     <string name="settings_layouts_silent_widget_details3">Activate vibrattion during silent mode</string>
     <string name="settings_layouts_silent_widget_details4">Vibrate once when switching from or to silent mode</string>
     <string name="settings_layouts_silent_widget_details5">Show a message when switching from or to silent mode</string>
-    <string name="settings_silent_title">Silent Settings</string>
     <string name="_settings">Settings</string>
     <string name="_locations">Locations</string>
     <string name="settings_layouts_backup_and_restore_widget1">Notice</string>
@@ -293,7 +287,6 @@
     <string name="settings_layouts_backup_and_restore_widget_details4">Reset settings back to defaults</string>
     <string name="settings_layouts_backup_and_restore_widget_details5">Backup locations to SD card</string>
     <string name="settings_layouts_backup_and_restore_widget_details6">Restore or delete locations from SD card</string>
-    <string name="settings_backup_and_restore_title">Backup and Restore</string>
     <string name="settings_dialogs_prayer_calculations_methods1">Umm Al-Qura University</string>
     <string name="settings_dialogs_prayer_calculations_methods2">Muslim World League</string>
     <string name="settings_dialogs_prayer_calculations_methods3">University of Islamic Sciences,Karachi</string>

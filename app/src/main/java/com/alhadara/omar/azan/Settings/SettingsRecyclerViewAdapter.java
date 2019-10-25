@@ -2,9 +2,7 @@ package com.alhadara.omar.azan.Settings;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,10 +24,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.AlarmManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alhadara.omar.azan.Activities.MainActivity;
+import com.alhadara.omar.azan.Activities.SettingsActivity;
 import com.alhadara.omar.azan.Activities.SettingsForthActivity;
 import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
@@ -129,7 +127,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
         h.setTextSize(18);
         h.setGravity(Gravity.START);
         h.setId((son.getId()*10)+1);
-        h.setTypeface(_SET.getTypeFace(activity));
+        h.setTypeface(_DisplaySET.getTypeFace(activity));
         TextView d = new TextView(activity);
         d.setLayoutParams(new ViewGroup.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT));
         d.setText(details.get(i - getTitlesNumBeforeIndex(i)));
@@ -137,7 +135,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
         d.setTextSize(15);
         d.setGravity(Gravity.START);
         d.setId((son.getId()*10)+2);
-        d.setTypeface(_SET.getTypeFace(activity));
+        d.setTypeface(_DisplaySET.getTypeFace(activity));
         son.addView(h);
         son.addView(d);
         set.clone(son);
@@ -287,7 +285,9 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                         @Override
                         public void go(int checked) {
                             _DisplaySET.setLanguagePreferences(activity.getApplicationContext());
-
+                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                            MainActivity.reloadMainActivityOnResume = true;
+                            activity.recreate();
 
                         }
                     });
@@ -298,7 +298,8 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.initialize(new String[]{"English","عربي",activity.getResources().getString(R.string.app_language)}, new int[]{0,1,2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-
+                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                            MainActivity.reloadMainActivityOnResume = true;
                         }
                     });
                     dialog.show();
@@ -308,7 +309,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.initialize(activity.getResources().getStringArray(R.array.app_theme), new int[]{0,1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-
+                            MainActivity.reloadMainActivityOnResume = true;
                         }
                     });
                     dialog.show();
@@ -318,7 +319,9 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.initialize(activity.getResources().getStringArray(R.array.app_font), new int[]{0,1,2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-
+                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                            MainActivity.reloadMainActivityOnResume = true;
+                            activity.recreate();
                         }
                     });
                     dialog.show();

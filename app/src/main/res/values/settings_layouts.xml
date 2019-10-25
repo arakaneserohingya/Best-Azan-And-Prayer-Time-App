@@ -18,15 +18,6 @@
         <item>@array/settings_layout_details_silent</item>
         <item>@array/settings_layout_details_backup_and_restore</item>
     </array>
-    <string-array name="settings_second_activity_toolbar_title">
-        <item>@string/settings_prayer_times_title</item>
-        <item>@string/settings_hijri_title</item>
-        <item>@string/settings_display_options_title</item>
-        <item>@string/settings_notifications_title</item>
-        <item>@string/settings_fajr_and_sahoor_alarms_title</item>
-        <item>@string/settings_silent_title</item>
-        <item>@string/settings_backup_and_restore_title</item>
-    </string-array>
     <integer-array name="settings_image">
         <item>@drawable/ic_settings_box_1</item>
         <item>@drawable/ic_settings_box_2</item>

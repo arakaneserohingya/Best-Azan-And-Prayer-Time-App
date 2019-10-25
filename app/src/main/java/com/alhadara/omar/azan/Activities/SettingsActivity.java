@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
@@ -39,7 +40,9 @@ public class SettingsActivity extends AppCompatActivity {
             final int k =i;
             ((ImageButton) group.getChildAt(i).findViewById(R.id.settings_box_image)).setImageResource(getResources().obtainTypedArray(R.array.settings_image).getResourceId(i,-1));
             ((TextView) group.getChildAt(i).findViewById(R.id.settings_box_header)).setText(getResources().getStringArray(R.array.settings_menu)[i]);
+            ((TextView) group.getChildAt(i).findViewById(R.id.settings_box_header)).setTypeface(_DisplaySET.getTypeFace(this));
             ((TextView) group.getChildAt(i).findViewById(R.id.settings_box_details)).setText(getResources().getStringArray(R.array.settings_submenu)[i]);
+            ((TextView) group.getChildAt(i).findViewById(R.id.settings_box_details)).setTypeface(_DisplaySET.getTypeFace(this));
             group.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
