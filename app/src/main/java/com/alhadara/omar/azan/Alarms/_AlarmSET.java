@@ -110,8 +110,8 @@ public class _AlarmSET {
         SharedPreferences.Editor sahoorEditor = sahoor.edit();
         SharedPreferences silent = context.getSharedPreferences(silentFile,MODE_PRIVATE);
         SharedPreferences.Editor silentEditor = silent.edit();
-        azanEditor.putBoolean("firsttime",false);
-        iqamaEditor.putBoolean("firsttime",false);
+        azanEditor.putBoolean("firstTime",false);
+        iqamaEditor.putBoolean("firstTime",false);
         azanEditor.putInt("notification_type",1);
         iqamaEditor.putInt("reminder_type",1);
         for(int i=0;i<5;i++) iqamaEditor.putInt("remind_time_"+i, _TimesSET.iqamaTimes[i>0?i+1:0]);
@@ -128,7 +128,7 @@ public class _AlarmSET {
         silentEditor.commit();
     }
     public static boolean isFirstTime(Context context){
-        return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("firsttime",true);
+        return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("firstTime",true);
     }
 
     public static boolean isVibrateActivated(Context context) {
@@ -176,4 +176,19 @@ public class _AlarmSET {
         return context.getSharedPreferences(_AlarmSET.sahoorFile,MODE_PRIVATE).getInt("snooze_time",5)*60000;
     }
 
+    public static void clear(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(azanFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        editor = context.getSharedPreferences(iqamaFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        editor = context.getSharedPreferences(sahoorFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        editor = context.getSharedPreferences(silentFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        firstTime(context);
+    }
 }

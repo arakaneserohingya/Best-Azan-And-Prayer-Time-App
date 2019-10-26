@@ -9,6 +9,7 @@ import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,7 +27,7 @@ public class _TimesSET {
         times = initializeTimesFor(context, _LocationSET.currentLocation,Calendar.getInstance());
     }
     public static String[] initializeTimesFor(Context context,String locationFile, Calendar time){
-        firsttime(context);
+        firstTime(context);
         String[] str = {"","","","","",""};
         SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
         float latitude = pref.getFloat("latitude",0);
@@ -114,13 +115,13 @@ public class _TimesSET {
     private static int getAsrJuristic(Context context) {
         return context.getSharedPreferences(prayersFile,MODE_PRIVATE).getInt("asr_method",0);
     }
-    private static void firsttime(Context context){
+    private static void firstTime(Context context){
         SharedPreferences preferences = context.getSharedPreferences(prayersFile,MODE_PRIVATE);
         SharedPreferences adjust = context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         SharedPreferences.Editor adjustEditor = adjust.edit();
-        if(!preferences.getBoolean("firsttime",true)) return;
-        editor.putBoolean("firsttime",false);
+        if(!preferences.getBoolean("firstTime",true)) return;
+        editor.putBoolean("firstTime",false);
         editor.putInt("method",3);
         editor.putInt("asr_method",0);
         for (int i=0;i<6;i++) adjustEditor.putInt("adjust_"+i,0);
@@ -137,19 +138,21 @@ public class _TimesSET {
         MainActivity.reloadMainActivityOnResume = true;
     }
 
-    public static int commingTimePointIndex(){
+    public static int comingTimePointIndex(){
         int i = 0;
         while(System.currentTimeMillis() > getPrayerTimeMillis(i)) i++;
         return i;
     }
 
     public static String getPrayerTimeString(Context context, int i){
-        if(_DisplaySET.isTime24(context)) return times[i];
-        else return (Integer.parseInt(times[i].substring(0, 2))<13?
-                times[i].substring(0, 2):(Integer.parseInt(times[i].substring(0, 2))-12)<10?
-                "0" + (Integer.parseInt(times[i].substring(0, 2))-12):
-                Integer.toString(Integer.parseInt(times[i].substring(0, 2))-12))
-                + times[i].substring(2, 5);
+        NumberFormat nf = _DisplaySET.getNumberFormat(context);
+        int h = Integer.parseInt(times[i].substring(0, 2));
+        int m = Integer.parseInt(times[i].substring(3, 5));
+        String H = nf.format(!_DisplaySET.isTime24(context)&&h>12?h-12:h);
+        String M = nf.format(m);
+        H = H.length()>1?H:nf.format(0)+H;
+        M = M.length()>1?M:nf.format(0)+M;
+        return H + ":" + M;
     }
 
     public static String getPrayerPhaseString(Context context, int i){
@@ -163,5 +166,15 @@ public class _TimesSET {
        cal.set(Calendar.MINUTE,Integer.parseInt(times[i].substring(3, 5)));
        cal.set(Calendar.SECOND,0);
        return cal.getTimeInMillis();
+    }
+
+    public static void clear(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(prayersFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        editor = context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        firstTime(context);
     }
 }

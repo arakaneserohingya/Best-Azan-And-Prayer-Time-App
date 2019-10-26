@@ -308,7 +308,6 @@
     <string name="settings_layouts_manual_times_adjustments_widget_details1">Before modifying times, make sure to select the best settings for your area, and choose the correct Time Zone from device settings</string>
     <string name="settings_layouts_manual_times_adjustments_widget_details2">Current value in minutes:</string>
     <string name="settings_layouts_manual_times_adjustments_widget_details7">Change the times of all prayers back to original values</string>
-    <string name="settings_manual_times_adjustments_title">Manual Times Adjustments</string>
     <string name="app_language">App Language</string>
     <string name="settings_dialogs_app_theme1">White</string>
     <string name="settings_dialogs_app_theme2">Black</string>
@@ -332,7 +331,6 @@
     <string name="settings_layouts_prayer_notification_time_widget12">Jumuah Notification</string>
     <string name="settings_layouts_prayer_notification_time_widget_details1">Current value in minutes:</string>
     <string name="settings_layouts_prayer_notification_time_widget_details2" />
-    <string name="settings_prayer_notification_time_title">Prayer Notification Times</string>
     <string name="settings_dialogs_notification_audio_type1">Phone Ring</string>
     <string name="settings_dialogs_notification_audio_type2">Notifications</string>
     <string name="settings_dialogs_notification_audio_type3">Multimedia (works on silent)</string>
@@ -352,7 +350,6 @@
     <string name="settings_layouts_prayer_notification_tone_widget_details3">The selected tone is:</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details4">Use different notification tone for each prayer</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details5">Select the prayer notification tone</string>
-    <string name="settings_prayer_notification_tone_title">Prayer Notification Tone</string>
     <string name="settings_layouts_iqama_reminder_time_widget1">Iqama Time</string>
     <string name="settings_layouts_iqama_reminder_time_widget2">Fajr Reminder</string>
     <string name="settings_layouts_iqama_reminder_time_widget4">Zuhr Reminder</string>
@@ -360,8 +357,6 @@
     <string name="settings_layouts_iqama_reminder_time_widget8">Magrib Reminder</string>
     <string name="settings_layouts_iqama_reminder_time_widget10">Isha Reminder</string>
     <string name="settings_layouts_iqama_reminder_time_widget12">Jumuah Reminder</string>
-    <string name="settings_iqama_reminder_time_title">Iqama Times</string>
-    <string name="settings_iqama_reminder_tone_title">Iqama Reminder Tone</string>
     <string name="before_prayer_time">Before Prayer Time</string>
     <string name="no_tone_set">No tone set</string>
     <string name="after_prayer_time">After Prayer Time</string>
@@ -394,7 +389,6 @@
     <string name="settings_layouts_silent_time_settings_widget8">Activate</string>
     <string name="settings_layouts_silent_time_settings_widget_details1">Current value in minutes:</string>
     <string name="settings_layouts_silent_time_settings_widget_details2" />
-    <string name="settings_silent_time_settings_title">Silent Time Settings</string>
     <string name="silent_period_in_minutes">Silent period in Minutes</string>
     <string name="the_device_is_set_on_silent_mode">The device is set on silent mode</string>
     <string name="remembrance">Remembrance</string>
@@ -428,6 +422,9 @@
     <string name="settings_layout_titles_prayer_times_title1" >@string/calculations</string>
     <string name="settings_layout_titles_silent_title1" >@string/silent_mode</string>
     <string name="current_location_not_found">Your current location was not found so the app will use the last known location on the device.\nIf it was wrong, try again agter restarting the device.</string>
+    <string name="set_file_name">File Name</string>
+    <string name="backup_list">Backup List</string>
+    <string name="backup_and_restore_dialog3">Settings will be deleted, and reset back to defaults.</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

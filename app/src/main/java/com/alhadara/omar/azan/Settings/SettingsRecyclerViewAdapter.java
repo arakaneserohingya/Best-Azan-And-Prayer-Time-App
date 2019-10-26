@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -32,13 +33,16 @@ import com.alhadara.omar.azan.Activities.SettingsForthActivity;
 import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Backup._BackupSET;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRecyclerViewAdapter.SettingsRecyclerViewHolder> {
@@ -277,7 +281,131 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
         group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(k==0 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
+                if(k==1 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
+                    final EditText text = new EditText(activity);
+                    text.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    text.setTextSize(px(18));
+                    text.setText((new SimpleDateFormat("dd.MM.yy-hh.mm.ss")).format(new Date()));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        text.setFocusedByDefault(true);
+                    }
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                    dialog.setTitle(activity.getResources().getString(R.string.set_file_name));
+                    dialog.setView(text);
+                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            _BackupSET.backup(activity,text.getText().toString(),_BackupSET.TYPE_SETTINGS);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+                else if(k==2 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
+                    final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                    dialog.setTitle(activity.getResources().getString(R.string.backup_list));
+                    final String[] list = _BackupSET.listSaved(_BackupSET.TYPE_SETTINGS);
+                    final int[] k = new int[]{-1};
+                    dialog.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            k[0] = i;
+                        }
+                    });
+                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(k[0]!=-1) _BackupSET.restore(activity,list[k[0]],_BackupSET.TYPE_SETTINGS);
+                            _TimesSET.updateTimes(activity);
+                            AlarmsScheduler.fire(activity,Calendar.getInstance());
+                            MainActivity.reloadMainActivityOnResume = true;
+                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                            activity.finish();
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+                else if(k==3 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle(((TextView)group.getChildAt(0)).getText());
+                    builder.setMessage(activity.getResources().getString(R.string.backup_and_restore_dialog3));
+                    builder.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            _BackupSET.clear(activity,_BackupSET.TYPE_SETTINGS);
+                            _TimesSET.updateTimes(activity);
+                            AlarmsScheduler.fire(activity,Calendar.getInstance());
+                            MainActivity.reloadMainActivityOnResume = true;
+                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                            activity.finish();
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
+                else if(k==4 && layoutNumber==BACKUP_AND_RESTORE_LAYOUT_NUM){
+                    final EditText text = new EditText(activity);
+                    text.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    text.setTextSize(px(18));
+                    text.setText((new SimpleDateFormat("dd.MM.yy-hh.mm.ss")).format(new Date()));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        text.setFocusedByDefault(true);
+                    }
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                    dialog.setTitle(activity.getResources().getString(R.string.set_file_name));
+                    dialog.setView(text);
+                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            _BackupSET.backup(activity,text.getText().toString(),_BackupSET.TYPE_LOCATIONS);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+                else if(k==5 && layoutNumber ==BACKUP_AND_RESTORE_LAYOUT_NUM){
+                    final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                    dialog.setTitle(activity.getResources().getString(R.string.backup_list));
+                    final String[] list = _BackupSET.listSaved(_BackupSET.TYPE_LOCATIONS);
+                    final int[] k = new int[]{-1};
+                    dialog.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            k[0] = i;
+                        }
+                    });
+                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(k[0]!=-1) _BackupSET.restore(activity,list[k[0]],_BackupSET.TYPE_LOCATIONS);
+                            _TimesSET.updateTimes(activity);
+                            AlarmsScheduler.fire(activity,Calendar.getInstance());
+                            MainActivity.reloadMainActivityOnResume = true;
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+                else if(k==0 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _DisplaySET.displayFile,"language",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"English", "عربي"}, new String[]{"en", "ar"}, new RadioDialog.run() {
                         @Override

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Backup._BackupSET;
 import com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter;
 import com.example.omar.azanapkmostafa.R;
 
@@ -27,7 +28,14 @@ public class SettingsSecondActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setLayout();
+        checkForPermissions();
     }
+
+    private void checkForPermissions() {
+        if(getIntent().getExtras().getInt("index") == SettingsRecyclerViewAdapter.BACKUP_AND_RESTORE_LAYOUT_NUM)
+            _BackupSET.checkForPermissions(this);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -40,37 +48,6 @@ public class SettingsSecondActivity extends AppCompatActivity {
         recyclerView.setItemViewCacheSize(0);
         recyclerView.setAdapter(new SettingsRecyclerViewAdapter(this,getIntent().getExtras().getInt("index")));
 
-        /*ViewGroup scroll = findViewById(R.id.settings_second_activity_scrollview);
-        if(getIntent().getExtras().getInt("index") == 0){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_prayer_times_title));
-            PrayerTimesLayout layout = new PrayerTimesLayout(this);
-            scroll.addView(layout);
-        }else if(getIntent().getExtras().getInt("index") == 1){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_hijri_title));
-            HijriLayout layout = new HijriLayout(this);
-            scroll.addView(layout);
-        }else if(getIntent().getExtras().getInt("index") == 2){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_display_options_title));
-            DisplayOptions layout = new DisplayOptions(this);
-            scroll.addView(layout);
-        }else if(getIntent().getExtras().getInt("index") == 3){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_notifications_title));
-            NotificationsLayout layout = new NotificationsLayout(this);
-            scroll.addView(layout);
-        }else if(getIntent().getExtras().getInt("index") == 4){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_fajr_and_sahoor_alarms_title));
-            FajrSahoorAlarmLayout layout = new FajrSahoorAlarmLayout(this);
-            scroll.addView(layout);
-        }else if(getIntent().getExtras().getInt("index") == 5){
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_silent_title));
-            SilentLayout layout = new SilentLayout(this);
-            scroll.addView(layout);
-        }else {
-            getSupportActionBar().setTitle(getResources().getString(R.string.settings_backup_and_restore_title));
-            BackupRestoreLayout layout = new BackupRestoreLayout(this);
-            scroll.addView(layout);
-        }
-*/
     }
 
     @Override

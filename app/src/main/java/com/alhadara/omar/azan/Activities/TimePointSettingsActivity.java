@@ -18,9 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
+
+import java.text.NumberFormat;
 
 import static com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter.MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM;
 
@@ -131,6 +134,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
 
     public void startTimer(){
         handler = new Handler();
+        final NumberFormat nf = _DisplaySET.getNumberFormat(this);
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -143,9 +147,9 @@ public class TimePointSettingsActivity extends AppCompatActivity {
                     m = (int)((remainTime-(h*3600))/60);
                     s = (int)remainTime - (h*3600) - (m*60);
                     ViewGroup countdown = findViewById(R.id.countdown_timer_time_point_settings);
-                    ((TextView)(countdown.getChildAt(0))).setText(Integer.toString(h));
-                    ((TextView)(countdown.getChildAt(2))).setText(Integer.toString(m));
-                    ((TextView)(countdown.getChildAt(4))).setText(Integer.toString(s));
+                    ((TextView)(countdown.getChildAt(0))).setText(nf.format(h));
+                    ((TextView)(countdown.getChildAt(2))).setText(nf.format(m));
+                    ((TextView)(countdown.getChildAt(4))).setText(nf.format(s));
                     handler.postDelayed(this,1000);
                 }
             }

@@ -1,6 +1,7 @@
 package com.alhadara.omar.azan.Settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,13 @@ import com.alhadara.omar.azan.Times._TimesSET;
 import static android.content.Context.MODE_PRIVATE;
 
 public class _SET {
-    private final static String settingsFile = "settings.txt";
+    public final static String settingsFile = "settings.txt";
     private static SharedPreferences settingsPref;
     private static SharedPreferences.Editor settingsEditor;
-    public static void startSettings(Activity settingsAc){
+    public static void startSettings(Context settingsAc){
         settingsPref = settingsAc.getSharedPreferences(settingsFile,MODE_PRIVATE);
         settingsEditor = settingsPref.edit();
-        if(settingsPref.getBoolean("firsttime",true)) firstTime();
+        if(settingsPref.getBoolean("firstTime",true)) firstTime();
     }
 
 
@@ -95,7 +96,7 @@ public class _SET {
     }
 
     private static void firstTime() {
-        settingsEditor.putBoolean("firsttime",false);
+        settingsEditor.putBoolean("firstTime",false);
         settingsEditor.putBoolean("checked40200",true);
         settingsEditor.putBoolean("checked40500",false);
         settingsEditor.putBoolean("status40600",false);
@@ -197,5 +198,12 @@ public class _SET {
         settingsEditor.putString("description10706", "0");
         settingsEditor.putString("description10707", "0");
         settingsEditor.commit();
+    }
+
+    public static void clear(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(settingsFile,MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+        startSettings(context);
     }
 }

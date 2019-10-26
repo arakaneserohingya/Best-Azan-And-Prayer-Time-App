@@ -27,6 +27,7 @@ import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        upComingTimePoint = _TimesSET.commingTimePointIndex();
+        upComingTimePoint = _TimesSET.comingTimePointIndex();
         initializeDateViews();
         initializeTimePoints();
         startTimer();
@@ -103,12 +104,13 @@ public class MainActivity extends AppCompatActivity
     public void initializeDateViews() {
         UmmalquraCalendar hijCal = new UmmalquraCalendar();
         Calendar cal = Calendar.getInstance();
+        NumberFormat nf = _DisplaySET.getNumberFormat(this);
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(getResources().getStringArray(R.array.day_of_week)[cal.get(Calendar.DAY_OF_WEEK) - 1]);
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setTypeface(_DisplaySET.getTypeFace(this));
-        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(Integer.toString(hijCal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(nf.format(hijCal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(Calendar.MONTH)]);
         ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
-        ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(nf.format(cal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
     }
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity
 
     public void startTimer() {
         if(!_LocationSET.isLocationAssigned(this)) return;
+        final NumberFormat nf = _DisplaySET.getNumberFormat(this);
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity
                 int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(upComingTimePoint) - System.currentTimeMillis())/1000);
                 if (remainTime < 1) {
                     tintingUpComingTimePoint(false);
-                    upComingTimePoint = _TimesSET.commingTimePointIndex();
+                    upComingTimePoint = _TimesSET.comingTimePointIndex();
                     if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
                         reorderTimePointForPortrait();
                     tintingUpComingTimePoint(true);
@@ -203,9 +206,9 @@ public class MainActivity extends AppCompatActivity
                     ViewGroup countdown = findViewById(R.id.main_activity_timer);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         handleProgressBarForLandscape(remainTime);
-                    ((TextView) (countdown.getChildAt(0))).setText(Integer.toString(h));
-                    ((TextView) (countdown.getChildAt(2))).setText(Integer.toString(m));
-                    ((TextView) (countdown.getChildAt(4))).setText(Integer.toString(s));
+                    ((TextView) (countdown.getChildAt(0))).setText(nf.format(h));
+                    ((TextView) (countdown.getChildAt(2))).setText(nf.format(m));
+                    ((TextView) (countdown.getChildAt(4))).setText(nf.format(s));
                 }
                 handler.postDelayed(this,1000);
             }
