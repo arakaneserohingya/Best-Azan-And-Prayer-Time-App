@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Times;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -489,7 +489,7 @@ public class PrayTime {
         return floatToTime12(time, true);
     }
 
-    // ---------------------- Compute Prayer Times -----------------------
+    // ---------------------- Compute Prayer _TimesSET -----------------------
     // compute prayer times at given julian date
     private double[] computeTimes(double[] times) {
 

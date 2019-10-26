@@ -33,9 +33,7 @@ import com.alhadara.omar.azan.Activities.SettingsThirdActivity;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Display._DisplaySET;
-import com.alhadara.omar.azan.RadioDialog;
-import com.alhadara.omar.azan.SeekBarDialog;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.ArrayList;
@@ -198,80 +196,80 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
             {-1,30100,30200,30300,30400,30500,-1,30600,30700,30800,30900,31000}, // Display Options
             {50100,-1,50200,50300,50400,50500,50600,50700,50800,50900,51000}, // Fajr & Sahoor Alarm
             {-1,20100,20200}, // Hijri
-            {-1,40701,40702,-1,40703,40704,-1,40705,40706,-1,40707,40708,-1,40709,40710,-1,40711,40712}, // Iqama Reminder Times
+            {-1,40701,40702,-1,40703,40704,-1,40705,40706,-1,40707,40708,-1,40709,40710,-1,40711,40712}, // Iqama Reminder _TimesSET
             {41001,41002,41003}, // Iqama Reminder Tone
-            {10701,-1,10702,10703,10704,10705,10706,10707,10708}, // Manual Times Adjustments
+            {10701,-1,10702,10703,10704,10705,10706,10707,10708}, // Manual _TimesSET Adjustments
             {-1,40100,40200,40300,40400,40500,40600,-1,40700,40800,40900,41000,41100,41200,-1,41300,41400}, // Notifications
-            {-1,40101,40102,-1,40103,40104,-1,40105,40106,-1,40107,40108,-1,40109,40110,-1,40111,40112}, // Prayer Notifications Times
+            {-1,40101,40102,-1,40103,40104,-1,40105,40106,-1,40107,40108,-1,40109,40110,-1,40111,40112}, // Prayer Notifications _TimesSET
             {10,20,30/*dynamic id*/}, // Prayer Notifications Tone Each
             {40401,40402,40403,40404,-1,40405,40406,40407,40408,40409}, // Prayer Notifications Tone
-            {-1,10100,10200,10300,10400,10500,10600,10700}, // Prayer Times
+            {-1,10100,10200,10300,10400,10500,10600,10700}, // Prayer _TimesSET
             {-1,60100,60200,60300,60400,60500}, // Silent
-            {-1,60201,60202,60203,-1,60204,60205,60206,-1,60207,60208,60209,-1,60210,60211,60212,-1,60213,60214,60215,-1,60216,60217,60218}  // Silent Times Settings
+            {-1,60201,60202,60203,-1,60204,60205,60206,-1,60207,60208,60209,-1,60210,60211,60212,-1,60213,60214,60215,-1,60216,60217,60218}  // Silent _TimesSET Settings
     };
     private final int types[][] = {
             {1,0,1,1,1,0,1,1}, //Backup & Restore
             {0,1,1,1,1,2,0,1,1,1,1,1}, // Display Options
             {1,0,2,1,1,2,2,2,2,1,1}, // Fajr & Sahoor Alarm
             {0,2,1}, // Hijri
-            {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2}, // Iqama Reminder Times
+            {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2}, // Iqama Reminder _TimesSET
             {1,2,1}, // Iqama Reminder Tone
-            {1,0,1,1,1,1,1,1,1}, // Manual Times Adjustments
+            {1,0,1,1,1,1,1,1,1}, // Manual _TimesSET Adjustments
             {0,1,2,1,1,2,1,0,1,2,1,1,2,1,0,2,2}, // Notifications
-            {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2}, // Prayer Notifications Times
+            {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2}, // Prayer Notifications _TimesSET
             {1,2,1}, // Prayer Notifications Tone Each
             {1,2,1,2,0,1,1,1,1,1}, // Prayer Notifications Tone
-            {0,1,2,2,1,1,1,1}, // Prayer Times
+            {0,1,2,2,1,1,1,1}, // Prayer _TimesSET
             {0,2,1,2,2,2}, // Silent
-            {0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2}  // Silent Times Settings
+            {0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2,0,1,1,2}  // Silent _TimesSET Settings
     };
     private final int headersArray[] = {
             R.array.settings_layout_header_backup_and_restore, //Backup & Restore
             R.array.settings_layout_header_display_options, // Display Options
             R.array.settings_layout_header_fajr_and_sahoor_alarms, // Fajr & Sahoor Alarm
             R.array.settings_layout_header_hijri, // Hijri
-            R.array.settings_layout_header_iqama_reminder_time, // Iqama Reminder Times
+            R.array.settings_layout_header_iqama_reminder_time, // Iqama Reminder _TimesSET
             R.array.settings_layout_header_iqama_reminder_tone, // Iqama Reminder Tone
-            R.array.settings_layout_header_manual_times_adjustments, // Manual Times Adjustments
+            R.array.settings_layout_header_manual_times_adjustments, // Manual _TimesSET Adjustments
             R.array.settings_layout_header_notifications, // Notifications
-            R.array.settings_layout_header_prayer_notification_time, // Prayer Notifications Times
+            R.array.settings_layout_header_prayer_notification_time, // Prayer Notifications _TimesSET
             R.array.settings_layout_header_iqama_reminder_tone, // Prayer Notifications Tone Each
             R.array.settings_layout_header_prayer_notification_tone, // Prayer Notifications Tone
-            R.array.settings_layout_header_prayer_times, // Prayer Times
+            R.array.settings_layout_header_prayer_times, // Prayer _TimesSET
             R.array.settings_layout_header_silent, // Silent
-            R.array.settings_layout_header_silent_time_settings  // Silent Times Settings
+            R.array.settings_layout_header_silent_time_settings  // Silent _TimesSET Settings
     };
     private final int detailsArray[] = {
             R.array.settings_layout_details_backup_and_restore, //Backup & Restore
             R.array.settings_layout_details_display_options, // Display Options
             R.array.settings_layout_details_fajr_and_sahoor_alarms, // Fajr & Sahoor Alarm
             R.array.settings_layout_details_hijri, // Hijri
-            R.array.settings_layout_details_iqama_reminder_time, // Iqama Reminder Times
+            R.array.settings_layout_details_iqama_reminder_time, // Iqama Reminder _TimesSET
             R.array.settings_layout_details_iqama_reminder_tone, // Iqama Reminder Tone
-            R.array.settings_layout_details_manual_times_adjustments, // Manual Times Adjustments
+            R.array.settings_layout_details_manual_times_adjustments, // Manual _TimesSET Adjustments
             R.array.settings_layout_details_notifications, // Notifications
-            R.array.settings_layout_details_prayer_notification_time, // Prayer Notifications Times
+            R.array.settings_layout_details_prayer_notification_time, // Prayer Notifications _TimesSET
             R.array.settings_layout_details_iqama_reminder_tone, // Prayer Notifications Tone Each
             R.array.settings_layout_details_prayer_notification_tone, // Prayer Notifications Tone
-            R.array.settings_layout_details_prayer_times, // Prayer Times
+            R.array.settings_layout_details_prayer_times, // Prayer _TimesSET
             R.array.settings_layout_details_silent, // Silent
-            R.array.settings_layout_details_silent_time_settings  // Silent Times Settings
+            R.array.settings_layout_details_silent_time_settings  // Silent _TimesSET Settings
     };
     private final int titlesArray[] = {
             R.array.settings_layout_titles_backup_and_restore, //Backup & Restore
             R.array.settings_layout_titles_display_options, // Display Options
             R.array.settings_layout_titles_fajr_and_sahoor_alarms, // Fajr & Sahoor Alarm
             R.array.settings_layout_titles_hijri, // Hijri
-            R.array.settings_layout_titles_prayer_notification_time, // Iqama Reminder Times
+            R.array.settings_layout_titles_prayer_notification_time, // Iqama Reminder _TimesSET
             R.array.settings_layout_titles_iqama_reminder_tone, // Iqama Reminder Tone
-            R.array.settings_layout_titles_manual_times_adjustments, // Manual Times Adjustments
+            R.array.settings_layout_titles_manual_times_adjustments, // Manual _TimesSET Adjustments
             R.array.settings_layout_titles_notifications, // Notifications
-            R.array.settings_layout_titles_prayer_notification_time, // Prayer Notifications Times
+            R.array.settings_layout_titles_prayer_notification_time, // Prayer Notifications _TimesSET
             R.array.settings_layout_titles_iqama_reminder_tone, // Prayer Notifications Tone Each
             R.array.settings_layout_titles_prayer_notification_tone, // Prayer Notifications Tone
-            R.array.settings_layout_titles_prayer_times, // Prayer Times
+            R.array.settings_layout_titles_prayer_times, // Prayer _TimesSET
             R.array.settings_layout_titles_silent, // Silent
-            R.array.settings_layout_titles_prayer_notification_time  // Silent Times Settings
+            R.array.settings_layout_titles_prayer_notification_time  // Silent _TimesSET Settings
     };
 
     @SuppressLint("ResourceType")
@@ -436,7 +434,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 else if(k==0 && layoutNumber ==HIJRI_LAYOUT_NUM){
 
                 }else if(layoutNumber ==HIJRI_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity, Times.adjustTimesFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, _TimesSET.adjustTimesFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"+2", "+1", "0", "-1", "-2"}, new int[]{2, 1, 0, -1, -2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
@@ -467,11 +465,11 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
 
                 else if(k>0 && k<7 && layoutNumber == MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM){
-                    SeekBarDialog dialog = new SeekBarDialog(activity, Times.adjustTimesFile,"adjust_"+(k-1),((TextView)group.getChildAt(0)).getText().toString());
+                    SeekBarDialog dialog = new SeekBarDialog(activity, _TimesSET.adjustTimesFile,"adjust_"+(k-1),((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(-60, 60, new SeekBarDialog.run() {
                         @Override
                         public void go(int checked) {
-                            Times.updateTimes(activity);
+                            _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
                             _SET.setDescription(group,Integer.toString(checked));
                         }
@@ -479,7 +477,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==7 && layoutNumber == MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM){
-                    SharedPreferences p = activity.getSharedPreferences(Times.adjustTimesFile,Context.MODE_PRIVATE);
+                    SharedPreferences p = activity.getSharedPreferences(_TimesSET.adjustTimesFile,Context.MODE_PRIVATE);
                     SharedPreferences.Editor e = p.edit();
                     for(int i=2;i<8;i++){
                         e.putInt("adjust_" +(i-2),0);
@@ -775,11 +773,11 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
                 //**************** PRAYER_TIMES_LAYOUT ****************//
                 else if(k==0 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity, Times.prayersFile,"method",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, _TimesSET.prayersFile,"method",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(activity.getResources().getStringArray(R.array.prayer_calculations_methods), new int[]{4, 3, 1, 5, 2, 6, 7}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-                            Times.updateTimes(activity);
+                            _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
                             _SET.setStatus(activity,10200, checked != 0 && checked != 7);
                             _SET.setStatus(activity,10300, checked == 0);
@@ -791,39 +789,39 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
                 else if (k == 1 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM) {
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(Times.prayersFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_TimesSET.prayersFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("angle_based_method",_SET.isChecked(group));
                     editor.commit();
-                    Times.updateTimes(activity);
+                    _TimesSET.updateTimes(activity);
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                 }
                 else if (k == 2 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM) {
                     _SET.setCheckBox(group,!_SET.isChecked(group));
-                    SharedPreferences pref = activity.getSharedPreferences(Times.prayersFile, Context.MODE_PRIVATE);
+                    SharedPreferences pref = activity.getSharedPreferences(_TimesSET.prayersFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean("adjust_isha_in_ramadan",_SET.isChecked(group));
                     editor.commit();
-                    Times.updateTimes(activity);
+                    _TimesSET.updateTimes(activity);
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                 }
                 else if(k==3 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Times.prayersFile,"asr_method",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, _TimesSET.prayersFile,"asr_method",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(activity.getResources().getStringArray(R.array.asr_methods), new int[]{0, 1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-                            Times.updateTimes(activity);
+                            _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
                         }
                     });
                     dialog.show();
                 }
                 else if(k==4 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
-                    RadioDialog dialog = new RadioDialog(activity,Times.prayersFile,"dst",((TextView) group.getChildAt(0)).getText().toString());
+                    RadioDialog dialog = new RadioDialog(activity, _TimesSET.prayersFile,"dst",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"-1","0","+1"}, new int[]{-1,0,1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
-                            Times.updateTimes(activity);
+                            _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
                         }
                     });
@@ -831,7 +829,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
                 else if(k==5 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
                     final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-                    final int[] chosen = new int[]{Times.isJumuahTimeDiff(activity)?1:0};
+                    final int[] chosen = new int[]{_TimesSET.isJumuahTimeDiff(activity)?1:0};
                     dialog.setSingleChoiceItems(activity.getResources().getStringArray(R.array.jumuah_time_different_array), chosen[0], new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -841,20 +839,20 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            if(chosen[0] == 0) Times.setJumuahDifferent(activity,false);
+                            if(chosen[0] == 0) _TimesSET.setJumuahDifferent(activity,false);
                             else {
-                                String s = Times.getJumuahTime(activity);
+                                String s = _TimesSET.getJumuahTime(activity);
                                 TimePickerDialog dialog1 = new TimePickerDialog(activity,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
                                     @Override
                                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                                        Times.setJumuahDifferent(activity,true);
-                                        Times.setJumuahTime(activity,i,i1);
+                                        _TimesSET.setJumuahDifferent(activity,true);
+                                        _TimesSET.setJumuahTime(activity,i,i1);
                                     }
                                 },Integer.parseInt(s.substring(0,s.indexOf(':'))),Integer.parseInt(s.substring(s.indexOf(':')+1)),false);
                                 dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog1.show();
                             }
-                            Times.updateTimes(activity);
+                            _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
                         }
                     });

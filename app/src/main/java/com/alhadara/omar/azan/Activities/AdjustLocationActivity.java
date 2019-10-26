@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -45,7 +45,7 @@ public class AdjustLocationActivity extends AppCompatActivity {
                 editor.putFloat("longitude",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).getText().toString()));
                 editor.putFloat("timezone",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).getText().toString()));
                 editor.commit();
-                Times.updateTimes(getApplicationContext());
+                _TimesSET.updateTimes(getApplicationContext());
                 AlarmsScheduler.fire(getApplicationContext(),Calendar.getInstance());
                 LocationsActivity.reloadLocationsActivityOnResume = true;
                 AdjustLocationActivity.this.finish();

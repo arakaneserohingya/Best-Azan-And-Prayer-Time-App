@@ -4,17 +4,14 @@ import android.content.Intent;
 
 import android.content.res.Configuration;
 
-import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.util.LayoutDirection;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.TM;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         /*      Initialization Methods      */
         _LocationSET.checkCurrentLocation(this);
-        Times.updateTimes(this);
+        _TimesSET.updateTimes(this);
         _DisplaySET.setLanguagePreferences(this);
         reloadMainActivityOnResume = false;
         /*              ********            */
@@ -67,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        upComingTimePoint = TM.commingTimePointIndex(Times.times);
+        upComingTimePoint = _TimesSET.commingTimePointIndex();
         initializeDateViews();
         initializeTimePoints();
         startTimer();
@@ -146,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
         ((TextView) timepoint.findViewById(R.id.time_point_text)).setText(getResources().getStringArray(R.array.prayer_time)[i]);
         ((TextView) timepoint.findViewById(R.id.time_point_text)).setTypeface(_DisplaySET.getTypeFace(this));
-        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(TM.getPrayerPhaseString(this,i));
+        ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setText(_TimesSET.getPrayerPhaseString(this,i));
         ((TextView) timepoint.findViewById(R.id.time_point_ampm)).setVisibility(_DisplaySET.isTime24(this)?View.GONE:View.VISIBLE);
         if(getResources().getConfiguration().getLayoutDirection() == LayoutDirection.LTR) {
             View view = timepoint.findViewById(R.id.time_point_ampm);
@@ -154,7 +150,7 @@ public class MainActivity extends AppCompatActivity
             layout.removeView(view);
             layout.addView(view);
         }
-        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(TM.getPrayerTimeString(this,i));
+        ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(_TimesSET.getPrayerTimeString(this,i));
     }
 
     public void reorderTimePointForPortrait() {
@@ -174,7 +170,7 @@ public class MainActivity extends AppCompatActivity
         int goneTimePoint = upComingTimePoint - 1;
         if (goneTimePoint < 0) goneTimePoint = 5;
         ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-        progressBar.setProgress((int) (100 - (100 * remainTime / (TM.difference(Times.times[goneTimePoint], Times.times[upComingTimePoint])))));
+        progressBar.setProgress((int) (100 - (100 * remainTime / ((_TimesSET.getPrayerTimeMillis(upComingTimePoint)- _TimesSET.getPrayerTimeMillis(goneTimePoint))/1000))));
     }
 
     public void tintingUpComingTimePoint(boolean tint) {
@@ -193,10 +189,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 int h, m, s;
-                int remainTime = TM.difference(TM.getTime(), Times.times[upComingTimePoint]);
+                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(upComingTimePoint) - System.currentTimeMillis())/1000);
                 if (remainTime < 1) {
                     tintingUpComingTimePoint(false);
-                    upComingTimePoint = TM.commingTimePointIndex(Times.times);
+                    upComingTimePoint = _TimesSET.commingTimePointIndex();
                     if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
                         reorderTimePointForPortrait();
                     tintingUpComingTimePoint(true);

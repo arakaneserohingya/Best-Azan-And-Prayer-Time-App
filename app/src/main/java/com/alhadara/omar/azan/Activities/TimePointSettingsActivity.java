@@ -19,8 +19,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.alhadara.omar.azan.Settings._SET;
-import com.alhadara.omar.azan.TM;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import static com.alhadara.omar.azan.Settings.SettingsRecyclerViewAdapter.MANUAL_TIMES_ADJUSTMENTS_LAYOUT_NAM;
@@ -136,7 +135,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 int h,m,s;
-                int remainTime = TM.difference(TM.getTime(),Times.times[index]);
+                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(index) - System.currentTimeMillis())/1000);
                 if(remainTime < 1)
                     findViewById(R.id.countdown_layout_time_point_settings).setVisibility(View.GONE);
                 else {

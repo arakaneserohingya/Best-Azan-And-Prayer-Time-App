@@ -1,4 +1,4 @@
-package com.alhadara.omar.azan;
+package com.alhadara.omar.azan.Settings;
 
 import android.content.Context;
 import android.content.DialogInterface;

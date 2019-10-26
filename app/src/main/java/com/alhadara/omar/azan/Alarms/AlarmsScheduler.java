@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.core.app.AlarmManagerCompat;
 
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 
 import java.util.Calendar;
 
@@ -32,7 +32,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         Toast.makeText(context, "ALAZAN notifications activated", Toast.LENGTH_SHORT).show();
 
         if(_AlarmSET.isFirstTime(context)) _AlarmSET.firstTime(context);
-        Times.updateTimes(context);
+        _TimesSET.updateTimes(context);
         Calendar cal;
         for(int i=0;i<6;i++) {
             if(i==1) continue; // No notifications & reminders for Sunrise...

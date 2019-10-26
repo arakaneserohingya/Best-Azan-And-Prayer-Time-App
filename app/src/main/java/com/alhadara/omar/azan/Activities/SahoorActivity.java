@@ -20,8 +20,7 @@ import com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.TM;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
@@ -37,12 +36,12 @@ public class SahoorActivity extends AppCompatActivity implements MediaPlayer.OnP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _LocationSET.checkCurrentLocation(this);
-        Times.updateTimes(this);
+        _TimesSET.updateTimes(this);
         _DisplaySET.setLanguagePreferences(this);
         MainActivity.reloadMainActivityOnResume = false;
         setContentView(R.layout.activity_sahoor);
         ((AppCompatTextView) findViewById(R.id.sahoor_activity_fajr_time)).setText(getResources().getString(R.string.sahoor_activty_fajr_time_apex)
-                + TM.getPrayerTimeString(this,0) + " " + TM.getPrayerPhaseString(this,0));
+                + _TimesSET.getPrayerTimeString(this,0) + " " + _TimesSET.getPrayerPhaseString(this,0));
         ((Button) findViewById(R.id.sahoor_activity_middle_ball)).setText((new SimpleDateFormat("hh:mm aa")).format(new Date()));
         initializeDateViews();
         startRingtonePlayer();

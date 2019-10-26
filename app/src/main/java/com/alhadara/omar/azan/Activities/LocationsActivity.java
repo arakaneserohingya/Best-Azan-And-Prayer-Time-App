@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -100,7 +100,7 @@ public class LocationsActivity extends AppCompatActivity {
             final ViewGroup widget = (ViewGroup)list.getChildAt(i-1);
             if(locationID.equals("")) break;
             location_i = getSharedPreferences(locationID + ".txt",MODE_PRIVATE);
-            String[] prayertimes = Times.initializeTimesFor(LocationsActivity.this,locationID+".txt", Calendar.getInstance());
+            String[] prayertimes = _TimesSET.initializeTimesFor(LocationsActivity.this,locationID+".txt", Calendar.getInstance());
             widget.setVisibility(
                     location_i.getBoolean("islocationassigned",false)?View.VISIBLE:View.INVISIBLE
             );

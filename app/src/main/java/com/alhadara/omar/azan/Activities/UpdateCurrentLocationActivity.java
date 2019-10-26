@@ -1,6 +1,5 @@
 package com.alhadara.omar.azan.Activities;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Locations._LocationSET;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -108,7 +107,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     return;
                 }
                 _LocationSET.setLocationAssigned(UpdateCurrentLocationActivity.this);
-                Times.updateTimes(UpdateCurrentLocationActivity.this);
+                _TimesSET.updateTimes(UpdateCurrentLocationActivity.this);
                 MainActivity.reloadMainActivityOnResume = true;
                 LocationsActivity.reloadLocationsActivityOnResume = true;
                 AlarmsScheduler.fire(UpdateCurrentLocationActivity.this, Calendar.getInstance());

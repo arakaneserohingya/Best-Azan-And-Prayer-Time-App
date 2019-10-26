@@ -57,10 +57,10 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
         now = now / 1000;
-        calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[index].substring(0,2)));
-        calendar.set(Calendar.MINUTE,Integer.parseInt(Times.times[index].substring(3,5)));
+        calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[index].substring(0,2)));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[index].substring(3,5)));
         calendar.set(Calendar.SECOND,0);
-        if(type != AlarmsScheduler.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,Times.iqamaTimes[index]); // for iqama
+        if(type != AlarmsScheduler.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,_TimesSET.iqamaTimes[index]); // for iqama
         long time = calendar.getTimeInMillis();
         time = time / 1000;
         return (now - time) > 30;

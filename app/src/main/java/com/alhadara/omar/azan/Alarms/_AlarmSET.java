@@ -2,13 +2,8 @@ package com.alhadara.omar.azan.Alarms;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
-import android.widget.Toast;
 
-import com.alhadara.omar.azan.Activities.SahoorActivity;
-import com.alhadara.omar.azan.Times;
+import com.alhadara.omar.azan.Times._TimesSET;
 
 import java.util.Calendar;
 
@@ -55,8 +50,8 @@ public class _AlarmSET {
     }
     public static Calendar getNotifyTimeFor(Context context, int i) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
-        cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
+        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[i].substring(0,2)));
+        cal.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[i].substring(3,5)));
         cal.set(Calendar.SECOND,0);
         if(isJumuah(cal) && i==2) cal.add(Calendar.MINUTE,(-1)*context.getSharedPreferences(azanFile, MODE_PRIVATE).getInt("notification_time_5",0));
         else cal.add(Calendar.MINUTE,(-1)*context.getSharedPreferences(azanFile, MODE_PRIVATE).getInt("notification_time_"+(i>0?i-1:0),0));
@@ -64,20 +59,20 @@ public class _AlarmSET {
     }
     public static Calendar getRemindTimeFor(Context context,int i) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
-        cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
+        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[i].substring(0,2)));
+        cal.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[i].substring(3,5)));
         cal.set(Calendar.SECOND,0);
-        if(isJumuah(cal) && i==2) cal.add(Calendar.MINUTE,context.getSharedPreferences(iqamaFile, MODE_PRIVATE).getInt("remind_time_5",Times.iqamaTimes[i]));
-        else cal.add(Calendar.MINUTE,context.getSharedPreferences(iqamaFile, MODE_PRIVATE).getInt("remind_time_"+(i>0?i-1:0),Times.iqamaTimes[i]));
+        if(isJumuah(cal) && i==2) cal.add(Calendar.MINUTE,context.getSharedPreferences(iqamaFile, MODE_PRIVATE).getInt("remind_time_5", _TimesSET.iqamaTimes[i]));
+        else cal.add(Calendar.MINUTE,context.getSharedPreferences(iqamaFile, MODE_PRIVATE).getInt("remind_time_"+(i>0?i-1:0), _TimesSET.iqamaTimes[i]));
         return cal;
     }
     public static Calendar getSilentTimeFor(Context context,int i) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[i].substring(0,2)));
-        cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[i].substring(3,5)));
+        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[i].substring(0,2)));
+        cal.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[i].substring(3,5)));
         cal.set(Calendar.SECOND,0);
-        if(isJumuah(cal) && i==2) cal.add(Calendar.MINUTE,context.getSharedPreferences(silentFile, MODE_PRIVATE).getInt("silent_time_5",Times.iqamaTimes[i]));
-        else cal.add(Calendar.MINUTE,context.getSharedPreferences(silentFile, MODE_PRIVATE).getInt("silent_time_"+(i>0?i-1:0),Times.iqamaTimes[i]));
+        if(isJumuah(cal) && i==2) cal.add(Calendar.MINUTE,context.getSharedPreferences(silentFile, MODE_PRIVATE).getInt("silent_time_5", _TimesSET.iqamaTimes[i]));
+        else cal.add(Calendar.MINUTE,context.getSharedPreferences(silentFile, MODE_PRIVATE).getInt("silent_time_"+(i>0?i-1:0), _TimesSET.iqamaTimes[i]));
         //Toast.makeText(context,cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE),Toast.LENGTH_SHORT).show();
         return cal;
     }
@@ -90,8 +85,8 @@ public class _AlarmSET {
     }
     public static Calendar getSahoorTime(Context context) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(Times.times[0].substring(0,2)));
-        cal.set(Calendar.MINUTE,Integer.parseInt(Times.times[0].substring(3,5)));
+        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[0].substring(0,2)));
+        cal.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[0].substring(3,5)));
         cal.set(Calendar.SECOND,0);
         cal.add(Calendar.MINUTE,context.getSharedPreferences(sahoorFile, MODE_PRIVATE).getInt("time",-20));
         return cal;
@@ -119,11 +114,11 @@ public class _AlarmSET {
         iqamaEditor.putBoolean("firsttime",false);
         azanEditor.putInt("notification_type",1);
         iqamaEditor.putInt("reminder_type",1);
-        for(int i=0;i<5;i++) iqamaEditor.putInt("remind_time_"+i,Times.iqamaTimes[i>0?i+1:0]);
-        for(int i=0;i<5;i++) silentEditor.putInt("silent_time_"+i,Times.iqamaTimes[i>0?i+1:0]);
+        for(int i=0;i<5;i++) iqamaEditor.putInt("remind_time_"+i, _TimesSET.iqamaTimes[i>0?i+1:0]);
+        for(int i=0;i<5;i++) silentEditor.putInt("silent_time_"+i, _TimesSET.iqamaTimes[i>0?i+1:0]);
         for(int i=0;i<6;i++) silentEditor.putInt("silent_period_"+i,10);
-        iqamaEditor.putInt("remind_time_5",Times.iqamaTimes[2]);
-        silentEditor.putInt("silent_time_5",Times.iqamaTimes[2]);
+        iqamaEditor.putInt("remind_time_5", _TimesSET.iqamaTimes[2]);
+        silentEditor.putInt("silent_time_5", _TimesSET.iqamaTimes[2]);
         sahoorEditor.putInt("time",SAHOOR_ALARM_TIME);
         sahoorEditor.putInt("stop_time",20);
         sahoorEditor.putInt("snooze_time",5);

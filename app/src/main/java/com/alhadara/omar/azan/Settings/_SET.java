@@ -1,19 +1,14 @@
 package com.alhadara.omar.azan.Settings;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.core.content.res.ResourcesCompat;
-
 import com.alhadara.omar.azan.Alarms._AlarmSET;
-import com.alhadara.omar.azan.Times;
-import com.example.omar.azanapkmostafa.R;
+import com.alhadara.omar.azan.Times._TimesSET;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -127,12 +122,12 @@ public class _SET {
         settingsEditor.putBoolean("checked40708",true);
         settingsEditor.putBoolean("checked40710",true);
         settingsEditor.putBoolean("checked40712",true);
-        settingsEditor.putString("description40701", Integer.toString(Times.iqamaTimes[0]));
-        settingsEditor.putString("description40703",Integer.toString(Times.iqamaTimes[2]));
-        settingsEditor.putString("description40705",Integer.toString(Times.iqamaTimes[3]));
-        settingsEditor.putString("description40707",Integer.toString(Times.iqamaTimes[4]));
-        settingsEditor.putString("description40709",Integer.toString(Times.iqamaTimes[5]));
-        settingsEditor.putString("description40711",Integer.toString(Times.iqamaTimes[2]));
+        settingsEditor.putString("description40701", Integer.toString(_TimesSET.iqamaTimes[0]));
+        settingsEditor.putString("description40703",Integer.toString(_TimesSET.iqamaTimes[2]));
+        settingsEditor.putString("description40705",Integer.toString(_TimesSET.iqamaTimes[3]));
+        settingsEditor.putString("description40707",Integer.toString(_TimesSET.iqamaTimes[4]));
+        settingsEditor.putString("description40709",Integer.toString(_TimesSET.iqamaTimes[5]));
+        settingsEditor.putString("description40711",Integer.toString(_TimesSET.iqamaTimes[2]));
         settingsEditor.putBoolean("checked40402",false);
         settingsEditor.putBoolean("status40403",false);
         settingsEditor.putBoolean("checked40404",false);
@@ -176,12 +171,12 @@ public class _SET {
         settingsEditor.putBoolean("checked60300",true);
         settingsEditor.putBoolean("checked60400",true);
         settingsEditor.putBoolean("checked60500",true);
-        settingsEditor.putString("description60201", Integer.toString(Times.iqamaTimes[0]));
-        settingsEditor.putString("description60204",Integer.toString(Times.iqamaTimes[2]));
-        settingsEditor.putString("description60207",Integer.toString(Times.iqamaTimes[3]));
-        settingsEditor.putString("description60210",Integer.toString(Times.iqamaTimes[4]));
-        settingsEditor.putString("description60213",Integer.toString(Times.iqamaTimes[5]));
-        settingsEditor.putString("description60216",Integer.toString(Times.iqamaTimes[2]));
+        settingsEditor.putString("description60201", Integer.toString(_TimesSET.iqamaTimes[0]));
+        settingsEditor.putString("description60204",Integer.toString(_TimesSET.iqamaTimes[2]));
+        settingsEditor.putString("description60207",Integer.toString(_TimesSET.iqamaTimes[3]));
+        settingsEditor.putString("description60210",Integer.toString(_TimesSET.iqamaTimes[4]));
+        settingsEditor.putString("description60213",Integer.toString(_TimesSET.iqamaTimes[5]));
+        settingsEditor.putString("description60216",Integer.toString(_TimesSET.iqamaTimes[2]));
         settingsEditor.putString("description60202", "10");
         settingsEditor.putString("description60205", "10");
         settingsEditor.putString("description60208", "10");
