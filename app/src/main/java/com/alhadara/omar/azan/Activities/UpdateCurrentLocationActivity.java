@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
     private Handler handler;
-    private final String tempLocationFile = "updatecurrenttemplocationfile.txt";
+    private final String tempLocationFile = "updatecurrenttemplocationfile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UpdateCurrentLocationActivity.this, InternetLocationSearchActivity.class);
-                intent.putExtra("filename", "temp.txt");
+                intent.putExtra("filename", "temp");
                 startActivity(intent);
             }
         });
@@ -46,7 +46,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UpdateCurrentLocationActivity.this, ManuallyLocationActivity.class);
-                intent.putExtra("filename", "temp.txt");
+                intent.putExtra("filename", "temp");
                 startActivity(intent);
 
             }
@@ -149,9 +149,9 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if(getSharedPreferences("temp.txt",MODE_PRIVATE).getBoolean("islocationassigned",false)){
-            _LocationSET.assignLocation(UpdateCurrentLocationActivity.this,"temp.txt",tempLocationFile);
-            _LocationSET.clearTempLocationFile(UpdateCurrentLocationActivity.this,"temp.txt");
+        if(getSharedPreferences("temp",MODE_PRIVATE).getBoolean("islocationassigned",false)){
+            _LocationSET.assignLocation(UpdateCurrentLocationActivity.this,"temp",tempLocationFile);
+            _LocationSET.clearTempLocationFile(UpdateCurrentLocationActivity.this,"temp");
             Toast.makeText(UpdateCurrentLocationActivity.this,"Location Updated successfully!",Toast.LENGTH_SHORT).show();
         }
         super.onResume();

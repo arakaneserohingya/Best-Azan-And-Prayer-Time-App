@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/widgetColorSettings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.alhadara.omar.azan.Activities.ConvertDateActivity">
@@ -28,39 +27,41 @@
             <RadioButton
                 android:id="@+id/convert_date_activity_from_hijri_radio_button"
                 android:text="@string/convert_from_hijri"
-                android:textColor="@android:color/white"
-                android:buttonTint="@color/colorPrimary"
+                android:textColor="@android:color/black"
+                android:buttonTint="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"/>
-            <Button
+            <TextView
                 android:id="@+id/convert_date_activity_from_hijri_button"
                 android:layout_gravity="center"
-                android:background="@color/enabled_button"
-                android:alpha="0.7"
+                android:background="@drawable/box_border"
+                android:alpha="0.9"
                 android:padding="2dp"
                 android:layout_width="200dp"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/widget_font_size_small"
+                android:gravity="center"
                 android:text="11 / 11 / 1441"
                 android:layout_height="40dp"/>
             <RadioButton
                 android:id="@+id/convert_date_activity_from_gregorian_radio_button"
                 android:text="@string/convert_from_gregorian"
-                android:textColor="@android:color/white"
-                android:buttonTint="@color/colorPrimary"
+                android:textColor="@android:color/black"
+                android:buttonTint="@android:color/black"
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <Button
+            <TextView
                 android:id="@+id/convert_date_activity_from_gregorian_button"
                 android:layout_gravity="center"
-                android:background="@color/disabled_button"
+                android:background="@drawable/box_border"
                 android:clickable="false"
-                android:alpha="0.7"
+                android:alpha="0.1"
                 android:padding="2dp"
                 android:layout_width="200dp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@android:color/black"
+                android:gravity="center"
                 android:textSize="@dimen/widget_font_size_small"
                 android:text="11 / 11 / 2019"
                 android:layout_height="40dp"/>
@@ -76,7 +77,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/convert_date_activity_radio_group"
         app:layout_constraintHeight_percent="0.5"
-        android:background="@android:color/white"
+        android:background="@drawable/box_border"
+        android:foreground="@android:color/white"
         android:layout_width="200dp"
         android:layout_height="50dp" />
 

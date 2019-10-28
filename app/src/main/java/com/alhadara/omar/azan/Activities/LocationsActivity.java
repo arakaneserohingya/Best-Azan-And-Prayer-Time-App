@@ -11,9 +11,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
@@ -36,6 +38,8 @@ public class LocationsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.saved_locations));
+        ((ImageView) findViewById(R.id.locations_activity_image)).setImageDrawable(getResources().getDrawable(
+                _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.background:R.drawable.background_black));
         locationsWidgets();
         ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(
                 getSharedPreferences(_LocationSET.currentLocation,MODE_PRIVATE).getString("location_name","")
@@ -48,7 +52,7 @@ public class LocationsActivity extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent(LocationsActivity.this,InternetLocationSearchActivity.class);
-                intent.putExtra("filename","newlocation.txt");
+                intent.putExtra("filename","newlocation");
                 startActivity(intent);
             }
         });
@@ -77,11 +81,11 @@ public class LocationsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        SharedPreferences preferences = getSharedPreferences("newlocation.txt",MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("newlocation",MODE_PRIVATE);
         if(preferences.getBoolean("islocationassigned",false)) {
-            _LocationSET.addLocationToSavedLocations(LocationsActivity.this,"newlocation.txt");
+            _LocationSET.addLocationToSavedLocations(LocationsActivity.this,"newlocation");
             reloadLocationsActivityOnResume = true;
-            _LocationSET.clearTempLocationFile(this,"newlocation.txt");
+            _LocationSET.clearTempLocationFile(this,"newlocation");
         }
         if(reloadLocationsActivityOnResume){
             reloadLocationsActivityOnResume = false;
@@ -99,8 +103,8 @@ public class LocationsActivity extends AppCompatActivity {
             final String locationID = locations.getString("location"+i,"");
             final ViewGroup widget = (ViewGroup)list.getChildAt(i-1);
             if(locationID.equals("")) break;
-            location_i = getSharedPreferences(locationID + ".txt",MODE_PRIVATE);
-            String[] prayertimes = _TimesSET.initializeTimesFor(LocationsActivity.this,locationID+".txt", Calendar.getInstance());
+            location_i = getSharedPreferences(locationID,MODE_PRIVATE);
+            String[] prayertimes = _TimesSET.initializeTimesFor(LocationsActivity.this,locationID, Calendar.getInstance());
             widget.setVisibility(
                     location_i.getBoolean("islocationassigned",false)?View.VISIBLE:View.INVISIBLE
             );
@@ -117,11 +121,11 @@ public class LocationsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (i == 0) {
-                                _LocationSET.clearTempLocationFile(LocationsActivity.this,locationID+".txt");
+                                _LocationSET.clearTempLocationFile(LocationsActivity.this,locationID);
                                 _LocationSET.removeFromLocationsFile(LocationsActivity.this,k);
                                 widget.setVisibility(View.GONE);
                             } else if(i==1){
-                                _LocationSET.assignLocation(LocationsActivity.this,locationID+".txt", _LocationSET.currentLocation);
+                                _LocationSET.assignLocation(LocationsActivity.this,locationID, _LocationSET.currentLocation);
                                 MainActivity.reloadMainActivityOnResume = true;
                                 ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(((TextView)widget.getChildAt(0)).getText());
                             }

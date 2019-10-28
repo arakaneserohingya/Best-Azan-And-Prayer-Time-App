@@ -14,7 +14,7 @@ import com.alhadara.omar.azan.Times._TimesSET;
 import static android.content.Context.MODE_PRIVATE;
 
 public class _SET {
-    public final static String settingsFile = "settings.txt";
+    public final static String settingsFile = "settings";
     private static SharedPreferences settingsPref;
     private static SharedPreferences.Editor settingsEditor;
     public static void startSettings(Context settingsAc){

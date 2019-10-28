@@ -3,8 +3,12 @@ package com.alhadara.omar.azan.Display;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -18,7 +22,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class _DisplaySET {
-    public final static String displayFile = "display.txt";
+    public final static String displayFile = "display";
+    public static final int THEME_WHITE = 0,THEME_BLACK=1;
 
 
     public static void setLanguagePreferences(Context context) {
@@ -54,9 +59,9 @@ public class _DisplaySET {
 
     public static void firstTime(Context context){
         SharedPreferences pref = context.getSharedPreferences(displayFile,Context.MODE_PRIVATE);
-        if(!pref.getBoolean("firstTime",true)) return;
+        if(!pref.getBoolean("firsttime",true)) return;
         SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("firstTime",false);
+        editor.putBoolean("firsttime",false);
         editor.putString("language","en");
         editor.putInt("numbers_language",0);
         editor.putInt("theme",0);
@@ -74,5 +79,9 @@ public class _DisplaySET {
         editor.clear();
         editor.commit();
         firstTime(context);
+    }
+
+    public static int getAppTheme(Context context) {
+        return context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("theme",THEME_WHITE);
     }
 }

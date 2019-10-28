@@ -21,13 +21,14 @@ public class SilentTimeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         int index = intent.getExtras().getInt("index");
+        String type = intent.getExtras().getString("type");
         AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if(index!=10 && (am.getRingerMode()==AudioManager.RINGER_MODE_NORMAL)){
+        if(type.equals("fire") && (am.getRingerMode()==AudioManager.RINGER_MODE_NORMAL)){
             vibrate(context);
             showMsg(context);
             switchPhone(context);
-            backNormal(context,_AlarmSET.getSilentWakeFor(context,index));
-        }else if(index==10 && (am.getRingerMode()!=AudioManager.RINGER_MODE_NORMAL)){
+            backNormal(context,index,_AlarmSET.getSilentWakeFor(context,index));
+        }else if(type.equals("backNormal") && (am.getRingerMode()!=AudioManager.RINGER_MODE_NORMAL)){
             vibrate(context);
             am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
@@ -48,16 +49,18 @@ public class SilentTimeReceiver extends BroadcastReceiver {
         Intent in = new Intent(context, SilentTimeReceiver.class);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         in.putExtra("index",index);
+        in.putExtra("type","fire");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _AlarmSET.SILENT_REQUEST_CODE + index, in, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         else manager.cancel(pendingIntent);
     }
-    private void backNormal(Context context, Calendar calendar){
+    private void backNormal(Context context,int index, Calendar calendar){
         Intent in = new Intent(context, SilentTimeReceiver.class);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        in.putExtra("index",10);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 180, in, PendingIntent.FLAG_UPDATE_CURRENT);
+        in.putExtra("index",index);
+        in.putExtra("type","backNormal");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _AlarmSET.SILENT_REQUEST_CODE - index, in, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
     }

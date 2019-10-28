@@ -560,7 +560,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
 
                 //Hijri
                 else if(k==0 && layoutNumber ==HIJRI_LAYOUT_NUM){
-
+                    /* Unclickable because it's always checked */
                 }else if(layoutNumber ==HIJRI_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _TimesSET.adjustTimesFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"+2", "+1", "0", "-1", "-2"}, new int[]{2, 1, 0, -1, -2}, new RadioDialog.run() {

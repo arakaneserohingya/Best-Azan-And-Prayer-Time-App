@@ -25,6 +25,7 @@ import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -123,12 +124,15 @@ public class SahoorActivity extends AppCompatActivity implements MediaPlayer.OnP
     }
 
     public void initializeDateViews() {
-        UmmalquraCalendar hijCal = new UmmalquraCalendar();
+        UmmalquraCalendar hijCal = _TimesSET.getUmmalquraCalendar(this);
         Calendar cal = Calendar.getInstance();
-        ((TextView) findViewById(R.id.sahoor_activity_hijri_month_number)).setText(Integer.toString(hijCal.get(Calendar.DAY_OF_MONTH)));
+        NumberFormat nf = _DisplaySET.getNumberFormat(this);
+        ((TextView) findViewById(R.id.sahoor_activity_hijri_month_number)).setText(nf.format(hijCal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.sahoor_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(Calendar.MONTH)]);
-        ((TextView) findViewById(R.id.sahoor_activity_gregorian_month_number)).setText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.sahoor_activity_hijri_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
+        ((TextView) findViewById(R.id.sahoor_activity_gregorian_month_number)).setText(nf.format(cal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.sahoor_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.sahoor_activity_gregorian_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
     }
 
     @Override

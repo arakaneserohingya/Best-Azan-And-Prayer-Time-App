@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
@@ -34,7 +35,7 @@ import java.util.concurrent.Callable;
 
 public class ConvertDateActivity extends AppCompatActivity
         implements  HijriDatePickerDialog.OnDateSetListener,
-                    GregorianDatePickerDialog.OnDateSetListener{
+        GregorianDatePickerDialog.OnDateSetListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,29 +57,27 @@ public class ConvertDateActivity extends AppCompatActivity
                 setTextsDefault();
                 if(i == R.id.convert_date_activity_from_gregorian_radio_button){
                     ((RadioButton) findViewById(R.id.convert_date_activity_from_hijri_radio_button)).setChecked(false);
-                    switchRadio((Button)findViewById(R.id.convert_date_activity_from_gregorian_button),
-                            (Button) findViewById(R.id.convert_date_activity_from_hijri_button));
+                    switchRadio(findViewById(R.id.convert_date_activity_from_gregorian_button),
+                            findViewById(R.id.convert_date_activity_from_hijri_button));
                 }else{
                     ((RadioButton) findViewById(R.id.convert_date_activity_from_gregorian_radio_button)).setChecked(false);
-                    switchRadio((Button)findViewById(R.id.convert_date_activity_from_hijri_button),
-                            (Button) findViewById(R.id.convert_date_activity_from_gregorian_button));
+                    switchRadio(findViewById(R.id.convert_date_activity_from_hijri_button),
+                            findViewById(R.id.convert_date_activity_from_gregorian_button));
                 }
             }
         });
     }
-    private void switchRadio(Button enabled,Button disabled){
+    private void switchRadio(View enabled,View disabled){
         enabled.setClickable(true);
-        enabled.setBackgroundColor(getResources().getColor(R.color.enabled_button));
-        enabled.setTextColor(Color.WHITE);
+        enabled.setAlpha(1.0f);
         disabled.setClickable(false);
-        disabled.setBackgroundColor(getResources().getColor(R.color.disabled_button));
-        disabled.setTextColor(Color.DKGRAY);
+        disabled.setAlpha(0.2f);
     }
     private void manageDialogs(){
         findViewById(R.id.convert_date_activity_from_hijri_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UmmalquraCalendar now = new UmmalquraCalendar();
+                UmmalquraCalendar now = _TimesSET.getUmmalquraCalendar(ConvertDateActivity.this);
                 HijriDatePickerDialog dpd = HijriDatePickerDialog.newInstance(
                         ConvertDateActivity.this,
                         now.get(UmmalquraCalendar.YEAR),
@@ -104,11 +103,11 @@ public class ConvertDateActivity extends AppCompatActivity
     }
     private void setTextsDefault(){
         Calendar gregorainCal = Calendar.getInstance();
-        UmmalquraCalendar hijriCal = new UmmalquraCalendar();
-        ((Button) findViewById(R.id.convert_date_activity_from_gregorian_button)).setText(
+        UmmalquraCalendar hijriCal = _TimesSET.getUmmalquraCalendar(this);
+        ((TextView) findViewById(R.id.convert_date_activity_from_gregorian_button)).setText(
                 gregorainCal.get(Calendar.DAY_OF_MONTH) + " / " + (gregorainCal.get(Calendar.MONTH)+1) + " / " + gregorainCal.get(Calendar.YEAR)
         );
-        ((Button) findViewById(R.id.convert_date_activity_from_hijri_button)).setText(
+        ((TextView) findViewById(R.id.convert_date_activity_from_hijri_button)).setText(
                 hijriCal.get(Calendar.DAY_OF_MONTH) + " / " + (hijriCal.get(Calendar.MONTH)+1) + " / " + hijriCal.get(Calendar.YEAR)
         );
         ((TextView) findViewById(R.id.convert_date_activity_result)).setText("");
@@ -121,7 +120,7 @@ public class ConvertDateActivity extends AppCompatActivity
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        UmmalquraCalendar u = new UmmalquraCalendar();
+        UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
         long l = (calendar.getTimeInMillis() - now.getTimeInMillis())/86400000;
         u.add(UmmalquraCalendar.DATE,(int)l);
         ((TextView)findViewById(R.id.convert_date_activity_result)).setText(
@@ -135,11 +134,12 @@ public class ConvertDateActivity extends AppCompatActivity
 
     @Override
     public void onDateSet(HijriDatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        UmmalquraCalendar u = new UmmalquraCalendar();
-        UmmalquraCalendar now = new UmmalquraCalendar();
+        UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
+        UmmalquraCalendar now = _TimesSET.getUmmalquraCalendar(this);
         u.set(UmmalquraCalendar.YEAR, year);
         u.set(UmmalquraCalendar.MONTH,monthOfYear);
         u.set(UmmalquraCalendar.DAY_OF_MONTH,dayOfMonth);
+        _TimesSET.setUmmalquraCalendar(this,u);
         Calendar calendar = Calendar.getInstance();
         long l = (u.getTimeInMillis() - now.getTimeInMillis())/86400000;
         calendar.add(Calendar.DATE,(int)l);

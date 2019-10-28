@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -79,15 +80,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_settings) {
-            startActivity(new Intent(this,SettingsActivity.class));
+            startActivityForResult(new Intent(this,SettingsActivity.class),10000);
         } else if (id == R.id.nav_convert_date) {
-            startActivity(new Intent(this, ConvertDateActivity.class));
+            startActivityForResult(new Intent(this, ConvertDateActivity.class),10000);
         } else if (id == R.id.nav_compass) {
 
         } else if (id == R.id.nav_location) {
-            startActivity(new Intent(this, LocationsActivity.class));
+            startActivityForResult(new Intent(this, LocationsActivity.class),10000);
         } else if (id == R.id.nab_remembrance) {
-            startActivity(new Intent(this, AzkarActivity.class));
+            startActivityForResult(new Intent(this, AzkarActivity.class),10000);
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_problems) {
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 
                     Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
                     intent.putExtra("TimePointIndex", s);
-                    startActivity(intent);
+                    startActivityForResult(intent,10000);
                     overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);
                 }
             });
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         int goneTimePoint = upComingTimePoint - 1;
         if (goneTimePoint < 0) goneTimePoint = 5;
         ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-        progressBar.setProgress((int) (100 - (100 * remainTime / ((_TimesSET.getPrayerTimeMillis(upComingTimePoint)- _TimesSET.getPrayerTimeMillis(goneTimePoint))/1000))));
+        progressBar.setProgress((int) (100 - (100 * remainTime / (((upComingTimePoint==0?_TimesSET.getNextFajrMillis():_TimesSET.getPrayerTimeMillis(upComingTimePoint))- _TimesSET.getPrayerTimeMillis(goneTimePoint))/1000))));
     }
 
     public void tintingUpComingTimePoint(boolean tint) {
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 int h, m, s;
-                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(upComingTimePoint) - System.currentTimeMillis())/1000);
+                int remainTime = (int) (((upComingTimePoint==0?_TimesSET.getNextFajrMillis():_TimesSET.getPrayerTimeMillis(upComingTimePoint)) - System.currentTimeMillis())/1000);
                 if (remainTime < 1) {
                     tintingUpComingTimePoint(false);
                     upComingTimePoint = _TimesSET.comingTimePointIndex();
@@ -223,6 +224,12 @@ public class MainActivity extends AppCompatActivity
             reloadMainActivityOnResume = false;
             recreate();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        recreate();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

@@ -4,7 +4,6 @@ package com.alhadara.omar.azan.Times;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.alhadara.omar.azan.Activities.MainActivity;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
@@ -18,17 +17,17 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class _TimesSET {
 
-    public final static String prayersFile = "prayer_times.txt";
-    public final static String adjustTimesFile = "adjust_times.txt";
+    public final static String prayersFile = "prayer_times";
+    public final static String adjustTimesFile = "adjust_times";
 
-    public static String[] times = {"03:34","05:28","12:38","16:22","19:49","21:29"};
+    public static String[] times = {"04:27","05:51","11:19","14:23","16:46","18:05"};
     public static int[] iqamaTimes = {30,0,20,20,5,5};
     public static void initializeTimesForCurrent(Context context){
         times = initializeTimesFor(context, _LocationSET.currentLocation,Calendar.getInstance());
     }
     public static String[] initializeTimesFor(Context context,String locationFile, Calendar time){
         firstTime(context);
-        String[] str = {"","","","","",""};
+        String[] str = new String[]{"04:27","05:51","11:19","14:23","16:46","18:05"};
         SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
         float latitude = pref.getFloat("latitude",0);
         float longitude = pref.getFloat("longitude",0);
@@ -43,14 +42,14 @@ public class _TimesSET {
                             getAdjust(context,1) + getDstInMinutes(context),
                             getAdjust(context,2) + getDstInMinutes(context),
                             getAdjust(context,3) + getDstInMinutes(context),
+                            0, //sunset
                             getAdjust(context,4) + getDstInMinutes(context),
-                            getAdjust(context,5) + getDstInMinutes(context),
-                            getAdjust(context,6) + getDstInMinutes(context) + (adjustIshaRamadan(context,prayers)?30:0)
+                            getAdjust(context,5) + getDstInMinutes(context) + (adjustIshaRamadan(context,prayers)?30:0)
         }; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
         prayers.tune(offsets);
 
         ArrayList<String> prayerTimes = prayers.getPrayerTimes(time,
-                latitude, longitude, timezone);
+                33.51253, 36.27802, 2.0);
         ArrayList<String> prayerNames = prayers.getTimeNames();
 
         StringBuilder res = new StringBuilder();
@@ -63,6 +62,7 @@ public class _TimesSET {
         str[2]=(isJumuahTimeDiff(context)&&time.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY)?
                 getJumuahTime(context):prayerTimes.get(2);
         str[3]=prayerTimes.get(3);
+        /* prayerTimes.get(4) is for sunset*/
         str[4]=prayerTimes.get(5);
         str[5]=prayerTimes.get(6);
         return str;
@@ -91,7 +91,7 @@ public class _TimesSET {
     }
 
     private static boolean adjustIshaRamadan(Context context, PrayTime prayers) {
-        UmmalquraCalendar calendar = new UmmalquraCalendar();
+        UmmalquraCalendar calendar = getUmmalquraCalendar(context);
         return context.getSharedPreferences(prayersFile, MODE_PRIVATE).getInt("method", prayers.MWL) == prayers.Makkah
                 && context.getSharedPreferences(prayersFile, MODE_PRIVATE).getBoolean("adjust_isha_in_ramadan", false)
                 && calendar.get(Calendar.MONTH) == UmmalquraCalendar.RAMADHAN;
@@ -120,13 +120,14 @@ public class _TimesSET {
         SharedPreferences adjust = context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         SharedPreferences.Editor adjustEditor = adjust.edit();
-        if(!preferences.getBoolean("firstTime",true)) return;
-        editor.putBoolean("firstTime",false);
+        if(!preferences.getBoolean("firsttime",true)) return;
+        editor.putBoolean("firsttime",false);
         editor.putInt("method",3);
         editor.putInt("asr_method",0);
         for (int i=0;i<6;i++) adjustEditor.putInt("adjust_"+i,0);
         editor.putInt("dst",0);
         editor.putString("jumuah_time","11:00");
+        adjustEditor.putInt("hijri_adjust",0);
         editor.commit();
         adjustEditor.commit();
     }
@@ -135,13 +136,12 @@ public class _TimesSET {
     public static void updateTimes(Context context){
         if(!_LocationSET.isLocationAssigned(context)) return;
         initializeTimesForCurrent(context);
-        MainActivity.reloadMainActivityOnResume = true;
     }
 
     public static int comingTimePointIndex(){
         int i = 0;
-        while(System.currentTimeMillis() > getPrayerTimeMillis(i)) i++;
-        return i;
+        while(System.currentTimeMillis() > getPrayerTimeMillis(i)) if(++i == 6) break;
+        return i<6?i:0;
     }
 
     public static String getPrayerTimeString(Context context, int i){
@@ -167,6 +167,14 @@ public class _TimesSET {
        cal.set(Calendar.SECOND,0);
        return cal.getTimeInMillis();
     }
+    public static long getNextFajrMillis() {
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DATE,1);
+        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(times[0].substring(0, 2)));
+        cal.set(Calendar.MINUTE,Integer.parseInt(times[0].substring(3, 5)));
+        cal.set(Calendar.SECOND,0);
+        return cal.getTimeInMillis();
+    }
 
     public static void clear(Context context) {
         SharedPreferences.Editor editor = context.getSharedPreferences(prayersFile,MODE_PRIVATE).edit();
@@ -177,4 +185,15 @@ public class _TimesSET {
         editor.commit();
         firstTime(context);
     }
+    public static UmmalquraCalendar getUmmalquraCalendar(Context context){
+        UmmalquraCalendar calendar = new UmmalquraCalendar();
+        calendar.add(Calendar.DATE,context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0));
+        return calendar;
+    }
+
+    public static void setUmmalquraCalendar(Context context, UmmalquraCalendar u) {
+        u.add(Calendar.DATE,context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0));
+    }
+
+
 }

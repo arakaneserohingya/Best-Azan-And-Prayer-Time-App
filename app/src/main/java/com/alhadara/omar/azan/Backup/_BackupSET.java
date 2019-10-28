@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 
 import com.alhadara.omar.azan.Alarms._AlarmSET;
+import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Settings._SET;
@@ -30,6 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class _BackupSET {
     public final static int TYPE_SETTINGS = 1,TYPE_LOCATIONS = 2;
     private static final int ACCESS_SD_PERMISSION = 1 ;
+    private static final String BACKUP_FOLDER = "/" + Constants.APP_NAME + "Backup";
 
     public static void checkForPermissions(Activity activity){
         if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -64,14 +66,14 @@ public class _BackupSET {
             saveSharedPreferencesToFile(context,"/svdlocations/" + dstName, _LocationSET.locationsFile);
             SharedPreferences locs = context.getSharedPreferences(_LocationSET.locationsFile,MODE_PRIVATE);
             for(int i=1;i<=locs.getInt("locationsnumber",0);i++) {
-                String name = locs.getString("location"+i,"") + ".txt";
+                String name = locs.getString("location"+i,"");
                 saveSharedPreferencesToFile(context,"/svdlocations/" + dstName, name);
             }
         }
     }
     public static boolean saveSharedPreferencesToFile(Context context, String dstName ,String prefName) {
         boolean res = false;
-        File dir = new File(Environment.getExternalStorageDirectory().getPath() +  dstName);
+        File dir = new File(Environment.getExternalStorageDirectory().getPath() + BACKUP_FOLDER +  dstName);
         dir.mkdirs();
         File dst = new File(dir,prefName);
         ObjectOutputStream output = null;
@@ -114,7 +116,7 @@ public class _BackupSET {
             loadSharedPreferencesFromFile(context,"/svdlocations/" + dstName, _LocationSET.locationsFile);
             SharedPreferences locs = context.getSharedPreferences(_LocationSET.locationsFile,MODE_PRIVATE);
             for(int i=1;i<=locs.getInt("locationsnumber",0);i++) {
-                String name = locs.getString("location"+i,"") + ".txt";
+                String name = locs.getString("location"+i,"");
                 loadSharedPreferencesFromFile(context,"/svdlocations/" + dstName, name);
             }
         }
@@ -125,7 +127,7 @@ public class _BackupSET {
         boolean res = false;
         ObjectInputStream input = null;
         try {
-            File dir = new File(Environment.getExternalStorageDirectory().getPath() +  dstName);
+            File dir = new File(Environment.getExternalStorageDirectory().getPath() + BACKUP_FOLDER +  dstName);
             File src = new File(dir,prefName);
             input = new ObjectInputStream(new FileInputStream(src));
             SharedPreferences.Editor prefEdit = context.getSharedPreferences(prefName, MODE_PRIVATE).edit();

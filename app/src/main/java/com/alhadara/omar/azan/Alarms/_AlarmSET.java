@@ -10,14 +10,14 @@ import java.util.Calendar;
 import static android.content.Context.MODE_PRIVATE;
 
 public class _AlarmSET {
-    public static final String azanFile = "notifications.txt";
-    public static final String iqamaFile = "reminders.txt";
-    public static final String sahoorFile = "sahoor.txt";
-    public static final String silentFile = "silent.txt";
+    public static final String azanFile = "notifications";
+    public static final String iqamaFile = "reminders";
+    public static final String sahoorFile = "sahoor";
+    public static final String silentFile = "silent";
     public static final int AZAN_REQUEST_CODE = 150;
     public static final int IQAMA_REQUEST_CODE = 160;
     public static final int SAHOOR_REQUEST_CODE = 140;
-    public static final int SILENT_REQUEST_CODE = 170;
+    public static final int SILENT_REQUEST_CODE = 190;
     public static final int SAHOOR_ALARM_TIME = -20;
 
     public static boolean notifyActivated(Context context) {
@@ -110,8 +110,8 @@ public class _AlarmSET {
         SharedPreferences.Editor sahoorEditor = sahoor.edit();
         SharedPreferences silent = context.getSharedPreferences(silentFile,MODE_PRIVATE);
         SharedPreferences.Editor silentEditor = silent.edit();
-        azanEditor.putBoolean("firstTime",false);
-        iqamaEditor.putBoolean("firstTime",false);
+        azanEditor.putBoolean("firsttime",false);
+        iqamaEditor.putBoolean("firsttime",false);
         azanEditor.putInt("notification_type",1);
         iqamaEditor.putInt("reminder_type",1);
         for(int i=0;i<5;i++) iqamaEditor.putInt("remind_time_"+i, _TimesSET.iqamaTimes[i>0?i+1:0]);
@@ -128,7 +128,7 @@ public class _AlarmSET {
         silentEditor.commit();
     }
     public static boolean isFirstTime(Context context){
-        return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("firstTime",true);
+        return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("firsttime",true);
     }
 
     public static boolean isVibrateActivated(Context context) {

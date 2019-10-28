@@ -31,8 +31,8 @@ public class _LocationSET {
 
     public static final int ACCESS_LOCATION_PERMISSION = 1;
     private static boolean IS_PERMISSION_REQUEST_HAD_SHOWN_BEFORE = false; // true if permission request shown for one run time
-    public final static String locationsFile = "locations.txt";
-    public final static String currentLocation = "currentlocation.txt";
+    public final static String locationsFile = "locations";
+    public final static String currentLocation = "currentlocation";
     private static Runnable onUpdateLocationTimesUp;
     public final static int GPS_REQUEST = 1,NETWORK_REQUEST =2,GPS_AND_NETWORK_REQUEST=3;
 
@@ -220,12 +220,9 @@ public class _LocationSET {
                         == PackageManager.PERMISSION_GRANTED ) {
                     builder.cancel();
                     getLocation(activity,tempLocationFile,GPS_AND_NETWORK_REQUEST,result);
-                    Toast.makeText(activity,"Thanksss you!",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if(i==15 /* i==10 -> 5 sec*/) {
-
-                    Toast.makeText(activity,"bashh you!",Toast.LENGTH_SHORT).show();
                     builder.cancel();
                     result.onFail();
                     return;
@@ -264,7 +261,7 @@ public class _LocationSET {
         String id = context.getSharedPreferences(locationFileName, Context.MODE_PRIVATE).getString("location_name","").replaceAll("[^a-zA-Z0-9\\.\\-]", "").toLowerCase();
         if(isAlreadyExistInLocationsFile(context,id)) {Toast.makeText(context,"Location already exist!",Toast.LENGTH_SHORT).show(); return;}
         // ID == Location file name should differs, in order to avoid file overwriting
-        assignLocation(context,locationFileName,id+".txt");
+        assignLocation(context,locationFileName,id);
         addToLocationsFile(context,id);
     }
 
