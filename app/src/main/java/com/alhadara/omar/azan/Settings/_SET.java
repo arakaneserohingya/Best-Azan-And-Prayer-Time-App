@@ -197,6 +197,7 @@ public class _SET {
         settingsEditor.putString("description10705", "0");
         settingsEditor.putString("description10706", "0");
         settingsEditor.putString("description10707", "0");
+        settingsEditor.putBoolean("status20100",false);
         settingsEditor.commit();
     }
 

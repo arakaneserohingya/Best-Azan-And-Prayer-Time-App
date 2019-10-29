@@ -415,11 +415,14 @@
     <string name="settings_layout_titles_prayer_notification_tone_title1" >@string/each_prayer_notification_tone</string>
     <string name="settings_layout_titles_prayer_times_title1" >@string/calculations</string>
     <string name="settings_layout_titles_silent_title1" >@string/silent_mode</string>
-    <string name="current_location_not_found">Your current location so the app will use the last known location ont the device.\nIf it was wrong, try again agter restarting the device.</string>
     <string name="set_file_name">اسم الملف</string>
-    <string name="backup_list">Backup List</string>
-    <string name="backup_and_restore_dialog3">Settings will be deleted, and reset back to defaults.</string>
+    <string name="backup_list">قائمة النسخ الاحتياطية</string>
+    <string name="backup_and_restore_dialog3">سيتم حذف الإعدادات واستعادة القيم الإفتراضية.</string>
     <string name="sunrise">الشروق</string>
+    <string name="current_location_not_found">تعذر العثور على الموقع الحالي، سيقوم التطبيق باستخدام آخر موقع معروف للجهاز.\nإذا كان خاطئا قم بإعادة تشغيل جهازك.</string>
+    <string name="current_location_not_found_and_last">تعذر العثور على الموقع الحالي.\nقم بالمحاولة بطريقة أخرى أو أعد تشغيل الجهاز</string>
+    <string name="update_current_activity_last_known_location_not_found">تعذر العثور على آخر موقع معروف للجهاز</string>
+
 
     <string-array name="prayer_time_notifications" >
         <item>@string/prayer_time_notification1</item>

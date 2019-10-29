@@ -75,10 +75,18 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(_LocationSET.getLastLocation(UpdateCurrentLocationActivity.this,tempLocationFile)){
-                    setTitleLocation();
-                    LocationsActivity.reloadLocationsActivityOnResume = true;
-                }
+                _LocationSET.getLastLocation(UpdateCurrentLocationActivity.this, tempLocationFile, new _LocationSET.locationUpdateResult() {
+                    @Override
+                    public void onSuccess() {
+                        setTitleLocation();
+                        LocationsActivity.reloadLocationsActivityOnResume = true;
+                    }
+
+                    @Override
+                    public void onFail() {
+                        Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.update_current_activity_last_known_location_not_found),Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         findViewById(R.id.update_current_location_activity_network_button).setOnClickListener(new View.OnClickListener() {
