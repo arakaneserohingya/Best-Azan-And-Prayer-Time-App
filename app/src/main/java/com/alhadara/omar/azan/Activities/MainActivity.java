@@ -4,12 +4,15 @@ import android.content.Intent;
 
 import android.content.res.Configuration;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.LayoutDirection;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(_DisplaySET.getAppTheme(this)== _DisplaySET.THEME_WHITE?
+                R.color.colorPrimaryWhite:R.color.colorPrimaryBlack));
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,13 +68,43 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getHeaderView(0).setBackground(getResources().getDrawable(_DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?
+                R.drawable.side_nav_bar:R.drawable.side_nav_bar_black));
         navigationView.setNavigationItemSelectedListener(this);
 
         upComingTimePoint = _TimesSET.comingTimePointIndex();
         initializeDateViews();
         initializeTimePoints();
+        initializeTheme();
         startTimer();
         AlarmsScheduler.fire(this,Calendar.getInstance()); //set Alarms
+    }
+
+    private void initializeTheme() {
+        ((ImageView) findViewById(R.id.background)).setImageDrawable(getResources().getDrawable(
+                _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.background:R.drawable.background_black
+        ));
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setTextColor(
+            _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setTextColor(
+                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTextColor(
+                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setTextColor(
+                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTextColor(
+                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            ((ProgressBar)findViewById(R.id.progress_bar_landscape)).setProgressDrawable(getResources().getDrawable(
+                    _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.circle:R.drawable.circle_black
+            ));
+            ViewGroup group = findViewById(R.id.main_activity_timer);
+            for(int i=0;i<group.getChildCount();i++){
+                if(group.getChildAt(i) instanceof TextView) ((TextView) group.getChildAt(i)).setTextColor(
+                        _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?getResources().getColor(R.color.widgetColor):Color.WHITE
+                );
+            }
+        }
     }
 
 
@@ -103,13 +138,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initializeDateViews() {
-        UmmalquraCalendar hijCal = new UmmalquraCalendar();
+        UmmalquraCalendar hijCal = _TimesSET.getUmmalquraCalendar(this);
         Calendar cal = Calendar.getInstance();
         NumberFormat nf = _DisplaySET.getNumberFormat(this);
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(getResources().getStringArray(R.array.day_of_week)[cal.get(Calendar.DAY_OF_WEEK) - 1]);
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setTypeface(_DisplaySET.getTypeFace(this));
-        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(nf.format(hijCal.get(Calendar.DAY_OF_MONTH)));
-        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(nf.format(hijCal.get(UmmalquraCalendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(UmmalquraCalendar.MONTH)]);
         ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
         ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(nf.format(cal.get(Calendar.DAY_OF_MONTH)));
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
@@ -179,9 +214,9 @@ public class MainActivity extends AppCompatActivity
     public void tintingUpComingTimePoint(boolean tint) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint)
-                    .setBackgroundColor(getResources().getColor(tint ? R.color.colorPrimary : R.color.widgetColorSettingsBox));
+                    .setBackgroundColor(getResources().getColor(tint ? _DisplaySET.getPrimaryColor(this) : R.color.widgetColorSettingsBox));
         else ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint + 1)
-                .setBackgroundColor(getResources().getColor(tint ? R.color.colorPrimary : R.color.widgetColorSettingsBox));
+                .setBackgroundColor(getResources().getColor(tint ? _DisplaySET.getPrimaryColor(this) : R.color.widgetColorSettingsBox));
     }
 
 

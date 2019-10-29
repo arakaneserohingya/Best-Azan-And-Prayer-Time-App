@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp"
         android:textSize="14sp"
         android:gravity="right"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/buttons"
         android:id="@+id/azkar_unit_repetition"
         app:layout_constraintLeft_toRightOf="@id/azkar_unit_sanad"
         app:layout_constraintRight_toRightOf="parent"

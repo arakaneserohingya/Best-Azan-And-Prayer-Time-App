@@ -172,7 +172,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
         TextView t = new TextView(activity);
         t.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         t.setPadding(px(10),px(10),px(10),0);
-        t.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+        t.setTextColor(activity.getResources().getColor(R.color.buttons));
         t.setGravity(Gravity.START);
         t.setText(titles.get(getTitlesNumBeforeIndex(i)));
         return t;
@@ -569,6 +569,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                             MainActivity.reloadMainActivityOnResume = true;
                         }
                     });
+                    dialog.show();
                 }
 
                 else if((k%2)==0 && layoutNumber == IQAMA_REMINDER_TIMES_LAYOUT_NUM){

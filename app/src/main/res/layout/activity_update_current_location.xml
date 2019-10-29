@@ -12,7 +12,7 @@
         android:alpha="0.7"
         android:id="@+id/toolbar_update_current_location_activity"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/disabled_button"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
     <ScrollView
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content">
                 <ImageButton
                     android:id="@+id/update_current_location_activity_save_button"
-                    android:tint="@color/colorPrimary"
+                    android:tint="@color/buttons"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_save_24dp"

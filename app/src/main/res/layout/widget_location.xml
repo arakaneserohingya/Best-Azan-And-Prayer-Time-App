@@ -52,12 +52,11 @@
         android:text="hello\nworld"
         android:textColor="@android:color/white"
         android:textSize="@dimen/widget_font_size_small"
-        app:layout_constraintBottom_toTopOf="@+id/widget_location_time_4"
+        app:layout_constraintBottom_toTopOf="@id/widget_location_time_4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_2"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
-
+        app:layout_constraintEnd_toStartOf="@id/widget_location_time_2"
+        app:layout_constraintTop_toBottomOf="@id/widget_location_details" />
     <TextView
         android:gravity="center"
         android:id="@+id/widget_location_time_2"
@@ -66,12 +65,11 @@
         android:text="hello\nworld"
         android:textColor="@android:color/white"
         android:textSize="@dimen/widget_font_size_small"
-        app:layout_constraintBottom_toTopOf="@+id/widget_location_time_5"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_1"
+        app:layout_constraintBottom_toTopOf="@id/widget_location_time_5"
+        app:layout_constraintStart_toEndOf="@id/widget_location_time_1"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_3"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
-
+        app:layout_constraintEnd_toStartOf="@id/widget_location_time_3"
+        app:layout_constraintTop_toBottomOf="@id/widget_location_details" />
     <TextView
         android:gravity="center"
         android:id="@+id/widget_location_time_3"
@@ -80,12 +78,11 @@
         android:text="hello\nworld"
         android:textColor="@android:color/white"
         android:textSize="@dimen/widget_font_size_small"
-        app:layout_constraintBottom_toTopOf="@+id/widget_location_time_6"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_2"
+        app:layout_constraintBottom_toTopOf="@id/widget_location_time_6"
+        app:layout_constraintStart_toEndOf="@id/widget_location_time_2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_details" />
-
+        app:layout_constraintTop_toBottomOf="@id/widget_location_details" />
     <TextView
         android:id="@+id/widget_location_time_4"
         android:layout_width="wrap_content"
@@ -97,9 +94,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_5"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_time_1" />
-
+        app:layout_constraintEnd_toStartOf="@id/widget_location_time_5"
+        app:layout_constraintTop_toBottomOf="@id/widget_location_time_1" />
     <TextView
         android:gravity="center"
         android:id="@+id/widget_location_time_5"
@@ -111,9 +107,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/widget_location_time_4"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/widget_location_time_6"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_time_2" />
-
+        app:layout_constraintEnd_toStartOf="@id/widget_location_time_6"
+        app:layout_constraintTop_toBottomOf="@id/widget_location_time_2" />
     <TextView
         android:gravity="center"
         android:id="@+id/widget_location_time_6"
@@ -123,10 +118,10 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/widget_font_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/widget_location_time_5"
+        app:layout_constraintStart_toEndOf="@id/widget_location_time_5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/widget_location_time_3" />
+        app:layout_constraintTop_toBottomOf="@id/widget_location_time_3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

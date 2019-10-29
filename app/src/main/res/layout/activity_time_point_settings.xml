@@ -18,12 +18,12 @@
             app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/disabled_button"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@color/colorPrimary"
-            android:alpha="0.7"
+            android:background="@color/disabled_button"
+            android:alpha="0.5"
             android:id="@+id/countdown_layout_time_point_settings"
             android:layout_width="match_parent"
             android:layout_height="@dimen/time_prayer_widget_height">

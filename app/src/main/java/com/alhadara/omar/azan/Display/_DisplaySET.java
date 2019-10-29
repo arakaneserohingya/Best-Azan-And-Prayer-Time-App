@@ -3,6 +3,7 @@ package com.alhadara.omar.azan.Display;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import com.alhadara.omar.azan.Activities.MainActivity;
 import com.example.omar.azanapkmostafa.R;
 
 
@@ -83,5 +85,19 @@ public class _DisplaySET {
 
     public static int getAppTheme(Context context) {
         return context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("theme",THEME_WHITE);
+    }
+
+    public static int getPrimaryColor(Context context) {
+         return getAppTheme(context) == THEME_WHITE?R.color.colorPrimaryWhite:R.color.colorPrimaryBlack;
+    }
+
+    public static String formatStringNumbers(Context context,String str) {
+        NumberFormat nf = getNumberFormat(context);
+        String s = "";
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i) >= '0' && str.charAt(i) <= '9') s+= nf.format(Integer.parseInt(str.substring(i,i+1)));
+            else s+= str.charAt(i);
+        }
+        return s;
     }
 }

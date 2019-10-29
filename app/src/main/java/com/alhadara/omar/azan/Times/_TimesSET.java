@@ -3,6 +3,7 @@ package com.alhadara.omar.azan.Times;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.util.IslamicCalendar;
 
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
@@ -27,7 +28,7 @@ public class _TimesSET {
     }
     public static String[] initializeTimesFor(Context context,String locationFile, Calendar time){
         firstTime(context);
-        String[] str = new String[]{"04:27","05:51","11:19","14:23","16:46","18:05"};
+        String[] str = {"","","","","",""};
         SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
         float latitude = pref.getFloat("latitude",0);
         float longitude = pref.getFloat("longitude",0);
@@ -49,7 +50,7 @@ public class _TimesSET {
         prayers.tune(offsets);
 
         ArrayList<String> prayerTimes = prayers.getPrayerTimes(time,
-                33.51253, 36.27802, 2.0);
+                latitude, longitude, timezone);
         ArrayList<String> prayerNames = prayers.getTimeNames();
 
         StringBuilder res = new StringBuilder();

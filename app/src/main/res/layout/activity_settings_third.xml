@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/disabled_button"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     <androidx.recyclerview.widget.RecyclerView

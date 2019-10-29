@@ -309,7 +309,7 @@ public class _LocationSET {
         if (mTimeZone.inDaylightTime(mCalendar.getTime())){
             mGMTOffset += mTimeZone.getDSTSavings();
         }
-        return TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
+        return TimeUnit.HOURS.convert(mTimeZone.getRawOffset(), TimeUnit.MILLISECONDS);
     }
 
     public static void clearTempLocationFile(Context context, String s) {
