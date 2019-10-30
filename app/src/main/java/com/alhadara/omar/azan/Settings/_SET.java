@@ -20,7 +20,7 @@ public class _SET {
     public static void startSettings(Context settingsAc){
         settingsPref = settingsAc.getSharedPreferences(settingsFile,MODE_PRIVATE);
         settingsEditor = settingsPref.edit();
-        if(settingsPref.getBoolean("firstTime",true)) firstTime();
+        if(settingsPref.getBoolean("firsttime",true)) firstTime();
     }
 
 
@@ -31,12 +31,6 @@ public class _SET {
     public static void setStatus(View view){
         view.setClickable(isActivated(view));
         view.setAlpha(isActivated(view)?1.0f:0.2f);
-    }
-    public static void setStatus(View view,boolean bool){
-        settingsEditor.putBoolean("status"+view.getId(),bool);
-        settingsEditor.commit();
-        view.setClickable(bool);
-        view.setAlpha(bool?1.0f:0.2f);
     }
     public static void setStatus(Activity activity, int id, boolean bool) {
         settingsEditor.putBoolean("status"+id,bool);
@@ -91,18 +85,16 @@ public class _SET {
         }
     }
 
-    public static int generateViewID(int l1,int l2,int l3){
-        return (l1*10000)+(l2*100)+(l3);
-    }
-
     private static void firstTime() {
-        settingsEditor.putBoolean("firstTime",false);
+        settingsEditor.putBoolean("firsttime",false);
         settingsEditor.putBoolean("checked40200",true);
         settingsEditor.putBoolean("checked40500",false);
         settingsEditor.putBoolean("status40600",false);
+        settingsEditor.putString("description40600","1");
         settingsEditor.putBoolean("checked40800",true);
         settingsEditor.putBoolean("checked41100",false);
         settingsEditor.putBoolean("status41200",false);
+        settingsEditor.putString("description41200","1");
         settingsEditor.putBoolean("checked41300",false);
         settingsEditor.putBoolean("checked41400",false);
         settingsEditor.putBoolean("checked40102",true);

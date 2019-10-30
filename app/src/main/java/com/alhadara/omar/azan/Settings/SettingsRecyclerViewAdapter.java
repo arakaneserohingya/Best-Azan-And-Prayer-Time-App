@@ -701,6 +701,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                         @Override
                         public void go(int checked) {
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
+                            _SET.setDescription(activity,40600, String.valueOf(checked));
                         }
                     });
                     dialog.show();
@@ -753,6 +754,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                         @Override
                         public void go(int checked) {
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
+                            _SET.setDescription(activity,41200, String.valueOf(checked));
                         }
                     });
                     dialog.show();
@@ -857,7 +859,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                     _SET.setStatus(activity,40401,!_SET.isChecked(group));
                     _SET.setStatus(activity,40403,_SET.isChecked(group));
-                    _SET.setDescription((ViewGroup) activity.findViewById(40403),"");
+                    _SET.setDescription(activity,40403,"");
                     SettingsRecyclerViewAdapter.this.notifyDataSetChanged();
                 }
                 else if(k==2 && layoutNumber == PRAYER_NOTIFICATIONS_TONE_LAYOUT_NUM){
@@ -903,7 +905,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 //**************** PRAYER_TIMES_LAYOUT ****************//
                 else if(k==0 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _TimesSET.prayersFile,"method",((TextView) group.getChildAt(0)).getText().toString());
-                    dialog.initialize(activity.getResources().getStringArray(R.array.prayer_calculations_methods), new int[]{4, 3, 1, 5, 2, 6, 7}, new RadioDialog.run() {
+                    dialog.initialize(activity.getResources().getStringArray(R.array.prayer_calculations_methods), new int[]{4, 3, 1, 5, 2, 6}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
                             _TimesSET.updateTimes(activity);

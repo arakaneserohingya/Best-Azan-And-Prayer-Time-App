@@ -8,12 +8,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.widget.Toast;
 
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
-import com.alhadara.omar.azan.Activities.SahoorActivity;
 import com.alhadara.omar.azan.Constants;
 import com.example.omar.azanapkmostafa.R;
 
@@ -88,7 +86,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
                 .setContentIntent(cancelIntent(context))
                 .setTicker(Constants.APP_NAME)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
-        alarmNotificationManager.notify(Constants.APP_NOTIFICATION_ID, builder.build());
+        alarmNotificationManager.notify(_AlarmSET.APP_NOTIFICATION_ID, builder.build());
     }
 
     private void setCancellation(Context context,int type){
@@ -100,7 +98,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context,TimePrayerService.class);
         intent.putExtra("mode",false);
         PendingIntent cIntent = PendingIntent.getService(
-                context,0,intent,PendingIntent.FLAG_CANCEL_CURRENT
+                context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT
         );
         return  cIntent;
     }

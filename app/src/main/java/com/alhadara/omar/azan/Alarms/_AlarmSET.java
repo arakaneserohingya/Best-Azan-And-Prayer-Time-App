@@ -19,6 +19,7 @@ public class _AlarmSET {
     public static final int SAHOOR_REQUEST_CODE = 140;
     public static final int SILENT_REQUEST_CODE = 190;
     public static final int SAHOOR_ALARM_TIME = -20;
+    public static final int APP_NOTIFICATION_ID = 119;
 
     public static boolean notifyActivated(Context context) {
         return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("notify",true);
@@ -98,7 +99,7 @@ public class _AlarmSET {
     public static long getClearTimeInMillis(Context context,int type) {
         Calendar cal=Calendar.getInstance();
         cal.add(Calendar.MINUTE,context.getSharedPreferences(type==AZAN_REQUEST_CODE?azanFile:iqamaFile, MODE_PRIVATE)
-                .getInt("clear_time",0));
+                .getInt("clear_time",1));
         return cal.getTimeInMillis();
     }
     public static void firstTime(Context context){

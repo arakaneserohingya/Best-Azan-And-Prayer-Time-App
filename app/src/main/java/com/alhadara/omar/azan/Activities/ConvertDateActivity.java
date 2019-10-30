@@ -1,13 +1,17 @@
 package com.alhadara.omar.azan.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
@@ -37,6 +41,21 @@ public class ConvertDateActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         manageRadioGroup();
         manageDialogs();
+        checkForCalendarAdjustments();
+    }
+
+    private void checkForCalendarAdjustments() {
+        final long l = ((_TimesSET.getUmmalquraCalendar(this)).getTimeInMillis() - (new UmmalquraCalendar()).getTimeInMillis())/86400000;
+        if(l!=0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.alert_hijri_calendar_adjusted));
+            builder.setPositiveButton(getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+        }
     }
 
     private void manageRadioGroup() {
@@ -138,7 +157,6 @@ public class ConvertDateActivity extends AppCompatActivity
         u.set(UmmalquraCalendar.YEAR, year);
         u.set(UmmalquraCalendar.MONTH,monthOfYear);
         u.set(UmmalquraCalendar.DAY_OF_MONTH,dayOfMonth);
-        _TimesSET.setUmmalquraCalendar(this,u);
         Calendar calendar = Calendar.getInstance();
         long l = (u.getTimeInMillis() - now.getTimeInMillis())/86400000;
         calendar.add(Calendar.DATE,(int)l);

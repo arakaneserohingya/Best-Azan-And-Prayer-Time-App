@@ -4,8 +4,6 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.AssetFileDescriptor;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -15,12 +13,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import com.alhadara.omar.azan.Constants;
-import com.example.omar.azanapkmostafa.R;
 
 import java.io.IOException;
 
@@ -57,7 +51,7 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
 
     private boolean checkDestroy(Intent intent) {
         if (intent.getExtras().getBoolean("mode")) return false;
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(Constants.APP_NOTIFICATION_ID);
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(_AlarmSET.APP_NOTIFICATION_ID);
         onDestroy();
         return true;
     }

@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
                         case 1: z= SettingsRecyclerViewAdapter.HIJRI_LAYOUT_NUM; break;
                         case 2: z= SettingsRecyclerViewAdapter.DISPLAY_OPTIONS_LAYOUT_NUM; break;
                         case 3: z= SettingsRecyclerViewAdapter.NOTIFICATIONS_LAYOUT_NUM; break;
-                        case 4: z= SettingsRecyclerViewAdapter.FAJR_AND_SAHOOR_LAYOUT_NUM; break;
+                        case 4: z= SettingsRecyclerViewAdapter.FAJR_AND_SAHOOR_LAYOUT_NUM; return; // Fajer and Sahoor is disabled!
                         case 5: z= SettingsRecyclerViewAdapter.SILENT_LAYOUT_NUM; break;
                         case 6: z= SettingsRecyclerViewAdapter.BACKUP_AND_RESTORE_LAYOUT_NUM; break;
                         default: z= SettingsRecyclerViewAdapter.PRAYER_TIMES_LAYOUT_NUM; break;
