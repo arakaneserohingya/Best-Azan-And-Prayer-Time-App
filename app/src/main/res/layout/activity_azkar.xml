@@ -25,23 +25,19 @@
             android:layout_height="?attr/actionBarSize" />
         <Spinner
             android:id="@+id/activity_azkar_spinner"
-            android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
-            app:layout_constraintWidth_percent="0.4"
             app:layout_constraintStart_toEndOf="@id/activity_azkar_back"
             app:layout_constraintEnd_toStartOf="@id/activity_azkar_switch"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Switch
             android:text="Translate  "
-            android:gravity="right|center_vertical"
+            android:gravity="end|center_vertical"
             android:textSize="15sp"
             android:checked="false"
             android:id="@+id/activity_azkar_switch"
-            app:layout_constraintWidth_max="150dp"
-            app:layout_constraintStart_toEndOf="@id/activity_azkar_spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView

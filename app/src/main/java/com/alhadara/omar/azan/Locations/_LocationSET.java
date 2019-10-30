@@ -22,6 +22,10 @@ import androidx.core.content.ContextCompat;
 import com.alhadara.omar.azan.TimezoneMapper;
 import com.example.omar.azanapkmostafa.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,38 +43,32 @@ public class _LocationSET {
     public final static String locationsFile = "locations";
     public final static String currentLocation = "currentlocation";
     private static Runnable onUpdateLocationTimesUp;
-    public final static int GPS_REQUEST = 1, NETWORK_REQUEST = 2, GPS_AND_NETWORK_REQUEST = 3;
 
-    public static void getLocation(final Activity activity, final String tempLocationFile, int request_type, final locationUpdateResult todo) {
+    public static void getLocation(final Activity activity, final String tempLocationFile, final locationUpdateResult todo) {
+        final FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(activity);
         final Handler handler = new Handler();
         final AlertDialog builder = new AlertDialog.Builder(activity).create();
-        builder.setMessage("Updating Location...");
-        final LocationManager locationManger = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-        final LocationListener listener = new LocationListener() {
+        builder.setMessage(activity.getResources().getString(R.string.alert_dialog_updating_location));
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000); //Request for location each 1 sec during whole 10 sec
+        locationRequest.setFastestInterval(1000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        final LocationCallback callback = new LocationCallback(){
             @Override
-            public void onLocationChanged(Location location) {
-                if (location != null) {
-                    handler.removeCallbacks(onUpdateLocationTimesUp);
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                if(locationResult!=null) {
                     builder.cancel();
-                    assignLocation(activity, location, tempLocationFile);
+                    handler.removeCallbacks(onUpdateLocationTimesUp);
+                    android.location.Location location = locationResult.getLastLocation();
+                    _LocationSET.assignLocation(activity, location, tempLocationFile);
                     todo.onSuccess();
-                    locationManger.removeUpdates(this);
+                    providerClient.removeLocationUpdates(this);
                 }
             }
-
             @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
+            public void onLocationAvailability(LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
             }
         };
         onUpdateLocationTimesUp = new Runnable() {
@@ -78,7 +76,7 @@ public class _LocationSET {
             public void run() {
                 builder.cancel();
                 todo.onFail();
-                locationManger.removeUpdates(listener);
+                providerClient.removeLocationUpdates(callback);
             }
         };
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -88,35 +86,18 @@ public class _LocationSET {
         });
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
             todo.onFail();
             return;
         }
         builder.show();
-        if (request_type == NETWORK_REQUEST || request_type == GPS_AND_NETWORK_REQUEST)
-            locationManger.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
-        if (request_type == GPS_REQUEST || request_type == GPS_AND_NETWORK_REQUEST)
-            locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
-        handler.postDelayed(onUpdateLocationTimesUp, 20000);
+        providerClient.requestLocationUpdates(locationRequest, callback,activity.getMainLooper());
+        handler.postDelayed(onUpdateLocationTimesUp, 10000);
     }
-
     public static void getLastLocation(final Activity activity, final String tempLocationFile, final locationUpdateResult result) {
         LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
+
             result.onFail();
         }
         FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(activity);
@@ -172,7 +153,7 @@ public class _LocationSET {
                 @Override
                 public void onSuccess() {
                     activity.recreate();
-                    Toast.makeText(activity,"Location updated successfully!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity,activity.getResources().getString(R.string.toast_location_updated_successfully),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -185,11 +166,17 @@ public class _LocationSET {
                             builder.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    activity.recreate();
                                     dialogInterface.dismiss();
                                 }
                             });
+                            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialogInterface) {
+                                    activity.recreate();
+                                }
+                            });
                             builder.show();
-                            activity.recreate();
                         }
 
                         @Override
@@ -219,7 +206,7 @@ public class _LocationSET {
     public static void getLocationWithRequests(final Activity activity, final String tempLocationFile, final locationUpdateResult result){
         final Handler handler = new Handler();
         final AlertDialog builder = new AlertDialog.Builder(activity).create();
-        builder.setMessage("Updating Location...");
+        builder.setMessage(activity.getResources().getString(R.string.alert_dialog_updating_location));
         builder.show();
         builder.setCancelable(false);
         Runnable runnable = new Runnable() {
@@ -230,7 +217,7 @@ public class _LocationSET {
                 if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED ) {
                     builder.cancel();
-                    getLocation(activity,tempLocationFile,GPS_AND_NETWORK_REQUEST,result);
+                    getLocation(activity,tempLocationFile,result);
                     return;
                 }
                 else if(i==15 /* i==10 -> 5 sec*/) {

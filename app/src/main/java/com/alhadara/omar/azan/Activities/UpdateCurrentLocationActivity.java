@@ -58,7 +58,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.this_device_has_no_gps_equipment), Toast.LENGTH_SHORT).show();
                 else if (!_LocationSET.checkGpsEnabled(UpdateCurrentLocationActivity.this))
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.please_enable_gps_first), Toast.LENGTH_SHORT).show();
-                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile,_LocationSET.GPS_REQUEST, new _LocationSET.locationUpdateResult() {
+                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile, new _LocationSET.locationUpdateResult() {
                         @Override
                         public void onSuccess() {
                             setTitleLocation();
@@ -94,15 +94,16 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!_LocationSET.checkNetworkAvailability(UpdateCurrentLocationActivity.this))
                     Toast.makeText(UpdateCurrentLocationActivity.this, getResources().getString(R.string.please_check_for_internet_connection), Toast.LENGTH_SHORT).show();
-                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile,_LocationSET.NETWORK_REQUEST, new _LocationSET.locationUpdateResult() {
+                else _LocationSET.getLocation(UpdateCurrentLocationActivity.this, tempLocationFile, new _LocationSET.locationUpdateResult() {
                     @Override
                     public void onSuccess() {
+                        Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_location_updated_successfully),Toast.LENGTH_SHORT).show();
                         setTitleLocation();
                     }
 
                     @Override
                     public void onFail() {
-
+                        Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_failed_to_update_location),Toast.LENGTH_SHORT).show();
                     }
                 });
             }

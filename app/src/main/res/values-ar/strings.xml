@@ -422,6 +422,9 @@
     <string name="current_location_not_found">تعذر العثور على الموقع الحالي، سيقوم التطبيق باستخدام آخر موقع معروف للجهاز.\nإذا كان خاطئا قم بإعادة تشغيل جهازك.</string>
     <string name="current_location_not_found_and_last">تعذر العثور على الموقع الحالي.\nقم بالمحاولة بطريقة أخرى أو أعد تشغيل الجهاز</string>
     <string name="update_current_activity_last_known_location_not_found">تعذر العثور على آخر موقع معروف للجهاز</string>
+    <string name="alert_dialog_updating_location">جاري تحديث الموقع…</string>
+    <string name="toast_failed_to_update_location">تعذر تحديث الموقع!</string>
+    <string name="toast_location_updated_successfully">تم تحديث الموقع بنجاح!</string>
 
 
     <string-array name="prayer_time_notifications" >

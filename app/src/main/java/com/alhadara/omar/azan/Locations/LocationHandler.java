@@ -31,34 +31,8 @@ public class LocationHandler {
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         NEW_LOCATION_FLAG = false;
 
-        //FusedLocationProviderClient fusedLocationProviderClient;
-        //fusedLocationProviderClient.
-        //https://developer.android.com/training/permissions/requesting
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-
-            // No explanation needed; request the permission
-            ActivityCompat.requestPermissions(activity,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    _LocationSET.ACCESS_LOCATION_PERMISSION);
-
-            // ACCESS_LOCATION_PERMISSION is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-            return;
-        }
 
         mFusedLocationClient = new FusedLocationProviderClient(context);
-
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(activity, new OnSuccessListener<android.location.Location>() {
-                    @Override
-                    public void onSuccess(android.location.Location location) {
-
-                        _LocationSET.assignLocation(activity,location,tempLocationFile);
-                    }
-                });
 
         locationCallbacks = new LocationCallback(){
             @Override

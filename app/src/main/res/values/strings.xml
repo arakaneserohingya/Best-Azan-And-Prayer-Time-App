@@ -422,6 +422,9 @@
     <string name="current_location_not_found">Your current location was not found so the app will use the last known location on the device.\nIf it was wrong, try again agter restarting the device.</string>
     <string name="current_location_not_found_and_last">The device couldn\'t detect your location.\nTry another method or restart the device.</string>
     <string name="update_current_activity_last_known_location_not_found">Last known location not found!</string>
+    <string name="alert_dialog_updating_location">Updating location…</string>
+    <string name="toast_location_updated_successfully">Location updated successfully!</string>
+    <string name="toast_failed_to_update_location">Failed to update location</string>
 
 
     <string-array name="prayer_time_notifications">
