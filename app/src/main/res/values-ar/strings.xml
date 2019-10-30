@@ -425,7 +425,7 @@
     <string name="alert_dialog_updating_location">جاري تحديث الموقع…</string>
     <string name="toast_failed_to_update_location">تعذر تحديث الموقع!</string>
     <string name="toast_location_updated_successfully">تم تحديث الموقع بنجاح!</string>
-    <string name="alert_hijri_calendar_adjusted">Hijri calendar is adjusted!</string>
+    <string name="alert_hijri_calendar_adjusted">نم !</string>
 
 
     <string-array name="prayer_time_notifications" >

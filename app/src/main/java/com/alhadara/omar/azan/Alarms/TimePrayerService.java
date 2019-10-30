@@ -126,23 +126,6 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
                         v.vibrate(500);
                     }
                 }
-                /*if (_AlarmSET.isLEDActivated(TimePrayerService.this) && getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-                    if(cam == null) {
-                        cam = Camera.open();
-                        Camera.Parameters params = cam.getParameters();
-                        params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
-                        cam.setParameters(params);
-                        cam.startPreview();
-                        cam.autoFocus(new Camera.AutoFocusCallback() {
-                            public void onAutoFocus(boolean success, Camera camera) {
-                            }
-                        });
-                    }else{
-                        cam.stopPreview();
-                        cam.release();
-                        cam = null;
-                    }
-                }*/
                 handlerVibrateAndLed.postDelayed(this,1000);
             }
         };

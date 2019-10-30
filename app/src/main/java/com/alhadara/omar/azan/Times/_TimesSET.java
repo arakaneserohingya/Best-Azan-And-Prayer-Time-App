@@ -192,9 +192,5 @@ public class _TimesSET {
         return calendar;
     }
 
-    public static void setUmmalquraCalendar(Context context, UmmalquraCalendar u) {
-        u.add(Calendar.DATE,context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0));
-    }
-
 
 }

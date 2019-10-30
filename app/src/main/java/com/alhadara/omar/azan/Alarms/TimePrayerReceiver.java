@@ -86,6 +86,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
                 .setContentIntent(cancelIntent(context))
                 .setTicker(Constants.APP_NAME)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
+        if(_AlarmSET.isLEDActivated(context)) builder.setLights(0xff00ff00, 300, 100);
         alarmNotificationManager.notify(_AlarmSET.APP_NOTIFICATION_ID, builder.build());
     }
 

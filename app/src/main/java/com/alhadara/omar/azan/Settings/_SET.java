@@ -75,14 +75,14 @@ public class _SET {
         ((TextView) group.getChildAt(1)).setText(apex + description);
     }
     public static void setDescription(Activity activity,int id,String description) {
-        settingsEditor.putString("description"+id,description);
-        settingsEditor.commit();
         ViewGroup group = activity.findViewById(id);
         if(group != null) {
             String lastDesc = settingsPref.getString("description" + group.getId(), "");
             String apex = ((TextView) group.getChildAt(1)).getText().toString().replace(lastDesc, "");
             ((TextView) group.getChildAt(1)).setText(apex + description);
         }
+        settingsEditor.putString("description"+id,description);
+        settingsEditor.commit();
     }
 
     private static void firstTime() {
