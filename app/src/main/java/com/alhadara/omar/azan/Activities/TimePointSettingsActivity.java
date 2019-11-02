@@ -117,17 +117,6 @@ public class TimePointSettingsActivity extends AppCompatActivity {
             }
         });
 
-        /* Reset times*/
-        final LinearLayout resetTimesBox = findViewById(R.id.time_point_settings_reset_times);
-        ((ImageButton) resetTimesBox.findViewById(R.id.configuration_button)).setImageResource(R.drawable.ic_restore_black_24dp);
-        ((TextView) resetTimesBox.findViewById(R.id.configuration_text)).setText(getResources().getString(R.string.reset_time_settings));
-        resetTimesBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //_DisplaySET.resetTimeConfigurations(getApplicationContext());
-            }
-        });
-
     }
 
 

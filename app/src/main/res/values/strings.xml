@@ -426,6 +426,18 @@
     <string name="toast_location_updated_successfully">Location updated successfully!</string>
     <string name="toast_failed_to_update_location">Failed to update location</string>
     <string name="alert_hijri_calendar_adjusted">Hijri calendar is adjusted!</string>
+    <string name="toast_prayer_widget_click_was">Was</string>
+    <string name="toast_prayer_widget_click_hours">hours</string>
+    <string name="toast_prayer_widget_click_hours_more_than_ten">hours</string>
+    <string name="toast_prayer_widget_click_minutes">minutes</string>
+    <string name="toast_prayer_widget_click_and">and</string>
+    <string name="toast_prayer_widget_click_ago">ago</string>
+    <string name="toast_prayer_widget_click_remaining">remaining</string>
+    <string name="toast_prayer_widget_click_just">Just on time!</string>
+    <string name="toast_prayer_widget_click_one_minute">a minute</string>
+    <string name="toast_prayer_widget_click_two_minutes">two minutes</string>
+    <string name="toast_prayer_widget_click_two_hours">two hours</string>
+    <string name="toast_prayer_widget_click_one_hour">an hour</string>
 
 
     <string-array name="prayer_time_notifications">

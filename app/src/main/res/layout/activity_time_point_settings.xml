@@ -69,9 +69,7 @@
                 <include layout="@layout/configuration_box"
                     android:id="@+id/time_point_settings_adjust_times">
                 </include>
-                <include layout="@layout/configuration_box"
-                    android:id="@+id/time_point_settings_reset_times">
-                </include>
+
             </LinearLayout>
         </ScrollView>
 

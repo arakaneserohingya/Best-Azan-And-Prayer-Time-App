@@ -48,7 +48,7 @@ public class _BackupSET {
         }
     }
     public static String[] listSaved(int type){
-        File dir = new File(Environment.getExternalStorageDirectory().getPath() + (type==TYPE_SETTINGS?"/svdsettings":"/svdlocations"));
+        File dir = new File(Environment.getExternalStorageDirectory().getPath()+ BACKUP_FOLDER + (type==TYPE_SETTINGS?"/svdsettings":"/svdlocations"));
         return dir.list();
     }
     public static void backup(Context context,String dstName,int type){

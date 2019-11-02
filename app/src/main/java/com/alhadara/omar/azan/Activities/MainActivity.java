@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -162,11 +163,11 @@ public class MainActivity extends AppCompatActivity
             timepoint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
+                    Toast.makeText(MainActivity.this,getTimeDiffString(s),Toast.LENGTH_SHORT).show();
+                    /*Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
                     intent.putExtra("TimePointIndex", s);
                     startActivityForResult(intent,10000);
-                    overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);
+                    overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);*/
                 }
             });
 
@@ -271,5 +272,45 @@ public class MainActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         if(handler != null)handler.removeCallbacks(runnable);
+    }
+
+    private String getTimeDiffString(int i) {
+        String s = "";
+        NumberFormat nf = _DisplaySET.getNumberFormat(this);
+        long diff = _TimesSET.getPrayerTimeMillis(i) - System.currentTimeMillis();
+        if(diff < 0) s+=getResources().getString(R.string.toast_prayer_widget_click_was);
+        diff /= 1000;
+        int h = (int) (diff /3600);
+        int m = (int) (diff - (h*3600))/60;
+        if(h<0) h=-h;
+        if(m<0) m=-m;
+        if(h!=0) s+= " " + (h>2?nf.format(h) + " ":"") + getHoursWordString(h) + (m!=0?" "+ getResources().getString(R.string.toast_prayer_widget_click_and):"");
+        if(m!=0) s+= " " + (m>2?nf.format(m) + " ":"") + getMinutesWordString(m);
+        s+= diff<0?" "+ getResources().getString(R.string.toast_prayer_widget_click_ago):" "+ getResources().getString(R.string.toast_prayer_widget_click_remaining);
+        if(h==0&&m==0) s= getResources().getString(R.string.toast_prayer_widget_click_just);
+        return s;
+    }
+
+    private String getMinutesWordString(int m) {
+        switch (m){
+            case 1:
+                return getResources().getString(R.string.toast_prayer_widget_click_one_minute);
+            case 2:
+                return getResources().getString(R.string.toast_prayer_widget_click_two_minutes);
+            default:
+                return getResources().getString(R.string.toast_prayer_widget_click_minutes);
+        }
+    }
+
+    private String getHoursWordString(int h) {
+        switch (h){
+            case 1:
+                return getResources().getString(R.string.toast_prayer_widget_click_one_hour);
+            case 2:
+                return getResources().getString(R.string.toast_prayer_widget_click_two_hours);
+            default:
+                if(h>10) return getResources().getString(R.string.toast_prayer_widget_click_hours_more_than_ten);
+                return getResources().getString(R.string.toast_prayer_widget_click_hours);
+        }
     }
 }
