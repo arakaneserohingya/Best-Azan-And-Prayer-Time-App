@@ -40,7 +40,7 @@ public class _AlarmSET {
         return context.getSharedPreferences(silentFile, MODE_PRIVATE).getBoolean("active",false);
     }
     public static boolean silentActivatedFor(Context context,int i){
-        if(isJumuah(Calendar.getInstance()) && i==2) return context.getSharedPreferences(silentFile, MODE_PRIVATE).getBoolean("silent_5",true);
+        if(isJumuah(Calendar.getInstance()) && i==2) return context.getSharedPreferences(silentFile, MODE_PRIVATE).getBoolean("active_5",true);
         return context.getSharedPreferences(silentFile, MODE_PRIVATE).getBoolean("active_"+(i>0?i-1:0),true);
     }
     public static boolean sahoorActivated(Context context) {

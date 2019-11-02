@@ -60,7 +60,8 @@ public class SilentTimeReceiver extends BroadcastReceiver {
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         in.putExtra("index",index);
         in.putExtra("type","backNormal");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _AlarmSET.SILENT_REQUEST_CODE - index, in, PendingIntent.FLAG_UPDATE_CURRENT);
+        in.setAction(Long.toString(System.currentTimeMillis())); // setAction is necessary to differentiate pendingIntents
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, in, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
     }

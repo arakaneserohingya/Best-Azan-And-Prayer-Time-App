@@ -49,6 +49,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
                 alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,true);
             else alarmTrig(context,_AlarmSET.IQAMA_REQUEST_CODE,i,cal,false);
 
+            /* Silent time is unrelated to iqama time or prayer time so it set from scheduler */
             cal = _AlarmSET.getSilentTimeFor(context,i);
             if(_AlarmSET.silentActivated(context)&&_AlarmSET.silentActivatedFor(context,i) &&
                     Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis())
@@ -56,10 +57,10 @@ public class AlarmsScheduler extends BroadcastReceiver {
             else SilentTimeReceiver.fire(context,i,cal,false);;
 
         }
-        cal = _AlarmSET.getSahoorTime(context);
+        /*cal = _AlarmSET.getSahoorTime(context);
         if(_AlarmSET.sahoorActivated(context) && Calendar.getInstance().getTimeInMillis() <= cal.getTimeInMillis()){
             alarmTrig(context,_AlarmSET.SAHOOR_REQUEST_CODE,0,cal,true);
-        } else alarmTrig(context,_AlarmSET.SAHOOR_REQUEST_CODE,0,cal,false);
+        } else alarmTrig(context,_AlarmSET.SAHOOR_REQUEST_CODE,0,cal,false);*/
 
         //Activate this for tomorrow
         cal = Calendar.getInstance();
@@ -77,8 +78,8 @@ public class AlarmsScheduler extends BroadcastReceiver {
     private void alarmTrig(Context context,int type,int index,Calendar calendar,boolean trig){
         Intent in = new Intent(context, TimePrayerReceiver.class);
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        in.putExtra("type",type);
-        in.putExtra("index",index);
+        in.putExtra("type",type);// Don't use setAction here!!
+        in.putExtra("index",index);//FLAG_UPDATE_CURRENT to update pendingintents of yesterday or on after time set for
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
@@ -88,7 +89,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         if(!_LocationSET.isLocationAssigned(context)) return;
         Intent in = new Intent(context, AlarmsScheduler.class);
         cal.add(Calendar.SECOND,3);
-        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);// Don't use setAction here!!
         PendingIntent alarmsSchedulerIntent = PendingIntent.getBroadcast(context,GENERAL_ALARM_REQUEST_CODE, in,0);
         AlarmManagerCompat.setExactAndAllowWhileIdle(
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE),
