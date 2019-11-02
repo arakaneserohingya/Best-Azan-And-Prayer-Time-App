@@ -123,7 +123,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                 UpdateCurrentLocationActivity.this.finish();
             }
         });
-        findViewById(R.id.update_current_location_activity_location_edit_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.update_current_location_activity_location_edit_button_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class));

@@ -16,9 +16,9 @@
     <string name="gps">GPS</string>
     <string name="the_network">الشبكة</string>
     <string name="save">حفظ</string>
-    <string name="the_time_location">Time Location</string>
-    <string name="longitude">Longitude</string>
-    <string name="latitude">Latitude</string>
+    <string name="the_time_location">المنطقة الزمنية</string>
+    <string name="longitude">خط الطول</string>
+    <string name="latitude">خط العرض</string>
     <string name="choose_the_country">اختر البلد</string>
     <string name="search">بحث</string>
     <string name="choose_the_city">اختر المدينة</string>
@@ -139,7 +139,6 @@
         <item>@string/hijri_settings</item>
         <item>@string/display_options</item>
         <item>@string/notification_settings</item>
-        <item>@string/fajr_and_sahoor_alarm</item>
         <item>@string/silent_settings</item>
         <item>@string/backup_and_restore</item>
     </string-array>
@@ -155,7 +154,6 @@
         <item>@string/choose_hijri_date_settings</item>
         <item>@string/change_language_and_colors_for_the_app_and_widgets</item>
         <item>@string/select_your_notifications_and_reminders_settings</item>
-        <item>@string/fajr_and_sahoor_wake_up_alarm_settings</item>
         <item>@string/adjust_the_silent_mode_settings_for_each_prayer</item>
         <item>@string/settings_backup_and_restore</item>
     </string-array>

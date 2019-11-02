@@ -5,7 +5,6 @@
         <item>@array/settings_layout_header_hijri</item>
         <item>@array/settings_layout_header_display_options</item>
         <item>@array/settings_layout_header_notifications</item>
-        <!--<item>@array/settings_layout_header_fajr_and_sahoor_alarms</item>-->
         <item>@array/settings_layout_header_silent</item>
         <item>@array/settings_layout_header_backup_and_restore</item>
     </array>
@@ -14,7 +13,6 @@
         <item>@array/settings_layout_details_hijri</item>
         <item>@array/settings_layout_details_display_options</item>
         <item>@array/settings_layout_details_notifications</item>
-        <!--<item>@array/settings_layout_details_fajr_and_sahoor_alarms</item>-->
         <item>@array/settings_layout_details_silent</item>
         <item>@array/settings_layout_details_backup_and_restore</item>
     </array>
@@ -23,7 +21,6 @@
         <item>@drawable/ic_settings_box_2</item>
         <item>@drawable/ic_settings_box_3</item>
         <item>@drawable/ic_settings_box_4</item>
-        <!--<item>@drawable/ic_settings_box_5</item>-->
         <item>@drawable/ic_settings_box_6</item>
         <item>@drawable/ic_settings_box_7</item>
     </integer-array>
