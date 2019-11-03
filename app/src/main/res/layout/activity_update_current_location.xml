@@ -58,6 +58,8 @@
                 android:layout_height="wrap_content" />
 
             <FrameLayout
+                android:visibility="invisible"
+                android:clickable="false"
                 android:id="@+id/update_current_location_activity_location_edit_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

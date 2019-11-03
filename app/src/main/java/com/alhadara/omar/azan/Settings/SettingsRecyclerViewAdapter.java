@@ -413,7 +413,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                             _DisplaySET.setLanguagePreferences(activity.getApplicationContext());
                             SettingsActivity.reloadSettingsActivityOnResume = true;
                             MainActivity.reloadMainActivityOnResume = true;
-                            activity.recreate();
+                            activity.finish();
 
                         }
                     });

@@ -338,7 +338,7 @@
     <string name="settings_layouts_prayer_notification_tone_widget9">نغمة تنبيه العشاء</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details1">اختر نغمة التنبيه من نغمات النظام</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details2">تفعيل اختيار نغمات MP3 من كرت الذاكرة</string>
-    <string name="settings_layouts_prayer_notification_tone_widget_details3">لا توجد نغمة مختارة</string>
+    <string name="settings_layouts_prayer_notification_tone_widget_details3">النغمة المختارة: </string>
     <string name="settings_layouts_prayer_notification_tone_widget_details4">تحديد نغمة مخصصة لكل صلاة على حدة</string>
     <string name="settings_layouts_prayer_notification_tone_widget_details5">اختر نغمة التنبيه لدخول وقت الصلاة</string>
     <string name="settings_layouts_iqama_reminder_time_widget1">وقت الإقامة</string>
