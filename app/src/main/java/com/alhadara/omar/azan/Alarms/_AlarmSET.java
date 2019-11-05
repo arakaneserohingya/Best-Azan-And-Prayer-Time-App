@@ -1,7 +1,10 @@
 package com.alhadara.omar.azan.Alarms;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 import com.alhadara.omar.azan.Times._TimesSET;
 
@@ -191,5 +194,15 @@ public class _AlarmSET {
         editor.clear();
         editor.commit();
         firstTime(context);
+    }
+
+    public static Uri getRingtoneUri(Context context,int alarmType) {
+        SharedPreferences preferences = context.getSharedPreferences(alarmType==AZAN_REQUEST_CODE?azanFile:iqamaFile,MODE_PRIVATE);
+        return Uri.parse(preferences.getString("uri",RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+    }
+
+    public static Uri getRingtoneUri(Context context, int alarmType, int id) {
+        SharedPreferences preferences = context.getSharedPreferences(azanFile,MODE_PRIVATE);
+        return Uri.parse(preferences.getString("uri" + id,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
     }
 }

@@ -617,8 +617,12 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     Toast.makeText(activity,activity.getResources().getString(R.string.adjustments_is_reset),Toast.LENGTH_SHORT).show();
                 }
                 else if(k==0 && layoutNumber == IQAMA_REMINDER_TONE_LAYOUT_NUM){
-                    Uri ringtone = null;
+                    Uri ringtone = _AlarmSET.getRingtoneUri(activity,_AlarmSET.IQAMA_REQUEST_CODE);
                     Intent intent=new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,
+                            RingtoneManager.TYPE_ALARM
+                                    | RingtoneManager.TYPE_RINGTONE);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, ringtone);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, ringtone);
                     activity.startActivityForResult(intent , group.getId());
@@ -807,8 +811,12 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
 
                 //**************** PRAYER_NOTIFICATIONS_TONE_EACH_LAYOUT ****************//
                 else if(k==0 && layoutNumber == PRAYER_NOTIFICATIONS_TONE_EACH_LAYOUT_NUM){
-                    Uri ringtone = null;
+                    Uri ringtone = _AlarmSET.getRingtoneUri(activity,_AlarmSET.AZAN_REQUEST_CODE,((group.getId()%10)-5));
                     Intent intent=new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,
+                            RingtoneManager.TYPE_ALARM
+                                    | RingtoneManager.TYPE_RINGTONE);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, ringtone);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, ringtone);
                     activity.startActivityForResult(intent , group.getId());
@@ -817,8 +825,8 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     _SET.setCheckBox(group,!_SET.isChecked(group));
                     SharedPreferences pref = activity.getSharedPreferences(_AlarmSET.azanFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("use_sd_for" + activity.getIntent().getExtras().getInt("index"),_SET.isChecked(group));
-                    editor.remove("uri"+((activity.getIntent().getExtras().getInt("id")%10)-5)); //uri0->Fajr uri1->Zuhr ...
+                    editor.putBoolean("use_sd_for" + ((group.getId()%10)-5),_SET.isChecked(group));
+                    editor.remove("uri"+((group.getId()%10)-5)); //uri0->Fajr uri1->Zuhr ...
                     editor.commit();
                     AlarmsScheduler.fire(activity, Calendar.getInstance());
                     _SET.setStatus(activity,group.getId()-10,!_SET.isChecked(group));
@@ -843,8 +851,12 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
 
                 else if(k==0 && layoutNumber == PRAYER_NOTIFICATIONS_TONE_LAYOUT_NUM){
-                    Uri ringtone = null;
+                    Uri ringtone = _AlarmSET.getRingtoneUri(activity,_AlarmSET.AZAN_REQUEST_CODE);
                     Intent intent=new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,
+                            RingtoneManager.TYPE_ALARM
+                                    | RingtoneManager.TYPE_RINGTONE);
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, ringtone);
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, ringtone);
                     activity.startActivityForResult(intent , group.getId());
@@ -898,7 +910,6 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 else if( layoutNumber == PRAYER_NOTIFICATIONS_TONE_LAYOUT_NUM){
                     Intent intent = new Intent(activity, SettingsForthActivity.class);
                     intent.putExtra("id",group.getId());
-                    intent.putExtra("index",k-4);
                     intent.putExtra("title",((TextView) group.getChildAt(0)).getText().toString());
                     activity.startActivity(intent);
                 }
