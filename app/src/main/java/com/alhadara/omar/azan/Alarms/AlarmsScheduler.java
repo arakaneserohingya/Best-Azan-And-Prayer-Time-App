@@ -29,7 +29,6 @@ public class AlarmsScheduler extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "ALAZAN notifications activated", Toast.LENGTH_SHORT).show();
 
         if(_AlarmSET.isFirstTime(context)) _AlarmSET.firstTime(context);
         _TimesSET.updateTimes(context);

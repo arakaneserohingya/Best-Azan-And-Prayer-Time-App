@@ -440,6 +440,12 @@
     <string name="alert_ignore_battery_opt_msg">قم باستبعاد هذا البرنامج من إجراءات توفير الطاقة كي تعمل بعض المزايا بالشكل المانسب</string>
     <string name="alert_ok">موافق</string>
     <string name="alert_cancel">إلغاء</string>
+    <string name="alert_restore_button">استعادة</string>
+    <string name="alert_delete_button">حذف النسخة</string>
+    <string name="alert_no_backups">لا توجد نسخ احتياطية</string>
+    <string name="toast_backup_restored">تم استعادة النسخة الاحتياطية</string>
+    <string name="toast_backup_saved">تم حفظ نسخة احتياطية</string>
+    <string name="toast_settings_reset_completed">تم استعادة الإعدادات الافتراضية</string>
 
 
     <string-array name="prayer_time_notifications" >

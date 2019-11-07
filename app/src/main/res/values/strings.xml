@@ -437,9 +437,15 @@
     <string name="toast_prayer_widget_click_two_hours">two hours</string>
     <string name="toast_prayer_widget_click_one_hour">an hour</string>
     <string name="alert_ignore_battery_opt_title">Ignore battery optimisations</string>
-    <string name="alert_ignore_battery_opt_msg">Do you want to add the app as an execption in the Battery Optimaization list to help it deliver notifications and switch to silent on time while the device is in standby mode?\n\nYou can change this later from the device's Battery settings.</string>
+    <string name="alert_ignore_battery_opt_msg">Do you want to add the app as an execption in the Battery Optimaization list to help it deliver notifications and switch to silent on time while the device is in standby mode?\n\nYou can change this later from the device\'s Battery settings.</string>
     <string name="alert_ok">Ok</string>
     <string name="alert_cancel">Cancel</string>
+    <string name="alert_restore_button">Restore</string>
+    <string name="alert_delete_button">Delete backup</string>
+    <string name="alert_no_backups">No Saved Backups</string>
+    <string name="toast_backup_restored">Backup restored</string>
+    <string name="toast_backup_saved">Backup saved</string>
+    <string name="toast_settings_reset_completed">Settings reset completed!</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

@@ -2,20 +2,33 @@ package com.alhadara.omar.azan.Backup;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.LayoutInflaterCompat;
 
+import com.alhadara.omar.azan.Activities.MainActivity;
+import com.alhadara.omar.azan.Activities.SettingsActivity;
+import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
 import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Constants;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Settings._SET;
 import com.alhadara.omar.azan.Times._TimesSET;
+import com.example.omar.azanapkmostafa.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +37,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -167,6 +181,12 @@ public class _BackupSET {
         }
         return res;
     }
+    public static void delete(String dstName, int type) {
+        File dir = new File(Environment.getExternalStorageDirectory().getPath()+ BACKUP_FOLDER + (type==TYPE_SETTINGS?"/svdsettings/":"/svdlocations/") + dstName);
+        String[] list = dir.list();
+        for(int i=0;i<list.length;i++) (new File(dir, list[i])).delete();
+        dir.delete();
+    }
 
     public static void clear(Context context,int type) {
         if(type == TYPE_SETTINGS){
@@ -175,5 +195,58 @@ public class _BackupSET {
             _SET.clear(context);
             _TimesSET.clear(context);
         }
+    }
+
+    public static LinearLayout getBackups(final Activity activity, final int type){
+        final String[] list = listSaved(type);
+        if(list.length == 0) return null;
+        LinearLayout layout = new LinearLayout(activity);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(params);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        for(int i=0;i<list.length;i++){
+            final int k = i;
+            TextView view1 = new TextView(activity);
+            view1.setLayoutParams(params);
+            view1.setTextColor(Color.DKGRAY);
+            view1.setTextSize(22);
+            view1.setText(list[i]);
+            view1.setPadding(5,5,5,5);
+            layout.addView(view1);
+        }
+        return layout;
+    }
+
+    public static ViewGroup getBackupOptions(Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(params);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        View view = LayoutInflater.from(context).inflate(R.layout.settings_restore_box,null);
+        ((ImageButton) view.findViewById(R.id.settings_restore_box_restore_image)).setImageResource(R.drawable.ic_check_black_24dp);
+        ((TextView) view.findViewById(R.id.settings_restore_box_restore_text)).setText(context.getResources().getString(R.string.alert_restore_button));
+        layout.addView(view);
+        view = LayoutInflater.from(context).inflate(R.layout.settings_restore_box,null);
+        ((ImageButton) view.findViewById(R.id.settings_restore_box_restore_image)).setImageResource(R.drawable.ic_delete_black_24dp);
+        ((TextView) view.findViewById(R.id.settings_restore_box_restore_text)).setText(context.getResources().getString(R.string.alert_delete_button));
+        layout.addView(view);
+        return layout;
+    }
+
+    public static View noBackupsView(Context context) {
+        ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextView view1 = new TextView(context);
+        view1.setLayoutParams(params);
+        view1.setTextColor(Color.DKGRAY);
+        view1.setTextSize(25);
+        view1.setText(context.getResources().getString(R.string.alert_no_backups));
+        view1.setPadding(10,20,10,20);
+        return view1;
+    }
+
+
+
+    public interface RestoreOptions{
+        void onRestore(int i);
     }
 }

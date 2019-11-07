@@ -284,7 +284,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 if(k==1 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
                     final EditText text = new EditText(activity);
                     text.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    text.setTextSize(px(18));
+                    text.setTextSize(17);
                     text.setText((new SimpleDateFormat("dd.MM.yy-hh.mm.ss")).format(new Date()));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         text.setFocusedByDefault(true);
@@ -297,6 +297,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                         public void onClick(DialogInterface dialogInterface, int i) {
                             _BackupSET.backup(activity,text.getText().toString(),_BackupSET.TYPE_SETTINGS);
                             dialogInterface.dismiss();
+                            Toast.makeText(activity,activity.getResources().getString(R.string.toast_backup_saved),Toast.LENGTH_SHORT).show();
                         }
                     });
                     dialog.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
@@ -308,29 +309,53 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==2 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
-                    final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-                    dialog.setTitle(activity.getResources().getString(R.string.backup_list));
+                    final AlertDialog.Builder b1 = new AlertDialog.Builder(activity);
+                    b1.setTitle(activity.getResources().getString(R.string.backup_list));
                     final String[] list = _BackupSET.listSaved(_BackupSET.TYPE_SETTINGS);
-                    final int[] k = new int[]{-1};
-                    dialog.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            k[0] = i;
-                        }
-                    });
-                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if(k[0]!=-1) _BackupSET.restore(activity,list[k[0]],_BackupSET.TYPE_SETTINGS);
-                            _TimesSET.updateTimes(activity);
-                            AlarmsScheduler.fire(activity,Calendar.getInstance());
-                            MainActivity.reloadMainActivityOnResume = true;
-                            SettingsActivity.reloadSettingsActivityOnResume = true;
-                            activity.finish();
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    dialog.show();
+                    if(list == null || list.length == 0){
+                        b1.setView(_BackupSET.noBackupsView(activity));
+                        b1.create().show();
+                    }
+                    else {
+                       ViewGroup viewGroup = _BackupSET.getBackups(activity,_BackupSET.TYPE_SETTINGS);
+                       b1.setView(viewGroup);
+                       final AlertDialog dialog1 = b1.create();
+                       dialog1.show();
+                       for(int i=0;i<viewGroup.getChildCount();i++){
+                           final int c = i;
+                           viewGroup.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View view) {
+                                   dialog1.dismiss();
+                                   final AlertDialog.Builder b2 = new AlertDialog.Builder(activity);
+                                   ViewGroup viewGroup = _BackupSET.getBackupOptions(activity);
+                                   b2.setView(viewGroup);
+                                   final AlertDialog d2 = b2.create();
+                                   d2.show();
+                                   viewGroup.getChildAt(0).setOnClickListener(new View.OnClickListener() { //Restore
+                                       @Override
+                                       public void onClick(View view) {
+                                           _BackupSET.restore(activity, list[c], _BackupSET.TYPE_SETTINGS);
+                                           _TimesSET.updateTimes(activity);
+                                           AlarmsScheduler.fire(activity, Calendar.getInstance());
+                                           MainActivity.reloadMainActivityOnResume = true;
+                                           SettingsActivity.reloadSettingsActivityOnResume = true;
+                                           d2.dismiss();
+                                           Toast.makeText(activity,activity.getResources().getString(R.string.toast_backup_restored),Toast.LENGTH_SHORT).show();
+                                       }
+                                   });
+                                   viewGroup.getChildAt(1).setOnClickListener(new View.OnClickListener() { //Delete
+                                       @Override
+                                       public void onClick(View view) {
+                                           _BackupSET.delete(list[c],_BackupSET.TYPE_SETTINGS);
+                                           d2.dismiss();
+                                           group.performClick();
+                                       }
+                                   });
+                               }
+                           });
+                       }
+                    }
                 }
                 else if(k==3 && layoutNumber == BACKUP_AND_RESTORE_LAYOUT_NUM){
                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -344,8 +369,8 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                             AlarmsScheduler.fire(activity,Calendar.getInstance());
                             MainActivity.reloadMainActivityOnResume = true;
                             SettingsActivity.reloadSettingsActivityOnResume = true;
-                            activity.finish();
                             dialogInterface.dismiss();
+                            Toast.makeText(activity,activity.getResources().getString(R.string.toast_settings_reset_completed),Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
@@ -359,7 +384,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 else if(k==4 && layoutNumber==BACKUP_AND_RESTORE_LAYOUT_NUM){
                     final EditText text = new EditText(activity);
                     text.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    text.setTextSize(px(18));
+                    text.setTextSize(17);
                     text.setText((new SimpleDateFormat("dd.MM.yy-hh.mm.ss")).format(new Date()));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         text.setFocusedByDefault(true);
@@ -372,6 +397,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                         public void onClick(DialogInterface dialogInterface, int i) {
                             _BackupSET.backup(activity,text.getText().toString(),_BackupSET.TYPE_LOCATIONS);
                             dialogInterface.dismiss();
+                            Toast.makeText(activity,activity.getResources().getString(R.string.toast_backup_saved),Toast.LENGTH_SHORT).show();
                         }
                     });
                     dialog.setNegativeButton(activity.getResources().getString(R.string.mdtp_cancel), new DialogInterface.OnClickListener() {
@@ -383,27 +409,53 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==5 && layoutNumber ==BACKUP_AND_RESTORE_LAYOUT_NUM){
-                    final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-                    dialog.setTitle(activity.getResources().getString(R.string.backup_list));
+                    final AlertDialog.Builder b1 = new AlertDialog.Builder(activity);
+                    b1.setTitle(activity.getResources().getString(R.string.backup_list));
                     final String[] list = _BackupSET.listSaved(_BackupSET.TYPE_LOCATIONS);
-                    final int[] k = new int[]{-1};
-                    dialog.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            k[0] = i;
+                    if(list == null || list.length == 0){
+                        b1.setView(_BackupSET.noBackupsView(activity));
+                        b1.create().show();
+                    }
+                    else {
+                        ViewGroup viewGroup = _BackupSET.getBackups(activity,_BackupSET.TYPE_LOCATIONS);
+                        b1.setView(viewGroup);
+                        final AlertDialog dialog1 = b1.create();
+                        dialog1.show();
+                        for(int i=0;i<viewGroup.getChildCount();i++){
+                            final int c = i;
+                            viewGroup.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog1.dismiss();
+                                    final AlertDialog.Builder b2 = new AlertDialog.Builder(activity);
+                                    ViewGroup viewGroup = _BackupSET.getBackupOptions(activity);
+                                    b2.setView(viewGroup);
+                                    final AlertDialog d2 = b2.create();
+                                    d2.show();
+                                    viewGroup.getChildAt(0).setOnClickListener(new View.OnClickListener() { //Restore
+                                        @Override
+                                        public void onClick(View view) {
+                                            _BackupSET.restore(activity, list[c], _BackupSET.TYPE_LOCATIONS);
+                                            _TimesSET.updateTimes(activity);
+                                            AlarmsScheduler.fire(activity, Calendar.getInstance());
+                                            MainActivity.reloadMainActivityOnResume = true;
+                                            SettingsActivity.reloadSettingsActivityOnResume = true;
+                                            d2.dismiss();
+                                            Toast.makeText(activity,activity.getResources().getString(R.string.toast_backup_restored),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    viewGroup.getChildAt(1).setOnClickListener(new View.OnClickListener() { //Delete
+                                        @Override
+                                        public void onClick(View view) {
+                                            _BackupSET.delete(list[c],_BackupSET.TYPE_LOCATIONS);
+                                            d2.dismiss();
+                                            group.performClick();
+                                        }
+                                    });
+                                }
+                            });
                         }
-                    });
-                    dialog.setPositiveButton(activity.getResources().getString(R.string.mdtp_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if(k[0]!=-1) _BackupSET.restore(activity,list[k[0]],_BackupSET.TYPE_LOCATIONS);
-                            _TimesSET.updateTimes(activity);
-                            AlarmsScheduler.fire(activity,Calendar.getInstance());
-                            MainActivity.reloadMainActivityOnResume = true;
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    dialog.show();
+                    }
                 }
                 else if(k==0 && layoutNumber==DISPLAY_OPTIONS_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _DisplaySET.displayFile,"language",((TextView) group.getChildAt(0)).getText().toString());
