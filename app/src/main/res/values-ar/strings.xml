@@ -431,11 +431,15 @@
     <string name="toast_prayer_widget_click_and">و</string>
     <string name="toast_prayer_widget_click_ago"/>
     <string name="toast_prayer_widget_click_remaining">متبقية</string>
-    <string name="toast_prayer_widget_click_just">في الوقت المحدد!</string>
+    <string name="toast_prayer_widget_click_just">دخل وقت الصلاة!</string>
     <string name="toast_prayer_widget_click_one_minute">دقيقة واحدة</string>
     <string name="toast_prayer_widget_click_two_minutes">دقيقتان</string>
     <string name="toast_prayer_widget_click_two_hours">ساعتان</string>
     <string name="toast_prayer_widget_click_one_hour">ساعة واحدة</string>
+    <string name="alert_ignore_battery_opt_title">تجاوز إجراءات توفير الطاقة</string>
+    <string name="alert_ignore_battery_opt_msg">قم باستبعاد هذا البرنامج من إجراءات توفير الطاقة كي تعمل بعض المزايا بالشكل المانسب</string>
+    <string name="alert_ok">موافق</string>
+    <string name="alert_cancel">إلغاء</string>
 
 
     <string-array name="prayer_time_notifications" >

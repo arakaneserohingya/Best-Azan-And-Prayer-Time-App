@@ -80,6 +80,7 @@ public class AlarmsScheduler extends BroadcastReceiver {
         in.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         in.putExtra("type",type);// Don't use setAction here!!
         in.putExtra("index",index);//FLAG_UPDATE_CURRENT to update pendingintents of yesterday or on after time set for
+        in.putExtra("fire_time_in_millis",calendar.getTimeInMillis());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, type + index, in, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(trig) AlarmManagerCompat.setExactAndAllowWhileIdle(manager,AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);

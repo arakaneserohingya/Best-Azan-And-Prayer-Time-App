@@ -4,15 +4,12 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Camera;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 
 import androidx.annotation.Nullable;
 
@@ -20,8 +17,7 @@ import java.io.IOException;
 
 public class TimePrayerService extends Service implements MediaPlayer.OnCompletionListener,MediaPlayer.OnPreparedListener {
     private MediaPlayer player;
-    private Handler handlerVibrateAndLed;
-    private Runnable runnable;
+
 
     @Nullable
     @Override
@@ -36,13 +32,16 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
             player.setOnPreparedListener(this);
             player.setOnCompletionListener(this);
             Uri uri = getUriFor(intent.getExtras().getInt("type"),intent.getExtras().getInt("index"));
-            try {
-                player.setDataSource(this,uri);
-                player.prepareAsync();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(uri!=null) { // if phone's state is silent, uri will be null for tone's type 1 & 2
+                try {
+                    player.setDataSource(this, uri);
+                    player.prepareAsync();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            handleVibrateAndLed();
+            if(_AlarmSET.isOnAlarmVibrateActivated(this))
+                _AlarmSET.handleVibration(this);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -52,7 +51,7 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
     private boolean checkDestroy(Intent intent) {
         if (intent.getExtras().getBoolean("mode")) return false;
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(_AlarmSET.APP_NOTIFICATION_ID);
-        onDestroy();
+        onCompletion(player);
         return true;
     }
 
@@ -64,8 +63,7 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        player.stop();
-        handlerVibrateAndLed.removeCallbacks(runnable);
+        if(player !=null && player.isPlaying()) player.stop();
         stopSelf();
     }
 
@@ -77,11 +75,14 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
     private Uri getUriFor(int type, int index) {
         Uri uri = null;
         switch (type==_AlarmSET.AZAN_REQUEST_CODE?
-                getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getInt("notification_type",1):getSharedPreferences(_AlarmSET.iqamaFile,MODE_PRIVATE).getInt("reminder_type",1)){
+                getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getInt("notification_type",1):
+                getSharedPreferences(_AlarmSET.iqamaFile,MODE_PRIVATE).getInt("reminder_type",1)){
             case 0:
+                if(((AudioManager) getSystemService(Context.AUDIO_SERVICE)).getRingerMode()== AudioManager.RINGER_MODE_NORMAL)
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                 break;
             case 1:
+                if(((AudioManager) getSystemService(Context.AUDIO_SERVICE)).getRingerMode()== AudioManager.RINGER_MODE_NORMAL)
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 break;
             case 2:
@@ -100,35 +101,17 @@ public class TimePrayerService extends Service implements MediaPlayer.OnCompleti
     private Uri getMultimediaUriFor(int type, int index) {
         Uri uri = null;
         if(type==_AlarmSET.AZAN_REQUEST_CODE && getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getBoolean("use_different",false)){
-            uri = Uri.parse(getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getString("uri"+(index>0?index-1:0),getDefaultMultimediaString(type))); //index 1 for sunrise
+            uri = Uri.parse(getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getString("uri"+(index>0?index-1:0),getDefaultMultimediaString())); //index 1 for sunrise
         }else if(type==_AlarmSET.AZAN_REQUEST_CODE){
-            uri = Uri.parse(getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getString("uri",getDefaultMultimediaString(type)));
+            uri = Uri.parse(getSharedPreferences(_AlarmSET.azanFile,MODE_PRIVATE).getString("uri",getDefaultMultimediaString()));
         }else{
-            uri = Uri.parse(getSharedPreferences(_AlarmSET.iqamaFile,MODE_PRIVATE).getString("uri",getDefaultMultimediaString(type)));
+            uri = Uri.parse(getSharedPreferences(_AlarmSET.iqamaFile,MODE_PRIVATE).getString("uri",getDefaultMultimediaString()));
         }
         return uri;
     }
-    private String getDefaultMultimediaString(int type){
-        return "android.resource://"+getPackageName()+"/raw/" + (type==_AlarmSET.AZAN_REQUEST_CODE?"azan":"iqama");
+    private String getDefaultMultimediaString(/*int type*/){
+        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
+        /* "android.resource://"+getPackageName()+"/raw/" + (type==_AlarmSET.AZAN_REQUEST_CODE?"azan":"iqama"); */
     }
 
-    private void handleVibrateAndLed() {
-        handlerVibrateAndLed = new Handler();
-        runnable = new Runnable() {
-            Camera cam;
-            @Override
-            public void run() {
-                if (_AlarmSET.isVibrateActivated(TimePrayerService.this)) {
-                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                    } else {
-                        v.vibrate(500);
-                    }
-                }
-                handlerVibrateAndLed.postDelayed(this,1000);
-            }
-        };
-        handlerVibrateAndLed.postDelayed(runnable,1000);
-    }
 }

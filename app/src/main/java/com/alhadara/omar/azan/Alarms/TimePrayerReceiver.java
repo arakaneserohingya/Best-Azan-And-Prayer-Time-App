@@ -13,7 +13,6 @@ import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.alhadara.omar.azan.Constants;
-import com.alhadara.omar.azan.Times._TimesSET;
 import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
@@ -27,6 +26,7 @@ public class TimePrayerReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int type = intent.getExtras().getInt("type");
         int index = intent.getExtras().getInt("index");
+        if(_AlarmSET.isFireTimeGone(intent.getExtras().getLong("fire_time_in_millis"))) return;
         /* if(type == _AlarmSET.SAHOOR_REQUEST_CODE) { startSahoor(context); return; } */
 
         startSoundService(context, type, index);
@@ -50,19 +50,6 @@ public class TimePrayerReceiver extends BroadcastReceiver {
         audioServiceIntent.putExtra("index",index);
         audioServiceIntent.putExtra("mode",true);
         context.startService(audioServiceIntent);
-    }
-
-    private boolean isTimeDiffers(int type, int index) {
-        Calendar calendar = Calendar.getInstance();
-        long now = calendar.getTimeInMillis();
-        now = now / 1000;
-        calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(_TimesSET.times[index].substring(0,2)));
-        calendar.set(Calendar.MINUTE,Integer.parseInt(_TimesSET.times[index].substring(3,5)));
-        calendar.set(Calendar.SECOND,0);
-        if(type != _AlarmSET.AZAN_REQUEST_CODE ) calendar.add(Calendar.MINUTE,_TimesSET.iqamaTimes[index]); // for iqama
-        long time = calendar.getTimeInMillis();
-        time = time / 1000;
-        return (now - time) > 30;
     }
 
     private void sendNotification(Context context,String msg) {
@@ -93,7 +80,8 @@ public class TimePrayerReceiver extends BroadcastReceiver {
 
     private void setCancellation(Context context,int type){
         if(_AlarmSET.clearNotify(context,type)){
-            AlarmManagerCompat.setExactAndAllowWhileIdle((AlarmManager) context.getSystemService(Context.ALARM_SERVICE),AlarmManager.RTC_WAKEUP,_AlarmSET.getClearTimeInMillis(context,type),cancelIntent(context));
+            AlarmManagerCompat.setExactAndAllowWhileIdle((AlarmManager) context.getSystemService(Context.ALARM_SERVICE),AlarmManager.RTC_WAKEUP,
+                    _AlarmSET.getClearTimeInMillis(context,type),cancelIntent(context));
         }
     }
     private PendingIntent cancelIntent(Context context){

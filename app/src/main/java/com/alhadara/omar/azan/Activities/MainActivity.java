@@ -25,6 +25,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.alhadara.omar.azan.Alarms.AlarmsScheduler;
+import com.alhadara.omar.azan.Alarms._AlarmSET;
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Times._TimesSET;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
         /*      Initialization Methods      */
         _LocationSET.checkCurrentLocation(this);
+        _AlarmSET.setPowerConceptions(this);
+        _AlarmSET.setAlarmPermissions(this);
         _TimesSET.updateTimes(this);
         _DisplaySET.setLanguagePreferences(this);
         reloadMainActivityOnResume = false;

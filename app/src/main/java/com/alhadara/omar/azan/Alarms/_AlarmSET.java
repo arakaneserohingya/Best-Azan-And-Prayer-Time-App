@@ -1,12 +1,28 @@
 package com.alhadara.omar.azan.Alarms;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Handler;
+import android.os.PowerManager;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.provider.Settings;
 
+import androidx.core.app.ActivityCompat;
+
+import com.alhadara.omar.azan.Locations._LocationSET;
 import com.alhadara.omar.azan.Times._TimesSET;
+import com.example.omar.azanapkmostafa.R;
 
 import java.util.Calendar;
 
@@ -135,7 +151,7 @@ public class _AlarmSET {
         return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("firsttime",true);
     }
 
-    public static boolean isVibrateActivated(Context context) {
+    public static boolean isOnAlarmVibrateActivated(Context context) {
         return context.getSharedPreferences(azanFile, MODE_PRIVATE).getBoolean("vibrate",false);
     }
 
@@ -204,5 +220,99 @@ public class _AlarmSET {
     public static Uri getRingtoneUri(Context context, int alarmType, int id) {
         SharedPreferences preferences = context.getSharedPreferences(azanFile,MODE_PRIVATE);
         return Uri.parse(preferences.getString("uri" + id,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+    }
+
+    public static void handleVibration(final Context context) {
+        final Handler handlerVibration = new Handler();
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(200);
+        }
+        handlerVibration.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    v.vibrate(500);
+                }
+            }
+        },800);
+    }
+
+    public static boolean isFireTimeGone(long fireTimeInMillis) {
+        /* this method prevent alarms to run at time set */
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.getTimeInMillis() - fireTimeInMillis) > 30000;
+    }
+
+
+    public static void setPowerConceptions(final Activity activity) {
+        if(activity.getSharedPreferences(azanFile,MODE_PRIVATE).getBoolean("is_power_conceptions_shown",false)
+        || !_LocationSET.isLocationAssigned(activity)) return;
+        SharedPreferences.Editor editor = activity.getSharedPreferences(azanFile,MODE_PRIVATE).edit();
+        editor.putBoolean("is_power_conceptions_shown",true).commit();
+        PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+        final Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                    != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions(activity,
+                        new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS},
+                        AZAN_REQUEST_CODE);
+                editor.putBoolean("is_power_conceptions_shown",false).commit();
+                return;
+            }
+            if (!pm.isIgnoringBatteryOptimizations(activity.getPackageName())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage(activity.getResources().getString(R.string.alert_ignore_battery_opt_msg));
+                builder.setPositiveButton(activity.getResources().getString(R.string.alert_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                        intent.setData(Uri.parse("package:" + activity.getPackageName()));
+                        activity.startActivity(intent);
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        }
+    }
+    /*public static void setHuaweiPowerConceptions(final Activity activity){
+        AlertDialog.Builder builder2  = new AlertDialog.Builder(activity);
+        builder2.setTitle(R.string.alert_ignore_battery_opt_title_huawei).setMessage(R.string.alert_ignore_battery_opt_msg_huawei)
+                .setPositiveButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent();
+                        intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+                        activity.startActivity(intent);
+                    }
+                }).create().show();
+    }*/
+    public static void setAlarmPermissions(final Activity activity){
+        if(!_LocationSET.isLocationAssigned(activity) /* Due to not conflicts with first location's updating!! */
+                || activity.getSharedPreferences(azanFile,MODE_PRIVATE).getBoolean("alarm_permissions",false)) return;
+        SharedPreferences.Editor editor = activity.getSharedPreferences(azanFile,MODE_PRIVATE).edit();
+        editor.putBoolean("alarm_permissions",true).commit();
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.WAKE_LOCK)
+                != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.WAKE_LOCK},
+                    AZAN_REQUEST_CODE);
+
+        }
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.RECEIVE_BOOT_COMPLETED)
+                != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.RECEIVE_BOOT_COMPLETED},
+                    AZAN_REQUEST_CODE);
+
+        }
     }
 }
