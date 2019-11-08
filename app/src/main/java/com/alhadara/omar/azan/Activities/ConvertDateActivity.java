@@ -25,6 +25,8 @@ import net.alhazmy13.hijridatepicker.date.hijri.HijriDatePickerDialog;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ConvertDateActivity extends AppCompatActivity
         implements  HijriDatePickerDialog.OnDateSetListener,
@@ -128,15 +130,13 @@ public class ConvertDateActivity extends AppCompatActivity
 
     @Override
     public void onDateSet(GregorianDatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        NumberFormat nf = _DisplaySET.getNumberFormat(this);
-        Calendar now = Calendar.getInstance();
+        GregorianCalendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        calendar = adjustCalendarWithUmmalquraLimits(calendar);
         UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
-        long l = (calendar.getTimeInMillis() - now.getTimeInMillis())/86400000;
-        u.add(UmmalquraCalendar.DATE,(int)l);
+        u.setTime(calendar.getTime());
         ((TextView)findViewById(R.id.convert_date_activity_result_title))
                 .setText(_DisplaySET.formatStringNumbers(this,getResources().getStringArray(R.array.day_of_week)[u.get(UmmalquraCalendar.DAY_OF_WEEK) - 1]
                         + "  " + u.get(UmmalquraCalendar.DAY_OF_MONTH) + "/" + (u.get(UmmalquraCalendar.MONTH)+1) + "/" +
@@ -148,18 +148,14 @@ public class ConvertDateActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onDateSet(HijriDatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
-        UmmalquraCalendar now = _TimesSET.getUmmalquraCalendar(this);
-        NumberFormat nf = _DisplaySET.getNumberFormat(this);
         u.set(UmmalquraCalendar.YEAR, year);
         u.set(UmmalquraCalendar.MONTH,monthOfYear);
         u.set(UmmalquraCalendar.DAY_OF_MONTH,dayOfMonth);
-        Calendar calendar = Calendar.getInstance();
-        long l = (u.getTimeInMillis() - now.getTimeInMillis())/86400000;
-        calendar.add(Calendar.DATE,(int)l);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(u.getTime());
         ((TextView)findViewById(R.id.convert_date_activity_result_title))
                 .setText(getResources().getStringArray(R.array.day_of_week)[calendar.get(Calendar.DAY_OF_WEEK) - 1]
                         + "  " + _DisplaySET.formatStringNumbers(this,(new SimpleDateFormat("dd/MM/yyyy")).format(calendar.getTime())));
@@ -184,6 +180,26 @@ public class ConvertDateActivity extends AppCompatActivity
         for(int i=0;i<times.length;i++){
             ((TextView)group.getChildAt(i+1)).setText(getResources().getStringArray(R.array.prayer_time)[i] + "\n" + _DisplaySET.formatStringNumbers(this,times[i]));
         }
+    }
+    private GregorianCalendar adjustCalendarWithUmmalquraLimits(GregorianCalendar calendar) {
+        if(calendar.get(Calendar.YEAR) > 1937 && calendar.get(Calendar.YEAR) <2077) return calendar;
+        if(calendar.get(Calendar.YEAR) == 1937 && calendar.get(Calendar.MONTH) > Calendar.MARCH) return calendar;
+        if(calendar.get(Calendar.YEAR) == 1937 && calendar.get(Calendar.MONTH) == Calendar.MARCH && calendar.get(Calendar.DAY_OF_MONTH)>=14) return calendar;
+        if(calendar.get(Calendar.YEAR) == 2077 && calendar.get(Calendar.MONTH) < Calendar.NOVEMBER) return calendar;
+        if(calendar.get(Calendar.YEAR) == 2077 && calendar.get(Calendar.MONTH) == Calendar.NOVEMBER && calendar.get(Calendar.DAY_OF_MONTH)<=16) return calendar;
+        GregorianCalendar calendar1 = new GregorianCalendar();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.alert_date_conversion_limits_title));
+        builder.setMessage(getResources().getString(R.string.alert_date_conversion_limits_msg));
+        builder.setPositiveButton(getResources().getString(R.string.alert_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        setTextsDefault();
+        builder.create().show();
+        return calendar1;
     }
     @Override
     public boolean onSupportNavigateUp() {

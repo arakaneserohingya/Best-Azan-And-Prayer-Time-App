@@ -3,7 +3,6 @@ package com.alhadara.omar.azan.Times;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.icu.util.IslamicCalendar;
 
 import com.alhadara.omar.azan.Display._DisplaySET;
 import com.alhadara.omar.azan.Locations._LocationSET;
@@ -60,7 +59,9 @@ public class _TimesSET {
         }
         str[0]=prayerTimes.get(0);
         str[1]=prayerTimes.get(1);
-        str[2]=(isJumuahTimeDiff(context)&&time.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY)?
+        str[2]=(    isJumuahTimeDiff(context)
+                    &&time.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY
+                    && locationFile.equals(_LocationSET.currentLocation))?
                 getJumuahTime(context):prayerTimes.get(2);
         str[3]=prayerTimes.get(3);
         /* prayerTimes.get(4) is for sunset*/
@@ -74,7 +75,9 @@ public class _TimesSET {
     public static void setJumuahTime(Context context,int i, int i1) {
         SharedPreferences preferences = context.getSharedPreferences(prayersFile,MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("jumuah_time",i+":"+i1);
+        String hours = i<10? ("0" + i): String.valueOf(i);
+        String minutes = i1<10? ("0" + i1):String.valueOf(i1);
+        editor.putString("jumuah_time",hours+":"+minutes);
         editor.commit();
     }
     public static boolean isJumuahTimeDiff(Context context) {
