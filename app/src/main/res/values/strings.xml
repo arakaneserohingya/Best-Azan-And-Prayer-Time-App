@@ -447,7 +447,7 @@
     <string name="toast_backup_saved">Backup saved</string>
     <string name="toast_settings_reset_completed">Settings reset completed!</string>
     <string name="alert_date_conversion_limits_title" >Limit exceeded!</string>
-    <string name="alert_date_conversion_limits_msg" >The limits of date conversion:\nFrom 14 March 1937 CE\nTo 16 November 2077 CE</string>
+    <string name="alert_date_conversion_limits_msg" >The limits of date conversion:\nFrom 14 March 1937 CE,\nto 16 November 2077 CE</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

@@ -144,7 +144,7 @@ public class _TimesSET {
 
     public static int comingTimePointIndex(){
         int i = 0;
-        while(System.currentTimeMillis() > getPrayerTimeMillis(i)) if(++i == 6) break;
+        while(System.currentTimeMillis() > getPrayerTimeMillis(i,false)) if(++i == 6) break;
         return i<6?i:0;
     }
 
@@ -164,20 +164,14 @@ public class _TimesSET {
         else return Integer.parseInt(times[i].substring(0, 2))>12?"PM":"AM";
     }
 
-    public static long getPrayerTimeMillis(int i) {
+    public static long getPrayerTimeMillis(int i,boolean upComing) {
        Calendar cal = new GregorianCalendar();
+       long nowMillis = cal.getTimeInMillis();
        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(times[i].substring(0, 2)));
        cal.set(Calendar.MINUTE,Integer.parseInt(times[i].substring(3, 5)));
        cal.set(Calendar.SECOND,0);
+        if(nowMillis > cal.getTimeInMillis() && upComing) cal.add(Calendar.DATE,1);// For upcoming Fajr after Isha
        return cal.getTimeInMillis();
-    }
-    public static long getNextFajrMillis() {
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DATE,1);
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(times[0].substring(0, 2)));
-        cal.set(Calendar.MINUTE,Integer.parseInt(times[0].substring(3, 5)));
-        cal.set(Calendar.SECOND,0);
-        return cal.getTimeInMillis();
     }
 
     public static void clear(Context context) {

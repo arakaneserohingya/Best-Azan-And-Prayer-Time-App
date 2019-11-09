@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.content.res.Configuration;
 
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.LayoutDirection;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity
         _DisplaySET.setLanguagePreferences(this);
         reloadMainActivityOnResume = false;
         /*              ********            */
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -159,6 +158,8 @@ public class MainActivity extends AppCompatActivity
         if(!_LocationSET.isLocationAssigned(this)) return;
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
         ViewGroup timepoint;
+        final Toast toast = Toast.makeText(this,"",Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER,0,0);
         for (int i = 0; i < 6; i++) {
             final int s = i;
             timepoint = (ViewGroup) timePointLayout.getChildAt(i);
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity
             timepoint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(MainActivity.this,getTimeDiffString(s),Toast.LENGTH_SHORT).show();
+                    toast.setText(getTimeDiffString(s));
+                    toast.show();
                     /*Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
                     intent.putExtra("TimePointIndex", s);
                     startActivityForResult(intent,10000);
@@ -212,7 +214,7 @@ public class MainActivity extends AppCompatActivity
         int goneTimePoint = upComingTimePoint - 1;
         if (goneTimePoint < 0) goneTimePoint = 5;
         ProgressBar progressBar = findViewById(R.id.progress_bar_landscape);
-        progressBar.setProgress((int) (100 - (100 * remainTime / (((upComingTimePoint==0?_TimesSET.getNextFajrMillis():_TimesSET.getPrayerTimeMillis(upComingTimePoint))- _TimesSET.getPrayerTimeMillis(goneTimePoint))/1000))));
+        progressBar.setProgress((int) (100 - (100 * remainTime / ((_TimesSET.getPrayerTimeMillis(upComingTimePoint,true)- _TimesSET.getPrayerTimeMillis(goneTimePoint,false))/1000))));
     }
 
     public void tintingUpComingTimePoint(boolean tint) {
@@ -232,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 int h, m, s;
-                int remainTime = (int) (((upComingTimePoint==0?_TimesSET.getNextFajrMillis():_TimesSET.getPrayerTimeMillis(upComingTimePoint)) - System.currentTimeMillis())/1000);
+                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(upComingTimePoint,true) - System.currentTimeMillis())/1000);
                 if (remainTime < 1) {
                     tintingUpComingTimePoint(false);
                     upComingTimePoint = _TimesSET.comingTimePointIndex();
@@ -275,12 +277,14 @@ public class MainActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         if(handler != null)handler.removeCallbacks(runnable);
+        reloadMainActivityOnResume = true;
     }
+
 
     private String getTimeDiffString(int i) {
         String s = "";
         NumberFormat nf = _DisplaySET.getNumberFormat(this);
-        long diff = _TimesSET.getPrayerTimeMillis(i) - System.currentTimeMillis();
+        long diff = _TimesSET.getPrayerTimeMillis(i,false) - System.currentTimeMillis();
         if(diff < 0) s+=getResources().getString(R.string.toast_prayer_widget_click_was);
         diff /= 1000;
         int h = (int) (diff /3600);

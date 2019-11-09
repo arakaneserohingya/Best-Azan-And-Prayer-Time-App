@@ -115,10 +115,10 @@ public class ConvertDateActivity extends AppCompatActivity
         findViewById(R.id.convert_date_activity_from_gregorian_button).setClickable(false);
     }
     private void setTextsDefault(){
-        Calendar gregorainCal = Calendar.getInstance();
+        Calendar gregorianCal = Calendar.getInstance();
         UmmalquraCalendar hijriCal = _TimesSET.getUmmalquraCalendar(this);
         ((TextView) findViewById(R.id.convert_date_activity_from_gregorian_button)).setText(
-                _DisplaySET.formatStringNumbers(this,gregorainCal.get(Calendar.DAY_OF_MONTH) + " / " + (gregorainCal.get(Calendar.MONTH)+1) + " / " + gregorainCal.get(Calendar.YEAR))
+                _DisplaySET.formatStringNumbers(this,gregorianCal.get(Calendar.DAY_OF_MONTH) + " / " + (gregorianCal.get(Calendar.MONTH)+1) + " / " + gregorianCal.get(Calendar.YEAR))
         );
         ((TextView) findViewById(R.id.convert_date_activity_from_hijri_button)).setText(
                 _DisplaySET.formatStringNumbers(this,hijriCal.get(Calendar.DAY_OF_MONTH) + " / " + (hijriCal.get(Calendar.MONTH)+1) + " / " + hijriCal.get(Calendar.YEAR))

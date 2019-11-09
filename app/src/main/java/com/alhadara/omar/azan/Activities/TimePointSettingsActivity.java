@@ -128,7 +128,7 @@ public class TimePointSettingsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 int h,m,s;
-                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(index) - System.currentTimeMillis())/1000);
+                int remainTime = (int) ((_TimesSET.getPrayerTimeMillis(index,false) - System.currentTimeMillis())/1000);
                 if(remainTime < 1)
                     findViewById(R.id.countdown_layout_time_point_settings).setVisibility(View.GONE);
                 else {
