@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alhadara.omar.azan.Activities.ConvertDateActivity">
+    tools:context="com.alnamaa.engineering.azan.Activities.ConvertDateActivity">
     <androidx.appcompat.widget.Toolbar
         app:title="@string/convert_date"
         app:layout_constraintTop_toTopOf="parent"

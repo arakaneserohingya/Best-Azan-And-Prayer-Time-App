@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.omar.azanapkmostafa">
+    package="com.example.engineering.azanapkmostafa">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.alhadara.omar.azan.Activities.MainActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -37,53 +37,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.alhadara.omar.azan.Activities.ConvertDateActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.ConvertDateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.TimePointSettingsActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.TimePointSettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.LocationsActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.LocationsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.InternetLocationSearchActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.InternetLocationSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.UpdateCurrentLocationActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.UpdateCurrentLocationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.AdjustLocationActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.AdjustLocationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.ManuallyLocationActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.ManuallyLocationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.ManuallyLocationCitiesActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.ManuallyLocationCitiesActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Declare  Alarm Broadcast receiver here -->
         <activity
-            android:name="com.alhadara.omar.azan.Activities.SettingsActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.SettingsSecondActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.SettingsSecondActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.SettingsThirdActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.SettingsThirdActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.SettingsForthActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.SettingsForthActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.SahoorActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.SahoorActivity"
             android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.alhadara.omar.azan.Activities.AzkarActivity"
+            android:name="com.alnamaa.engineering.azan.Activities.AzkarActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
-            android:name="com.alhadara.omar.azan.Alarms.AlarmsScheduler"
+            android:name="com.alnamaa.engineering.azan.Alarms.AlarmsScheduler"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -96,20 +96,20 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.alhadara.omar.azan.Alarms.TimePrayerReceiver"
+            android:name="com.alnamaa.engineering.azan.Alarms.TimePrayerReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name="com.alhadara.omar.azan.Alarms.SilentTimeReceiver"
+            android:name="com.alnamaa.engineering.azan.Alarms.SilentTimeReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name="com.alhadara.omar.azan.Alarms.TimePrayerService"
+            android:name="com.alnamaa.engineering.azan.Alarms.TimePrayerService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name="com.alhadara.omar.azan.Alarms.SahoorAlarmSnoozeService"
+            android:name="com.alnamaa.engineering.azan.Alarms.SahoorAlarmSnoozeService"
             android:enabled="true"
             android:exported="false" />
     </application>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alhadara.omar.azan.Activities.SettingsSecondActivity">
+    tools:context="com.alnamaa.engineering.azan.Activities.SettingsSecondActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_settings_second_activity"
         android:alpha="0.8"

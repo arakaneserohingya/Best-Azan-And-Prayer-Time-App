@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/widgetColorSettings"
-    tools:context="com.alhadara.omar.azan.Activities.InternetLocationSearchActivity">
+    tools:context="com.alnamaa.engineering.azan.Activities.InternetLocationSearchActivity">
     <EditText
         android:focusedByDefault="true"
         android:id="@+id/internet_location_search_activity_internet_search"
