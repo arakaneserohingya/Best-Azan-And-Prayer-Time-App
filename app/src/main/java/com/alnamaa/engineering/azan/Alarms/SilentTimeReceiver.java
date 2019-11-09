@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import androidx.core.app.AlarmManagerCompat;
 
-import com.example.engineering.azanapkmostafa.R;
+
+import com.alnamaa.engineering.azan.R;
 
 import java.util.Calendar;
 

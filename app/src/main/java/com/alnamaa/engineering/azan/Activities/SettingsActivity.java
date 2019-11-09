@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Settings._SET;
 import com.alnamaa.engineering.azan.Settings.SettingsRecyclerViewAdapter;
-import com.example.engineering.azanapkmostafa.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

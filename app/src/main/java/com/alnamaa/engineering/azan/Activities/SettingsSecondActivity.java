@@ -14,8 +14,8 @@ import android.os.Bundle;
 
 import com.alnamaa.engineering.azan.Alarms._AlarmSET;
 import com.alnamaa.engineering.azan.Backup._BackupSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Settings.SettingsRecyclerViewAdapter;
-import com.example.engineering.azanapkmostafa.R;
 
 public class SettingsSecondActivity extends AppCompatActivity {
 

@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
-import com.example.engineering.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
 import net.alhazmy13.hijridatepicker.date.gregorian.GregorianDatePickerDialog;
@@ -34,7 +34,7 @@ public class ConvertDateActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(_DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?R.style.AppTheme_NoActionBar:R.style.AppThemeDark_NoActionBar);
+        setTheme(_DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?R.style.AppTheme_NoActionBar: R.style.AppThemeDark_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convert_date);
         Toolbar toolbar = findViewById(R.id.toolbar_convert_date_activity);

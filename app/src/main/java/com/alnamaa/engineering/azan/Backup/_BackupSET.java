@@ -21,9 +21,9 @@ import com.alnamaa.engineering.azan.Alarms._AlarmSET;
 import com.alnamaa.engineering.azan.Constants;
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Settings._SET;
 import com.alnamaa.engineering.azan.Times._TimesSET;
-import com.example.engineering.azanapkmostafa.R;
 
 import java.io.File;
 import java.io.FileInputStream;

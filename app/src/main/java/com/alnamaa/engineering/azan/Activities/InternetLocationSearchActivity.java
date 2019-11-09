@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.engineering.azanapkmostafa.R;
+import com.alnamaa.engineering.azan.R;
+
 
 public class InternetLocationSearchActivity extends AppCompatActivity {
 

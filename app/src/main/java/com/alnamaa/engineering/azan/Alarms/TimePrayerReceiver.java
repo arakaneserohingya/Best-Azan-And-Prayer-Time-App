@@ -13,7 +13,7 @@ import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.alnamaa.engineering.azan.Constants;
-import com.example.engineering.azanapkmostafa.R;
+import com.alnamaa.engineering.azan.R;
 
 import java.util.Calendar;
 

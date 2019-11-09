@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.CountriesRecyclerViewAdapter;
-import com.example.engineering.azanapkmostafa.R;
+import com.alnamaa.engineering.azan.R;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;

@@ -20,8 +20,8 @@ import com.alnamaa.engineering.azan.Alarms.SahoorAlarmSnoozeService;
 import com.alnamaa.engineering.azan.Alarms._AlarmSET;
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
-import com.example.engineering.azanapkmostafa.R;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
 import java.io.IOException;

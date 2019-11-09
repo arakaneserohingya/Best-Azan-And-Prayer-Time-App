@@ -19,8 +19,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.TimezoneMapper;
-import com.example.engineering.azanapkmostafa.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;

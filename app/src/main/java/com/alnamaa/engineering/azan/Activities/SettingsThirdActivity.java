@@ -12,10 +12,11 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
+
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Settings._SET;
 import com.alnamaa.engineering.azan.Alarms._AlarmSET;
 import com.alnamaa.engineering.azan.Settings.SettingsRecyclerViewAdapter;
-import com.example.engineering.azanapkmostafa.R;
 
 public class SettingsThirdActivity extends AppCompatActivity {
 

@@ -13,9 +13,8 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.alnamaa.engineering.azan.Activities.MainActivity;
-import com.example.engineering.azanapkmostafa.R;
 
+import com.alnamaa.engineering.azan.R;
 
 import java.text.NumberFormat;
 import java.util.Locale;

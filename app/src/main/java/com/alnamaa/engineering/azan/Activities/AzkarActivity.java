@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.AzkarRecyclerViewAdapter;
-import com.example.engineering.azanapkmostafa.R;
+import com.alnamaa.engineering.azan.R;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

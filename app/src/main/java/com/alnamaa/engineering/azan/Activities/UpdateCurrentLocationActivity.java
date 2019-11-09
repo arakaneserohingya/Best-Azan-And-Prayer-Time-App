@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.Alarms.AlarmsScheduler;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
-import com.example.engineering.azanapkmostafa.R;
 
 import java.util.Calendar;
 
