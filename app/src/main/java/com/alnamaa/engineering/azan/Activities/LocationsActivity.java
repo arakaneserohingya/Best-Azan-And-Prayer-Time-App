@@ -39,7 +39,7 @@ public class LocationsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.saved_locations));
         ((ImageView) findViewById(R.id.locations_activity_image)).setImageDrawable(getResources().getDrawable(
-                _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.background:R.drawable.background_black));
+                _DisplaySET.getAppTheme(this) == _DisplaySET.WHITE ?R.drawable.background:R.drawable.background_black));
         locationsWidgets();
         ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(
                 getSharedPreferences(_LocationSET.currentLocation,MODE_PRIVATE).getString("location_name","")

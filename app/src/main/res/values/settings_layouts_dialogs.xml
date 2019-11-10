@@ -25,6 +25,7 @@
     <string-array name="widget_theme" >
         <item>@string/settings_dialogs_widget_theme1</item>
         <item>@string/settings_dialogs_widget_theme2</item>
+        <item>@string/settings_dialogs_widget_theme3</item>
     </string-array>
     <string-array name="notification_audio_type" >
         <item>@string/settings_dialogs_notification_audio_type1</item>

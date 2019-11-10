@@ -18,4 +18,6 @@
     <color name="colorPrimaryDarkerBlack">#771C20</color>
     <color name="colorAccentBlack">@color/colorPrimaryBlack</color>
     <color name="buttons">#6D8A87</color>
+    <color name="widgetWhite">#FAF3E6</color>
+    <color name="widgetBlack">#2C2C2C</color>
 </resources>

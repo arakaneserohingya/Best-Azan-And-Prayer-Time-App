@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(_DisplaySET.getAppTheme(this)== _DisplaySET.THEME_WHITE?
+        toolbar.setBackgroundColor(getResources().getColor(_DisplaySET.getAppTheme(this)== _DisplaySET.WHITE ?
                 R.color.colorPrimaryWhite:R.color.colorPrimaryBlack));
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getHeaderView(0).setBackground(getResources().getDrawable(_DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?
+        navigationView.getHeaderView(0).setBackground(getResources().getDrawable(_DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ?
                 R.drawable.side_nav_bar:R.drawable.side_nav_bar_black));
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -85,26 +85,26 @@ public class MainActivity extends AppCompatActivity
 
     private void initializeTheme() {
         ((ImageView) findViewById(R.id.background)).setImageDrawable(getResources().getDrawable(
-                _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.background:R.drawable.background_black
+                _DisplaySET.getAppTheme(this) == _DisplaySET.WHITE ?R.drawable.background:R.drawable.background_black
         ));
         ((TextView) findViewById(R.id.main_activity_day_of_week)).setTextColor(
-            _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+            _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ? Color.BLACK:Color.WHITE);
         ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setTextColor(
-                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+                _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ? Color.BLACK:Color.WHITE);
         ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTextColor(
-                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+                _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ? Color.BLACK:Color.WHITE);
         ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setTextColor(
-                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+                _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ? Color.BLACK:Color.WHITE);
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTextColor(
-                _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE? Color.BLACK:Color.WHITE);
+                _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ? Color.BLACK:Color.WHITE);
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             ((ProgressBar)findViewById(R.id.progress_bar_landscape)).setProgressDrawable(getResources().getDrawable(
-                    _DisplaySET.getAppTheme(this) == _DisplaySET.THEME_WHITE?R.drawable.circle:R.drawable.circle_black
+                    _DisplaySET.getAppTheme(this) == _DisplaySET.WHITE ?R.drawable.circle:R.drawable.circle_black
             ));
             ViewGroup group = findViewById(R.id.main_activity_timer);
             for(int i=0;i<group.getChildCount();i++){
                 if(group.getChildAt(i) instanceof TextView) ((TextView) group.getChildAt(i)).setTextColor(
-                        _DisplaySET.getAppTheme(this)==_DisplaySET.THEME_WHITE?getResources().getColor(R.color.widgetColor):Color.WHITE
+                        _DisplaySET.getAppTheme(this)==_DisplaySET.WHITE ?getResources().getColor(R.color.widgetColor):Color.WHITE
                 );
             }
         }
@@ -177,8 +177,10 @@ public class MainActivity extends AppCompatActivity
             });
 
         }
-        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
+        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+            _DisplaySET.tintWidget(this,(ViewGroup) timePointLayout.getChildAt(6));
             reorderTimePointForPortrait();
+        }
         tintingUpComingTimePoint(true);
     }
 
@@ -195,6 +197,7 @@ public class MainActivity extends AppCompatActivity
             layout.addView(view);
         }
         ((TextView) timepoint.findViewById(R.id.time_point_time)).setText(_TimesSET.getPrayerTimeString(this,i));
+        _DisplaySET.tintWidget(this,timepoint);
     }
 
     public void reorderTimePointForPortrait() {
@@ -218,11 +221,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void tintingUpComingTimePoint(boolean tint) {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint)
-                    .setBackgroundColor(getResources().getColor(tint ? _DisplaySET.getPrimaryColor(this) : R.color.widgetColorSettingsBox));
-        else ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(upComingTimePoint + 1)
-                .setBackgroundColor(getResources().getColor(tint ? _DisplaySET.getPrimaryColor(this) : R.color.widgetColorSettingsBox));
+        int widNum = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE?
+                upComingTimePoint:(upComingTimePoint+1);
+        if(tint)_DisplaySET.tintWidgetUpComing(this, (ViewGroup) ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(widNum));
+        else _DisplaySET.tintWidget(this, (ViewGroup) ((ViewGroup) findViewById(R.id.time_point_layout)).getChildAt(widNum));
     }
 
 

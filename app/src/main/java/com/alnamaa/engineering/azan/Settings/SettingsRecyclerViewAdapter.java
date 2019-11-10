@@ -197,7 +197,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
     public final static int SILENT_TIME_SETTINGS_LAYOUT_NUM = 13;
     private final int[][] ids = {
             {70100,-1,70200,70300,70400,-1,70500,70600}, //Backup & Restore
-            {-1,30100,30200,30300,30400,30500,-1,30600,30700,30800,30900,31000}, // Display Options
+            {-1,30100,30200,30300,30400,30500,-1,30600,30700}, // Display Options
             {50100,-1,50200,50300,50400,50500,50600,50700,50800,50900,51000}, // Fajr & Sahoor Alarm
             {-1,20100,20200}, // Hijri
             {-1,40701,40702,-1,40703,40704,-1,40705,40706,-1,40707,40708,-1,40709,40710,-1,40711,40712}, // Iqama Reminder _TimesSET
@@ -213,7 +213,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
     };
     private final int types[][] = {
             {1,0,1,1,1,0,1,1}, //Backup & Restore
-            {0,1,1,1,1,2,0,1,1,1,1,1}, // Display Options
+            {0,1,1,1,1,2,0,1,1}, // Display Options
             {1,0,2,1,1,2,2,2,2,1,1}, // Fajr & Sahoor Alarm
             {0,2,1}, // Hijri
             {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2}, // Iqama Reminder _TimesSET
@@ -514,7 +514,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                 }
                 else if(layoutNumber == DISPLAY_OPTIONS_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _DisplaySET.displayFile,"widget_theme_"+(k-5),((TextView) group.getChildAt(0)).getText().toString());
-                    dialog.initialize(activity.getResources().getStringArray(R.array.widget_theme), new int[]{0,1}, new RadioDialog.run() {
+                    dialog.initialize(activity.getResources().getStringArray(R.array.widget_theme), new int[]{0,1,2}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
                             MainActivity.reloadMainActivityOnResume = true;

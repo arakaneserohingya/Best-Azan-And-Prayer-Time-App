@@ -307,6 +307,7 @@
     <string name="settings_dialogs_app_font3">خط الجهاز العريض</string>
     <string name="settings_dialogs_widget_theme1">أبيض</string>
     <string name="settings_dialogs_widget_theme2">أسود</string>
+    <string name="settings_dialogs_widget_theme3">اللون الأساسي</string>
     <string name="fajr">الفجر</string>
     <string name="zuhr">الظهر</string>
     <string name="asr">العصر</string>

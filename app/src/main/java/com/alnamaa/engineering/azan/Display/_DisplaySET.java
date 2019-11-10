@@ -3,17 +3,17 @@ package com.alnamaa.engineering.azan.Display;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 
+import com.alnamaa.engineering.azan.Activities.MainActivity;
 import com.alnamaa.engineering.azan.R;
 
 import java.text.NumberFormat;
@@ -24,7 +24,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class _DisplaySET {
     public final static String displayFile = "display";
-    public static final int THEME_WHITE = 0,THEME_BLACK=1;
+    public static final int WHITE = 0, BLACK =1;
 
 
     public static void setLanguagePreferences(Context context) {
@@ -67,7 +67,7 @@ public class _DisplaySET {
         editor.putInt("numbers_language",0);
         editor.putInt("theme",0);
         editor.putInt("font",0);
-        for(int i=0;i<5;i++) editor.putInt("widget_theme_"+i,0);
+        for(int i=0;i<5;i++) editor.putInt("widget_theme_"+i,2);
         editor.commit();
     }
 
@@ -83,11 +83,11 @@ public class _DisplaySET {
     }
 
     public static int getAppTheme(Context context) {
-        return context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("theme",THEME_WHITE);
+        return context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("theme", WHITE);
     }
 
     public static int getPrimaryColor(Context context) {
-         return getAppTheme(context) == THEME_WHITE?R.color.colorPrimaryWhite:R.color.colorPrimaryBlack;
+         return getAppTheme(context) == WHITE ?R.color.colorPrimaryWhite:R.color.colorPrimaryBlack;
     }
 
     public static String formatStringNumbers(Context context,String str) {
@@ -99,4 +99,45 @@ public class _DisplaySET {
         }
         return s;
     }
+    public static void colorTextChildes(Context context, ViewGroup group, int color){
+        for(int i=0;i<group.getChildCount();i++){
+            if(group.getChildAt(i) instanceof TextView) ((TextView) group.getChildAt(i)).setTextColor(
+                    context.getResources().getColor(color==WHITE?R.color.widgetBlack:R.color.widgetWhite)
+            );
+            else if(group.getChildAt(i) instanceof  ViewGroup) colorTextChildes(context, (ViewGroup) group.getChildAt(i),color);
+        }
+    }
+
+    public static void tintWidgetUpComing(Context context,ViewGroup group) {
+        switch (context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("widget_theme_1",2)){
+            case 0:
+                group.setBackgroundColor(context.getResources().getColor(R.color.widgetWhite));
+                colorTextChildes(context,group,WHITE);
+                break;
+            case 1:
+                group.setBackgroundColor(context.getResources().getColor(R.color.widgetBlack));
+                colorTextChildes(context,group,BLACK);
+                break;
+            default:
+                group.setBackgroundColor(context.getResources().getColor(getPrimaryColor(context)));
+                break;
+        }
+    }
+
+    public static void tintWidget(Context context,ViewGroup group) {
+        switch (context.getSharedPreferences(displayFile,MODE_PRIVATE).getInt("widget_theme_0",2)){
+            case 0:
+                group.setBackgroundColor(context.getResources().getColor(R.color.widgetWhite));
+                colorTextChildes(context,group,WHITE);
+                break;
+            case 1:
+                group.setBackgroundColor(context.getResources().getColor(R.color.widgetWhite));
+                colorTextChildes(context,group,WHITE);
+                break;
+            default:
+                group.setBackgroundColor(context.getResources().getColor(R.color.widgetColorSettingsBox));
+                break;
+        }
+    }
+
 }

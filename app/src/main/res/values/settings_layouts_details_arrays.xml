@@ -37,9 +37,6 @@
         <item>@string/settings_layouts_display_options_widget_details5</item>
         <item>@string/settings_layouts_display_options_widget_details6</item>
         <item>@string/settings_layouts_display_options_widget_details7</item>
-        <item>@string/settings_layouts_display_options_widget_details8</item>
-        <item>@string/settings_layouts_display_options_widget_details9</item>
-        <item>@string/settings_layouts_display_options_widget_details10</item>
     </string-array>
     <string-array name="settings_layout_details_fajr_and_sahoor_alarms">
         <item>@string/settings_layouts_fajr_and_sahoor_alarms_widget_details1</item>
