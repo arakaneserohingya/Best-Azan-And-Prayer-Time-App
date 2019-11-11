@@ -119,7 +119,7 @@
     <string name="iqama_time">وقت إقامة</string>
     <string name="convert_from_hijri">التحويل من هجري</string>
     <string name="convert_from_gregorian">التحويل من ميلادي</string>
-    <string name="choose_current_location">اختيار المكان الحالي</string>
+    <string name="add_current_location">إضافة الموقع الحالي</string>
     <string name="choose_an_option">انتق أحد الخيارات</string>
     <string name="delete_location">حذف الموقع</string>
     <string name="set_as_current_location">ضبط كموقع حالي</string>
@@ -449,6 +449,10 @@
     <string name="toast_settings_reset_completed">تم استعادة الإعدادات الافتراضية</string>
     <string name="alert_date_conversion_limits_title" >حدود تحويل التاريخ:</string>
     <string name="alert_date_conversion_limits_msg" >حدود تحويل التاريخ هي:\nمن 14 مارس 1937م\nإلى 16 نوفمبر 2077م</string>
+    <string name="toast_no_location_data" >لم يتم العثور على بيانات جديدة</string>
+    <string name="alert_add_current_location_msg" >هل تريد إضافة الموقع الحالي إلى المواقع المحفوظة</string>
+    <string name="toast_maximum_saved_locations" >الحد الأقصى المسموح به هو 5 مواقع</string>
+    <string name="toast_set_location_name_first" >قم بتسمية الموقع الحالي للقيام أولا</string>
 
 
     <string-array name="prayer_time_notifications" >

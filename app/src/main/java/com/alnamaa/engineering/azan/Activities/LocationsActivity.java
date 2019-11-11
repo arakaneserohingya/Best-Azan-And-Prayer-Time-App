@@ -48,7 +48,7 @@ public class LocationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(getSharedPreferences(_LocationSET.locationsFile,MODE_PRIVATE).getInt("locationsnumber",0) >= MAXIMUM_SAVED_LOCATIONS){
-                    Toast.makeText(LocationsActivity.this,"Maximum number of locations is five!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LocationsActivity.this,getResources().getString(R.string.toast_maximum_saved_locations),Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(LocationsActivity.this,InternetLocationSearchActivity.class);
@@ -66,7 +66,9 @@ public class LocationsActivity extends AppCompatActivity {
             findViewById(R.id.locations_activity_adjust_current_location).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   startActivity(new Intent(LocationsActivity.this,AdjustLocationActivity.class));
+                   Intent intent = new Intent(LocationsActivity.this,AdjustLocationActivity.class);
+                   intent.putExtra("location_file",_LocationSET.currentLocation);
+                   startActivity(intent);
                 }
             });
         else ((TextView)findViewById(R.id.locations_activity_adjust_current_location)).setTextColor(Color.DKGRAY);

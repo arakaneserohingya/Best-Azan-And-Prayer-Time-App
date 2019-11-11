@@ -38,10 +38,9 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:textColor="@android:color/white"
-        android:text="@string/choose_current_location"
+        android:text="@string/add_current_location"
         android:textSize="20sp"
         android:gravity="start"
-        android:visibility="gone"
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >

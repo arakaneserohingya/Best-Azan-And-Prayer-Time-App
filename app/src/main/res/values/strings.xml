@@ -119,7 +119,7 @@
     <string name="iqama_time">iqama time</string>
     <string name="convert_from_hijri">Convert from hijri</string>
     <string name="convert_from_gregorian">Convert from gregorian</string>
-    <string name="choose_current_location">Choose current location</string>
+    <string name="add_current_location">Add current location</string>
     <string name="choose_an_option">Choose an option</string>
     <string name="delete_location">Delete the location</string>
     <string name="set_as_current_location">Set as current location</string>
@@ -449,6 +449,10 @@
     <string name="toast_settings_reset_completed">Settings reset completed!</string>
     <string name="alert_date_conversion_limits_title" >Limit exceeded!</string>
     <string name="alert_date_conversion_limits_msg" >The limits of date conversion:\nFrom 14 March 1937 CE,\nto 16 November 2077 CE</string>
+    <string name="toast_no_location_data" >No location\'s information to save</string>
+    <string name="alert_add_current_location_msg" >Do you want to add current location to saved locations ?</string>
+    <string name="toast_maximum_saved_locations" >Maximum number of locations is five!</string>
+    <string name="toast_set_location_name_first" >You have to set a name for current location first!</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

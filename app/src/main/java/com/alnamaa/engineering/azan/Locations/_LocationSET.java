@@ -60,7 +60,7 @@ public class _LocationSET {
                 if(locationResult!=null) {
                     builder.cancel();
                     handler.removeCallbacks(onUpdateLocationTimesUp);
-                    android.location.Location location = locationResult.getLastLocation();
+                    Location location = locationResult.getLocations().get(0);
                     _LocationSET.assignLocation(activity, location, tempLocationFile);
                     todo.onSuccess();
                     providerClient.removeLocationUpdates(this);

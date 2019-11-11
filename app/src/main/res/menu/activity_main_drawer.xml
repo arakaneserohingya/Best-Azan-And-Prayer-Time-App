@@ -17,28 +17,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/convert_date" />
         <item
-            android:id="@+id/nav_compass"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/compass" />
-        <item
             android:id="@+id/nav_location"
             android:icon="@drawable/ic_location_on_black_24dp"
             android:title="@string/locations"/>
 
-    </group>
-    <group android:checkableBehavior="none">
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/about_application"/>
-        <item
-            android:id="@+id/nav_problems"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/problems_and_suggestions" />
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/share_application" />
     </group>
 
 </menu>

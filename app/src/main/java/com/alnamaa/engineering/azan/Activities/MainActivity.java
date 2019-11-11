@@ -128,18 +128,10 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(new Intent(this, ConvertDateGoogleApiActivity.class),10000);
             else
                 startActivityForResult(new Intent(this, ConvertDateActivity.class),10000);
-        } else if (id == R.id.nav_compass) {
-
-        } else if (id == R.id.nav_location) {
+        }  else if (id == R.id.nav_location) {
             startActivityForResult(new Intent(this, LocationsActivity.class),10000);
         } else if (id == R.id.nab_remembrance) {
             startActivityForResult(new Intent(this, AzkarActivity.class),10000);
-        } else if (id == R.id.nav_about) {
-
-        } else if (id == R.id.nav_problems) {
-
-        } else if (id == R.id.nav_share) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

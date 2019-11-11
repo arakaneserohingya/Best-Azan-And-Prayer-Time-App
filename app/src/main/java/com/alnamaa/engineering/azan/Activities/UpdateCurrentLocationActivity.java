@@ -19,8 +19,7 @@ import java.util.Calendar;
 
 public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
-    private Handler handler;
-    private final String tempLocationFile = "updatecurrenttemplocationfile";
+    public static final String tempLocationFile = "updatecurrenttemplocationfile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +111,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!_LocationSET.assignLocation(UpdateCurrentLocationActivity.this, tempLocationFile, _LocationSET.currentLocation)) {
+                    Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_no_location_data),Toast.LENGTH_SHORT).show();
                     UpdateCurrentLocationActivity.this.finish();
                     return;
                 }
@@ -126,7 +126,9 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_location_edit_button_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class));
+                Intent intent = new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class);
+                intent.putExtra("location_file",tempLocationFile);
+                startActivity(intent);
             }
         });
     }
@@ -145,15 +147,9 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void finish() {
+    protected void onDestroy() {
         _LocationSET.clearTempLocationFile(this,tempLocationFile);
-        super.finish();
-    }
-
-    @Override
-    protected void onStop() {
-        _LocationSET.clearTempLocationFile(this,tempLocationFile);
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override
@@ -161,7 +157,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         if(getSharedPreferences("temp",MODE_PRIVATE).getBoolean("islocationassigned",false)){
             _LocationSET.assignLocation(UpdateCurrentLocationActivity.this,"temp",tempLocationFile);
             _LocationSET.clearTempLocationFile(UpdateCurrentLocationActivity.this,"temp");
-            Toast.makeText(UpdateCurrentLocationActivity.this,"Location Updated successfully!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_location_updated_successfully),Toast.LENGTH_SHORT).show();
         }
         super.onResume();
     }
