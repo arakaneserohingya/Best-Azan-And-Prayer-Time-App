@@ -3,6 +3,10 @@ package com.alnamaa.engineering.azan.Times;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.util.IslamicCalendar;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
@@ -189,5 +193,14 @@ public class _TimesSET {
         return calendar;
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static IslamicCalendar getGoogleCalendar(Context context){
+            IslamicCalendar calendar = new IslamicCalendar();
+            calendar.add(Calendar.DATE,context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0));
+            return calendar;
+    }
+    public static boolean isItGoogleCalendar(Context context){
+        return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N &&
+                context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getBoolean("is_google_cal",true);
+    }
 }

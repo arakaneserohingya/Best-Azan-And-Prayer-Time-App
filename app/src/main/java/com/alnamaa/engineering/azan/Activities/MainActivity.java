@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.LayoutDirection;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +33,7 @@ import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
+import android.icu.util.IslamicCalendar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.NumberFormat;
@@ -76,7 +79,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         upComingTimePoint = _TimesSET.comingTimePointIndex();
-        initializeDateViews();
+        if(_TimesSET.isItGoogleCalendar(this)) initializeDateViewsWithGoogleApi();
+        else initializeDateViews();
         initializeTimePoints();
         initializeTheme();
         startTimer();
@@ -120,7 +124,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_settings) {
             startActivityForResult(new Intent(this,SettingsActivity.class),10000);
         } else if (id == R.id.nav_convert_date) {
-            startActivityForResult(new Intent(this, ConvertDateActivity.class),10000);
+            if(_TimesSET.isItGoogleCalendar(this))
+                startActivityForResult(new Intent(this, ConvertDateGoogleApiActivity.class),10000);
+            else
+                startActivityForResult(new Intent(this, ConvertDateActivity.class),10000);
         } else if (id == R.id.nav_compass) {
 
         } else if (id == R.id.nav_location) {
@@ -154,6 +161,21 @@ public class MainActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void initializeDateViewsWithGoogleApi() {
+        IslamicCalendar hijCal = _TimesSET.getGoogleCalendar(this);
+        Calendar cal = Calendar.getInstance();
+        NumberFormat nf = _DisplaySET.getNumberFormat(this);
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setText(getResources().getStringArray(R.array.day_of_week)[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+        ((TextView) findViewById(R.id.main_activity_day_of_week)).setTypeface(_DisplaySET.getTypeFace(this));
+        ((TextView) findViewById(R.id.main_activity_hijri_month_number)).setText(nf.format(hijCal.get(IslamicCalendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setText(getResources().getStringArray(R.array.hijri_month)[hijCal.get(IslamicCalendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_hijri_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_number)).setText(nf.format(cal.get(Calendar.DAY_OF_MONTH)));
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setText(getResources().getStringArray(R.array.gregorian_month)[cal.get(Calendar.MONTH)]);
+        ((TextView) findViewById(R.id.main_activity_gregorian_month_name)).setTypeface(_DisplaySET.getTypeFace(this));
+    }
+
     public void initializeTimePoints() {
         if(!_LocationSET.isLocationAssigned(this)) return;
         ViewGroup timePointLayout = findViewById(R.id.time_point_layout);
@@ -169,10 +191,6 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View view) {
                     toast.setText(getTimeDiffString(s));
                     toast.show();
-                    /*Intent intent = new Intent(MainActivity.this, TimePointSettingsActivity.class);
-                    intent.putExtra("TimePointIndex", s);
-                    startActivityForResult(intent,10000);
-                    overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);*/
                 }
             });
 

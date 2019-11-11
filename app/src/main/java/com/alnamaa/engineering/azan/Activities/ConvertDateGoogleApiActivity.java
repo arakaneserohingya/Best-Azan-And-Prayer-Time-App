@@ -1,10 +1,8 @@
 package com.alnamaa.engineering.azan.Activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.DialogInterface;
+import android.icu.util.IslamicCalendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
-import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
 
 import net.alhazmy13.hijridatepicker.date.gregorian.GregorianDatePickerDialog;
 import net.alhazmy13.hijridatepicker.date.hijri.HijriDatePickerDialog;
@@ -25,7 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class ConvertDateActivity extends AppCompatActivity
+@RequiresApi(api = Build.VERSION_CODES.N)
+public class ConvertDateGoogleApiActivity extends AppCompatActivity
         implements  HijriDatePickerDialog.OnDateSetListener,
         GregorianDatePickerDialog.OnDateSetListener{
 
@@ -44,7 +47,7 @@ public class ConvertDateActivity extends AppCompatActivity
     }
 
     private void checkForCalendarAdjustments() {
-        final long l = ((_TimesSET.getUmmalquraCalendar(this)).getTimeInMillis() - (new UmmalquraCalendar()).getTimeInMillis())/86400000;
+        final long l = ((_TimesSET.getGoogleCalendar(this)).getTimeInMillis() - (new IslamicCalendar()).getTimeInMillis())/86400000;
         if(l!=0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.alert_hijri_calendar_adjusted));
@@ -86,13 +89,13 @@ public class ConvertDateActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 setTextsDefault();
-                UmmalquraCalendar now = _TimesSET.getUmmalquraCalendar(ConvertDateActivity.this);
+                IslamicCalendar now = _TimesSET.getGoogleCalendar(ConvertDateGoogleApiActivity.this);
                 HijriDatePickerDialog dpd = HijriDatePickerDialog.newInstance(
-                        ConvertDateActivity.this,
-                        now.get(UmmalquraCalendar.YEAR),
-                        now.get(UmmalquraCalendar.MONTH),
-                        now.get(UmmalquraCalendar.DAY_OF_MONTH));
-                dpd.show(ConvertDateActivity.this.getFragmentManager(), "HijriDatePickerDialog");
+                        ConvertDateGoogleApiActivity.this,
+                        now.get(IslamicCalendar.YEAR),
+                        now.get(IslamicCalendar.MONTH),
+                        now.get(IslamicCalendar.DAY_OF_MONTH));
+                dpd.show(ConvertDateGoogleApiActivity.this.getFragmentManager(), "HijriDatePickerDialog");
             }
         });
         findViewById(R.id.convert_date_activity_from_gregorian_button).setOnClickListener(new View.OnClickListener() {
@@ -101,19 +104,19 @@ public class ConvertDateActivity extends AppCompatActivity
                 setTextsDefault();
                 Calendar now = Calendar.getInstance();
                 GregorianDatePickerDialog dpd = GregorianDatePickerDialog.newInstance(
-                        ConvertDateActivity.this,
+                        ConvertDateGoogleApiActivity.this,
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
                 );
-                dpd.show(ConvertDateActivity.this.getFragmentManager(),"GregorianDatePickerDialog");
+                dpd.show(ConvertDateGoogleApiActivity.this.getFragmentManager(),"GregorianDatePickerDialog");
             }
         });
         findViewById(R.id.convert_date_activity_from_gregorian_button).setClickable(false);
     }
     private void setTextsDefault(){
         Calendar gregorianCal = Calendar.getInstance();
-        UmmalquraCalendar hijriCal = _TimesSET.getUmmalquraCalendar(this);
+        IslamicCalendar hijriCal = _TimesSET.getGoogleCalendar(this);
         ((TextView) findViewById(R.id.convert_date_activity_from_gregorian_button)).setText(
                 _DisplaySET.formatStringNumbers(this,gregorianCal.get(Calendar.DAY_OF_MONTH) + " / " + (gregorianCal.get(Calendar.MONTH)+1) + " / " + gregorianCal.get(Calendar.YEAR))
         );
@@ -131,13 +134,13 @@ public class ConvertDateActivity extends AppCompatActivity
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        calendar = adjustCalendarWithUmmalquraLimits(calendar);
-        UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
+        //calendar = adjustCalendarWithUmmalquraLimits(calendar);
+        IslamicCalendar u = _TimesSET.getGoogleCalendar(this);
         u.setTime(calendar.getTime());
         ((TextView)findViewById(R.id.convert_date_activity_result_title))
-                .setText(_DisplaySET.formatStringNumbers(this,getResources().getStringArray(R.array.day_of_week)[u.get(UmmalquraCalendar.DAY_OF_WEEK) - 1]
-                        + "  " + u.get(UmmalquraCalendar.DAY_OF_MONTH) + "/" + (u.get(UmmalquraCalendar.MONTH)+1) + "/" +
-                        u.get(UmmalquraCalendar.YEAR)));
+                .setText(_DisplaySET.formatStringNumbers(this,getResources().getStringArray(R.array.day_of_week)[u.get(IslamicCalendar.DAY_OF_WEEK) - 1]
+                        + "  " + u.get(IslamicCalendar.DAY_OF_MONTH) + "/" + (u.get(IslamicCalendar.MONTH)+1) + "/" +
+                        u.get(IslamicCalendar.YEAR)));
         ((TextView) findViewById(R.id.convert_date_activity_from_gregorian_button)).setText(
                 _DisplaySET.formatStringNumbers(this,dayOfMonth + " / " + (monthOfYear + 1) + " / " + year)
         );
@@ -147,10 +150,10 @@ public class ConvertDateActivity extends AppCompatActivity
 
     @Override
     public void onDateSet(HijriDatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        UmmalquraCalendar u = _TimesSET.getUmmalquraCalendar(this);
-        u.set(UmmalquraCalendar.YEAR, year);
-        u.set(UmmalquraCalendar.MONTH,monthOfYear);
-        u.set(UmmalquraCalendar.DAY_OF_MONTH,dayOfMonth);
+        IslamicCalendar u = _TimesSET.getGoogleCalendar(this);
+        u.set(IslamicCalendar.YEAR, year);
+        u.set(IslamicCalendar.MONTH,monthOfYear);
+        u.set(IslamicCalendar.DAY_OF_MONTH,dayOfMonth);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(u.getTime());
         ((TextView)findViewById(R.id.convert_date_activity_result_title))

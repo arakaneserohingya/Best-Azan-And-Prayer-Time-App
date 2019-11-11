@@ -3,6 +3,7 @@ package com.alnamaa.engineering.azan.Settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.util.IslamicCalendar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -189,7 +190,8 @@ public class _SET {
         settingsEditor.putString("description10705", "0");
         settingsEditor.putString("description10706", "0");
         settingsEditor.putString("description10707", "0");
-        settingsEditor.putBoolean("status20100",false);
+        settingsEditor.putBoolean("status20100",android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N);
+        settingsEditor.putBoolean("checked20100",android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N);
         settingsEditor.commit();
     }
 

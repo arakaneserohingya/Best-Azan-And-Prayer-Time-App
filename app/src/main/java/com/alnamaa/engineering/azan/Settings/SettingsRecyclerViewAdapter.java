@@ -612,7 +612,12 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
 
                 //Hijri
                 else if(k==0 && layoutNumber ==HIJRI_LAYOUT_NUM){
-                    /* Unclickable because it's always checked */
+                    _SET.setCheckBox(group,!_SET.isChecked(group));
+                    SharedPreferences pref = activity.getSharedPreferences(_TimesSET.adjustTimesFile, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("is_google_cal",_SET.isChecked(group));
+                    editor.commit();
+                    MainActivity.reloadMainActivityOnResume = true;
                 }else if(layoutNumber ==HIJRI_LAYOUT_NUM){
                     RadioDialog dialog = new RadioDialog(activity, _TimesSET.adjustTimesFile,"hijri_adjust",((TextView)group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"+2", "+1", "0", "-1", "-2"}, new int[]{2, 1, 0, -1, -2}, new RadioDialog.run() {
