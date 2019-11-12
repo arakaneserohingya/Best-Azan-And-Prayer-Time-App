@@ -35,6 +35,7 @@ import com.alnamaa.engineering.azan.Alarms.AlarmsScheduler;
 import com.alnamaa.engineering.azan.Alarms._AlarmSET;
 import com.alnamaa.engineering.azan.Backup._BackupSET;
 import com.alnamaa.engineering.azan.Display._DisplaySET;
+import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
 
@@ -1016,10 +1017,15 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     dialog.show();
                 }
                 else if(k==4 && layoutNumber==PRAYER_TIMES_LAYOUT_NUM){
+                    final int dst = activity.getSharedPreferences(_TimesSET.prayersFile,Context.MODE_PRIVATE).getInt("dst",0);
                     RadioDialog dialog = new RadioDialog(activity, _TimesSET.prayersFile,"dst",((TextView) group.getChildAt(0)).getText().toString());
                     dialog.initialize(new String[]{"-1","0","+1"}, new int[]{-1,0,1}, new RadioDialog.run() {
                         @Override
                         public void go(int checked) {
+                            SharedPreferences preferences = activity.getSharedPreferences(_LocationSET.currentLocation,Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putFloat("offset",preferences.getFloat("offset",0) + checked -1 - dst);
+                            editor.commit();
                             _TimesSET.updateTimes(activity);
                             AlarmsScheduler.fire(activity, Calendar.getInstance());
                         }

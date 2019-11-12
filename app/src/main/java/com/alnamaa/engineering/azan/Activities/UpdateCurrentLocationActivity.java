@@ -3,9 +3,11 @@ package com.alnamaa.engineering.azan.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,8 +33,13 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.update_current_location));
-        setTitleLocation();
+        setClickers();
         _LocationSET.getRequests(this);
+        findViewById(R.id.update_current_location_activity_last_location_button).performClick();
+        setTitleLocation();
+    }
+
+    private void setClickers() {
         findViewById(R.id.update_current_location_activity_internet_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +72,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
 
                         @Override
                         public void onFail() {
-
+                            Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_failed_to_update_location),Toast.LENGTH_SHORT).show();
                         }
                     });
             }
@@ -78,7 +85,6 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         setTitleLocation();
-                        LocationsActivity.reloadLocationsActivityOnResume = true;
                     }
 
                     @Override
@@ -126,17 +132,29 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         findViewById(R.id.update_current_location_activity_location_edit_button_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class);
-                intent.putExtra("location_file",tempLocationFile);
-                startActivity(intent);
+                if(getSharedPreferences(tempLocationFile,MODE_PRIVATE).getBoolean("islocationassigned",false)) {
+                    Intent intent = new Intent(UpdateCurrentLocationActivity.this, AdjustLocationActivity.class);
+                    intent.putExtra("location_file", tempLocationFile);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(UpdateCurrentLocationActivity.this,getResources().getString(R.string.toast_choose_one_of_the_update_methods_first),Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+
+    @SuppressLint("SetTextI18n")
     private void setTitleLocation() {
-        float lo = getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("longitude", -99999);
-        float la = getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("latitude", -99999);
-        ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setText(lo != -99999 ? (la + " , " + lo) : "");
+        String lo = "Lng: " + getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("longitude", -99999);
+        String la = "Lat: " + getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("latitude", -99999);
+        lo = lo.length()>11?lo.substring(0,11):lo;
+        la = la.length()>11?la.substring(0,11):la;
+        String tz = getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("offset", -99999) + " GMT";
+        if(getSharedPreferences(tempLocationFile, MODE_PRIVATE).getBoolean("islocationassigned",false)) {
+            ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setText(la + "  " + lo + "\n" + tz);
+            ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        }
     }
 
 
@@ -144,6 +162,29 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSharedPreferences(tempLocationFile,MODE_PRIVATE).getBoolean("islocationassigned",false)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.alert_location_information_will_lost_title));
+            builder.setMessage(getResources().getString(R.string.alert_location_information_will_lost_msg));
+            builder.setPositiveButton(getResources().getString(R.string.alert_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    UpdateCurrentLocationActivity.super.onBackPressed();
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.create().show();
+        } else super.onBackPressed();
     }
 
     @Override

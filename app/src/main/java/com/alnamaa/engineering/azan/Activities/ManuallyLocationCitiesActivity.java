@@ -15,11 +15,14 @@ import android.widget.TextView;
 import com.alnamaa.engineering.azan.CountriesRecyclerViewAdapter;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.alnamaa.engineering.azan.R;
+import com.alnamaa.engineering.azan.TimezoneMapper;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ManuallyLocationCitiesActivity extends AppCompatActivity {
@@ -94,10 +97,15 @@ public class ManuallyLocationCitiesActivity extends AppCompatActivity {
     private void setLocation(String s, float latitude, float longitude) {
         SharedPreferences preferences = getSharedPreferences(tempLocationFile,MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+        Calendar calendar = new GregorianCalendar();
+        String timezone = TimezoneMapper.latLngToTimezoneString(latitude,longitude);
         editor.putString("location_name",s);
         editor.putFloat("latitude",latitude);
         editor.putFloat("longitude",longitude);
-        editor.putFloat("timezone", _LocationSET.getTimeOffset(latitude,longitude));
+        editor.putString("timezone", timezone);
+        editor.putFloat("offset",_LocationSET.getTimeDstOffset(timezone,calendar));
+        editor.putFloat("auto_offset",_LocationSET.getTimeDstOffset(timezone,calendar));
+        editor.putFloat("auto_dst",_LocationSET.getTimeDstSaving(timezone,calendar));
         editor.putBoolean("islocationassigned",true);
         editor.commit();
         finish();

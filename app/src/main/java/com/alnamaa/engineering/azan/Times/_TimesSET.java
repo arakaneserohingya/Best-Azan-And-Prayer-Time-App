@@ -35,25 +35,25 @@ public class _TimesSET {
         SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
         float latitude = pref.getFloat("latitude",0);
         float longitude = pref.getFloat("longitude",0);
-        float timezone = pref.getFloat("timezone",0);
+        float offset = pref.getFloat("offset",0);
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
         prayers.setCalcMethod(getCalcMethod(context,prayers));
         prayers.setAsrJuristic(getAsrJuristic(context));
         prayers.setAdjustHighLats(getAdjustHighLats(context,prayers));
-        int[] offsets = {getAdjust(context,0) + getDstInMinutes(context),
-                            getAdjust(context,1) + getDstInMinutes(context),
-                            getAdjust(context,2) + getDstInMinutes(context),
-                            getAdjust(context,3) + getDstInMinutes(context),
+        int[] offsets = {getAdjust(context,0) ,
+                            getAdjust(context,1) ,
+                            getAdjust(context,2) ,
+                            getAdjust(context,3) ,
                             0, //sunset
-                            getAdjust(context,4) + getDstInMinutes(context),
-                            getAdjust(context,5) + getDstInMinutes(context) + (adjustIshaRamadan(context,prayers)?30:0)
+                            getAdjust(context,4) ,
+                            getAdjust(context,5)  + (adjustIshaRamadan(context,prayers)?30:0)
         }; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
         prayers.tune(offsets);
 
         ArrayList<String> prayerTimes = prayers.getPrayerTimes(time,
-                latitude, longitude, timezone);
+                latitude, longitude, offset);
         ArrayList<String> prayerNames = prayers.getTimeNames();
 
         StringBuilder res = new StringBuilder();
@@ -94,9 +94,6 @@ public class _TimesSET {
         editor.commit();
     }
 
-    private static int getDstInMinutes(Context context) {
-        return context.getSharedPreferences(prayersFile,MODE_PRIVATE).getInt("dst",0)*60;
-    }
 
     private static boolean adjustIshaRamadan(Context context, PrayTime prayers) {
         UmmalquraCalendar calendar = getUmmalquraCalendar(context);
@@ -143,6 +140,7 @@ public class _TimesSET {
 
     public static void updateTimes(Context context){
         if(!_LocationSET.isLocationAssigned(context)) return;
+        _LocationSET.updateDstToCurrent(context);
         initializeTimesForCurrent(context);
     }
 

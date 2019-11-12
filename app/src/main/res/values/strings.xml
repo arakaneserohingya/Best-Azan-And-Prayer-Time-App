@@ -424,7 +424,7 @@
     <string name="alert_dialog_updating_location">Updating location…</string>
     <string name="toast_location_updated_successfully">Location updated successfully!</string>
     <string name="toast_failed_to_update_location">Failed to update location</string>
-    <string name="alert_hijri_calendar_adjusted">Hijri calendar is adjusted!</string>
+    <string name="alert_hijri_calendar_adjusted">Hijri calendar is adjusted from settings!</string>
     <string name="toast_prayer_widget_click_was">Was</string>
     <string name="toast_prayer_widget_click_hours">hours</string>
     <string name="toast_prayer_widget_click_hours_more_than_ten">hours</string>
@@ -453,6 +453,10 @@
     <string name="alert_add_current_location_msg" >Do you want to add current location to saved locations ?</string>
     <string name="toast_maximum_saved_locations" >Maximum number of locations is five!</string>
     <string name="toast_set_location_name_first" >You have to set a name for current location first!</string>
+    <string name="toast_location_already_exist" >Location already exist!</string>
+    <string name="alert_location_information_will_lost_title" >Discard the new data?</string>
+    <string name="alert_location_information_will_lost_msg" >Are you sure you want to exit without saving the new data?</string>
+    <string name="toast_choose_one_of_the_update_methods_first">Choose one of the update methods first</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

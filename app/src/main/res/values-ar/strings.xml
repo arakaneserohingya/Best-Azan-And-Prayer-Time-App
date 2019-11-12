@@ -424,7 +424,7 @@
     <string name="alert_dialog_updating_location">جاري تحديث الموقع…</string>
     <string name="toast_failed_to_update_location">تعذر تحديث الموقع!</string>
     <string name="toast_location_updated_successfully">تم تحديث الموقع بنجاح!</string>
-    <string name="alert_hijri_calendar_adjusted">نم !</string>
+    <string name="alert_hijri_calendar_adjusted">التاريخ الهجري معدّل من الإعدادات!</string>
     <string name="toast_prayer_widget_click_was">مرت</string>
     <string name="toast_prayer_widget_click_hours">ساعات</string>
     <string name="toast_prayer_widget_click_hours_more_than_ten">ساعة</string>
@@ -453,6 +453,10 @@
     <string name="alert_add_current_location_msg" >هل تريد إضافة الموقع الحالي إلى المواقع المحفوظة</string>
     <string name="toast_maximum_saved_locations" >الحد الأقصى المسموح به هو 5 مواقع</string>
     <string name="toast_set_location_name_first" >قم بتسمية الموقع الحالي للقيام أولا</string>
+    <string name="toast_location_already_exist" >الموقع محفوظ مسبقا</string>
+    <string name="alert_location_information_will_lost_title" >تجاهل معلومات الموقع الجديدة؟</string>
+    <string name="alert_location_information_will_lost_msg" >هل تريد الخروج بدون حفظ معلومات الموقع الجديدة؟</string>
+    <string name="toast_choose_one_of_the_update_methods_first">قم باختيار أحد طرق التحديث أولا</string>
 
 
     <string-array name="prayer_time_notifications" >

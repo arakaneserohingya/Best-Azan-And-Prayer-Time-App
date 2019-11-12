@@ -43,7 +43,7 @@ public class AdjustLocationActivity extends AppCompatActivity {
                 editor.putString("location_name",((EditText)findViewById(R.id.adjust_location_activity_current_location_edittext)).getText().toString());
                 editor.putFloat("latitude",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_latitude_edittext)).getText().toString()));
                 editor.putFloat("longitude",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).getText().toString()));
-                editor.putFloat("timezone",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).getText().toString()));
+                editor.putFloat("offset",Float.parseFloat(((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).getText().toString()));
                 editor.apply();
                 if(locationFile.equals(_LocationSET.currentLocation)) {
                     _TimesSET.updateTimes(getApplicationContext());
@@ -61,7 +61,7 @@ public class AdjustLocationActivity extends AppCompatActivity {
                 getSharedPreferences(locationFile,MODE_PRIVATE).getString("location_name","")
         );
         ((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).setText(
-                Float.toString(getSharedPreferences(locationFile,MODE_PRIVATE).getFloat("timezone",0))
+                Float.toString(getSharedPreferences(locationFile,MODE_PRIVATE).getFloat("offset",0))
         );
         ((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).setText(
                 Float.toString(getSharedPreferences(locationFile,MODE_PRIVATE).getFloat("longitude",0))

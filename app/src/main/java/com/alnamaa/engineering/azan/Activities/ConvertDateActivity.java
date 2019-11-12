@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
@@ -24,6 +25,8 @@ import net.alhazmy13.hijridatepicker.date.hijri.HijriDatePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import static com.alnamaa.engineering.azan.Times._TimesSET.adjustTimesFile;
 
 public class ConvertDateActivity extends AppCompatActivity
         implements  HijriDatePickerDialog.OnDateSetListener,
@@ -44,7 +47,7 @@ public class ConvertDateActivity extends AppCompatActivity
     }
 
     private void checkForCalendarAdjustments() {
-        final long l = ((_TimesSET.getUmmalquraCalendar(this)).getTimeInMillis() - (new UmmalquraCalendar()).getTimeInMillis())/86400000;
+        final int l = getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0);
         if(l!=0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.alert_hijri_calendar_adjusted));
@@ -54,6 +57,7 @@ public class ConvertDateActivity extends AppCompatActivity
                     dialogInterface.dismiss();
                 }
             });
+            builder.create().show();
         }
     }
 
@@ -173,7 +177,10 @@ public class ConvertDateActivity extends AppCompatActivity
                 button.setVisibility(View.GONE);
             }
         });
-        String[] times = _TimesSET.initializeTimesFor(this, _LocationSET.currentLocation,c);
+        _LocationSET.assignLocation(this,_LocationSET.currentLocation,"test");
+        _LocationSET.updateDstToCurrent(this,"test",c);
+        String[] times = _TimesSET.initializeTimesFor(this, "test",c);
+        _LocationSET.clearTempLocationFile(this,"test");
         for(int i=0;i<times.length;i++){
             ((TextView)group.getChildAt(i+1)).setText(getResources().getStringArray(R.array.prayer_time)[i] + "\n" + _DisplaySET.formatStringNumbers(this,times[i]));
         }

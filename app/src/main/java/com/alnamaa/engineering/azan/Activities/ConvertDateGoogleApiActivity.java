@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static com.alnamaa.engineering.azan.Times._TimesSET.adjustTimesFile;
+
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class ConvertDateGoogleApiActivity extends AppCompatActivity
         implements  HijriDatePickerDialog.OnDateSetListener,
@@ -47,7 +49,7 @@ public class ConvertDateGoogleApiActivity extends AppCompatActivity
     }
 
     private void checkForCalendarAdjustments() {
-        final long l = ((_TimesSET.getGoogleCalendar(this)).getTimeInMillis() - (new IslamicCalendar()).getTimeInMillis())/86400000;
+        final int l = getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getInt("hijri_adjust",0);
         if(l!=0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.alert_hijri_calendar_adjusted));
@@ -57,6 +59,7 @@ public class ConvertDateGoogleApiActivity extends AppCompatActivity
                     dialogInterface.dismiss();
                 }
             });
+            builder.create().show();
         }
     }
 
@@ -176,7 +179,10 @@ public class ConvertDateGoogleApiActivity extends AppCompatActivity
                 button.setVisibility(View.GONE);
             }
         });
-        String[] times = _TimesSET.initializeTimesFor(this, _LocationSET.currentLocation,c);
+        _LocationSET.assignLocation(this,_LocationSET.currentLocation,"test");
+        _LocationSET.updateDstToCurrent(this,"test",c);
+        String[] times = _TimesSET.initializeTimesFor(this, "test",c);
+        _LocationSET.clearTempLocationFile(this,"test");
         for(int i=0;i<times.length;i++){
             ((TextView)group.getChildAt(i+1)).setText(getResources().getStringArray(R.array.prayer_time)[i] + "\n" + _DisplaySET.formatStringNumbers(this,times[i]));
         }

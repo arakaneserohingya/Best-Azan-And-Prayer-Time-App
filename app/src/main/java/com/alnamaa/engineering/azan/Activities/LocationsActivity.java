@@ -20,7 +20,10 @@ import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class LocationsActivity extends AppCompatActivity {
 
@@ -106,12 +109,17 @@ public class LocationsActivity extends AppCompatActivity {
             final ViewGroup widget = (ViewGroup)list.getChildAt(i-1);
             if(locationID.equals("")) break;
             location_i = getSharedPreferences(locationID,MODE_PRIVATE);
+            _LocationSET.updateDstToCurrent(this,locationID,new GregorianCalendar());
             String[] prayertimes = _TimesSET.initializeTimesFor(LocationsActivity.this,locationID, Calendar.getInstance());
             widget.setVisibility(
                     location_i.getBoolean("islocationassigned",false)?View.VISIBLE:View.INVISIBLE
             );
             ((TextView)(widget).getChildAt(0)).setText(
                     location_i.getString("location_name","")
+            );
+            ((TextView)(widget).getChildAt(2)).setText(
+                    (new SimpleDateFormat("EEE dd/MM/yyyy hh:mm aa")).format(new Date()) + "  "
+                    + location_i.getFloat("auto_offset",0) + " GMT"
             );
 
             widget.getChildAt(1).setOnClickListener(new View.OnClickListener() {
