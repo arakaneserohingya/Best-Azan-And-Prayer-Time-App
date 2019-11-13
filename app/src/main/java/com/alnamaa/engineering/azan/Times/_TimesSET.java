@@ -8,6 +8,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.alnamaa.engineering.azan.Activities.UpdateCurrentLocationActivity;
 import com.alnamaa.engineering.azan.Display._DisplaySET;
 import com.alnamaa.engineering.azan.Locations._LocationSET;
 import com.github.msarhan.ummalqura.calendar.UmmalquraCalendar;
@@ -206,5 +207,12 @@ public class _TimesSET {
     public static boolean isItGoogleCalendar(Context context){
         return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N &&
                 context.getSharedPreferences(adjustTimesFile,MODE_PRIVATE).getBoolean("is_google_cal",true);
+    }
+
+    public static void setDstDefault(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prayersFile,MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("dst", (int) context.getSharedPreferences(_LocationSET.currentLocation,MODE_PRIVATE).getFloat("auto_dst",0));
+        editor.commit();
     }
 }

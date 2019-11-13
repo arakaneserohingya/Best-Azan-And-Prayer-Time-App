@@ -121,6 +121,7 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
                     UpdateCurrentLocationActivity.this.finish();
                     return;
                 }
+                _TimesSET.setDstDefault(UpdateCurrentLocationActivity.this);
                 _LocationSET.setLocationAssigned(UpdateCurrentLocationActivity.this);
                 _TimesSET.updateTimes(UpdateCurrentLocationActivity.this);
                 MainActivity.reloadMainActivityOnResume = true;

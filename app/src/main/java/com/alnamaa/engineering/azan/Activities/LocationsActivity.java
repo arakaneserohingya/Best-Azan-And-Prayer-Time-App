@@ -136,6 +136,7 @@ public class LocationsActivity extends AppCompatActivity {
                                 widget.setVisibility(View.GONE);
                             } else if(i==1){
                                 _LocationSET.assignLocation(LocationsActivity.this,locationID, _LocationSET.currentLocation);
+                                _TimesSET.setDstDefault(LocationsActivity.this);
                                 MainActivity.reloadMainActivityOnResume = true;
                                 ((TextView) findViewById(R.id.locations_activity_current_location_text)).setText(((TextView)widget.getChildAt(0)).getText());
                             }
