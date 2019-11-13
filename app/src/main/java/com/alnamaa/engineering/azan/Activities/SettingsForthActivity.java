@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Settings._SET;
@@ -72,6 +74,10 @@ public class SettingsForthActivity extends AppCompatActivity {
                         editor.commit();
                         String name= Uri.decode(uri.toString());
                         _SET.setDescription((ViewGroup) findViewById(requestCode)," "+ name.substring(name.lastIndexOf('/')+1));
+                        Toast toast = Toast.makeText(this,getResources().getString(R.string.toast_tone_saved),Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+
                     } else {
                         editor.remove("uri"+((requestCode%10)-5));
                         editor.commit();

@@ -1,5 +1,6 @@
 package com.alnamaa.engineering.azan.Settings;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.alnamaa.engineering.azan.Alarms._AlarmSET;
+import com.alnamaa.engineering.azan.R;
 import com.alnamaa.engineering.azan.Times._TimesSET;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -65,8 +67,13 @@ public class _SET {
             box.setChecked(bool);
         }
     }
+    @SuppressLint("ResourceType")
     public static void setDescription(ViewGroup group) {
         ((TextView) group.getChildAt(1)).setText(((TextView) group.getChildAt(1)).getText().toString() +settingsPref.getString("description"+group.getId(),""));
+        if(group.getId() == 40403 || (group.getId()/10) == 4043 || group.getId() == 41003){
+            if(settingsPref.getString("description"+group.getId(),"").equals(""))
+                ((TextView) group.getChildAt(1)).setText(group.getContext().getResources().getString(R.string.no_tone_set));
+        }
     }
     public static void setDescription(ViewGroup group,String description) {
         String lastDesc = settingsPref.getString("description"+group.getId(),"");
@@ -91,11 +98,11 @@ public class _SET {
         settingsEditor.putBoolean("checked40200",true);
         settingsEditor.putBoolean("checked40500",false);
         settingsEditor.putBoolean("status40600",false);
-        settingsEditor.putString("description40600","1");
+        settingsEditor.putString("description40600","10");
         settingsEditor.putBoolean("checked40800",true);
         settingsEditor.putBoolean("checked41100",false);
         settingsEditor.putBoolean("status41200",false);
-        settingsEditor.putString("description41200","1");
+        settingsEditor.putString("description41200","10");
         settingsEditor.putBoolean("checked41300",false);
         settingsEditor.putBoolean("checked41400",false);
         settingsEditor.putBoolean("checked40102",true);

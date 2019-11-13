@@ -699,6 +699,7 @@ public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRe
                     SettingsRecyclerViewAdapter.this.notifyDataSetChanged();
                 }
                 else if(k==2 && layoutNumber == IQAMA_REMINDER_TONE_LAYOUT_NUM){
+                    Toast.makeText(activity,activity.getResources().getString(R.string.toast_only_mp3_files),Toast.LENGTH_SHORT).show();
                     System.gc();
                     Intent intent = new Intent();
                     intent.setType("audio/*");

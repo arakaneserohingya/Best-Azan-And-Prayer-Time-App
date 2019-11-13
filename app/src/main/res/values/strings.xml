@@ -351,7 +351,7 @@
     <string name="settings_layouts_iqama_reminder_time_widget10">Isha Reminder</string>
     <string name="settings_layouts_iqama_reminder_time_widget12">Jumuah Reminder</string>
     <string name="before_prayer_time">Before Prayer Time</string>
-    <string name="no_tone_set">No tone set</string>
+    <string name="no_tone_set">No tone selected from SD card</string>
     <string name="after_prayer_time">After Prayer Time</string>
     <string name="please_set_location_first">Please set location first!</string>
     <string name="prayer_time_notification1">Fajr prayer time</string>
@@ -394,7 +394,7 @@
     <string name="please_check_for_internet_connection">Please check for internet connection</string>
     <string name="settings_dialogs_jumuah_time_different_array1">Use Zuhr time</string>
     <string name="settings_dialogs_jumuah_time_different_array2">Choose different time</string>
-    <string name="adjustments_is_reset">Times adjustments is reset</string>
+    <string name="adjustments_is_reset">Times restored</string>
     <string name="settings_layouts_notifications_title1">@string/prayer_notification</string>
     <string name="settings_layouts_notifications_title2">@string/iqama_reminders</string>
     <string name="settings_layouts_notifications_title3">@string/general</string>
@@ -457,6 +457,8 @@
     <string name="alert_location_information_will_lost_title" >Discard the new data?</string>
     <string name="alert_location_information_will_lost_msg" >Are you sure you want to exit without saving the new data?</string>
     <string name="toast_choose_one_of_the_update_methods_first">Choose one of the update methods first</string>
+    <string name="toast_only_mp3_files" >Only mp3 files will appear</string>
+    <string name="toast_tone_saved" >Tone selected and saved</string>
 
     <string-array name="prayer_time_notifications">
         <item>@string/prayer_time_notification1</item>

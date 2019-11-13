@@ -118,7 +118,7 @@ public class _AlarmSET {
     public static long getClearTimeInMillis(Context context,int type) {
         Calendar cal=Calendar.getInstance();
         cal.add(Calendar.MINUTE,context.getSharedPreferences(type==AZAN_REQUEST_CODE?azanFile:iqamaFile, MODE_PRIVATE)
-                .getInt("clear_time",1));
+                .getInt("clear_time",10));
         return cal.getTimeInMillis();
     }
     public static void firstTime(Context context){

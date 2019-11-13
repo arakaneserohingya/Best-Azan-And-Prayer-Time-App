@@ -350,7 +350,7 @@
     <string name="settings_layouts_iqama_reminder_time_widget10">تذكير العشاء</string>
     <string name="settings_layouts_iqama_reminder_time_widget12">تذكسر الجمعة</string>
     <string name="before_prayer_time">قبل وقت الصلاة بكم دقيقة</string>
-    <string name="no_tone_set">لم يتم اختيار أي نغمة</string>
+    <string name="no_tone_set">ليس هناك نغمة مختارة من الذاكرة</string>
     <string name="after_prayer_time">بعد وقت الصلاة بكم دقيقة</string>
     <string name="please_set_location_first">رجاء قم بضبط الموقع أولا!</string>
     <string name="prayer_time_notification1">وقت صلاة الفجر</string>
@@ -457,6 +457,8 @@
     <string name="alert_location_information_will_lost_title" >تجاهل معلومات الموقع الجديدة؟</string>
     <string name="alert_location_information_will_lost_msg" >هل تريد الخروج بدون حفظ معلومات الموقع الجديدة؟</string>
     <string name="toast_choose_one_of_the_update_methods_first">قم باختيار أحد طرق التحديث أولا</string>
+    <string name="toast_only_mp3_files" >سيتم إظهار الملفات بصيغة mp3 فقط</string>
+    <string name="toast_tone_saved" >تم اختيار وحفظ نغمتك</string>
 
 
     <string-array name="prayer_time_notifications" >
