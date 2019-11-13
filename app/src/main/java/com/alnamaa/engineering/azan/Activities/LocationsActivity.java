@@ -119,7 +119,7 @@ public class LocationsActivity extends AppCompatActivity {
             );
             ((TextView)(widget).getChildAt(2)).setText(
                     (new SimpleDateFormat("EEE dd/MM/yyyy hh:mm aa")).format(new Date()) + "  "
-                    + location_i.getFloat("auto_offset",0) + " GMT"
+                     + _LocationSET.getTimeRawOffset(location_i.getString("timezone","")) + " GMT"
             );
 
             widget.getChildAt(1).setOnClickListener(new View.OnClickListener() {

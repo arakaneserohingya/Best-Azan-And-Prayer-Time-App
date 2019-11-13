@@ -35,7 +35,8 @@ public class _TimesSET {
         SharedPreferences pref = context.getSharedPreferences(locationFile,MODE_PRIVATE);
         float latitude = pref.getFloat("latitude",0);
         float longitude = pref.getFloat("longitude",0);
-        float offset = pref.getFloat("offset",0);
+        float offset = pref.getFloat("offset",0) + (locationFile.equals(_LocationSET.currentLocation) ?
+                getDstOffset(context):_LocationSET.getTimeDstSaving(pref.getString("timezone",""),time));
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
@@ -73,6 +74,11 @@ public class _TimesSET {
         str[5]=prayerTimes.get(6);
         return str;
     }
+
+    private static float getDstOffset(Context context) {
+        return context.getSharedPreferences(prayersFile,MODE_PRIVATE).getInt("dst",0);
+    }
+
     public static String getJumuahTime(Context context) {
         return context.getSharedPreferences(prayersFile,MODE_PRIVATE).getString("jumuah_time","11:00");
     }

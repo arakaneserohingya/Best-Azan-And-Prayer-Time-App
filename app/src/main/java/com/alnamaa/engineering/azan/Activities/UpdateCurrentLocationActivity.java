@@ -150,7 +150,9 @@ public class UpdateCurrentLocationActivity extends AppCompatActivity {
         String la = "Lat: " + getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("latitude", -99999);
         lo = lo.length()>11?lo.substring(0,11):lo;
         la = la.length()>11?la.substring(0,11):la;
-        String tz = getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("offset", -99999) + " GMT";
+        float offset = getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("offset", -99999) +
+                getSharedPreferences(tempLocationFile, MODE_PRIVATE).getFloat("auto_dst", -99999);
+        String tz = offset + " GMT";
         if(getSharedPreferences(tempLocationFile, MODE_PRIVATE).getBoolean("islocationassigned",false)) {
             ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setText(la + "  " + lo + "\n" + tz);
             ((TextView) findViewById(R.id.update_current_location_activity_location_title)).setLayoutDirection(View.LAYOUT_DIRECTION_LTR);

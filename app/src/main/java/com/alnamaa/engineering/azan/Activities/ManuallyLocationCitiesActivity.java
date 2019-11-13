@@ -103,8 +103,8 @@ public class ManuallyLocationCitiesActivity extends AppCompatActivity {
         editor.putFloat("latitude",latitude);
         editor.putFloat("longitude",longitude);
         editor.putString("timezone", timezone);
-        editor.putFloat("offset",_LocationSET.getTimeDstOffset(timezone,calendar));
-        editor.putFloat("auto_offset",_LocationSET.getTimeDstOffset(timezone,calendar));
+        editor.putFloat("offset",_LocationSET.getTimeRawOffset(timezone));
+        editor.putFloat("auto_offset",_LocationSET.getTimeRawOffset(timezone));
         editor.putFloat("auto_dst",_LocationSET.getTimeDstSaving(timezone,calendar));
         editor.putBoolean("islocationassigned",true);
         editor.commit();

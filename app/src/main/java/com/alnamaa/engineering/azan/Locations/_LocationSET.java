@@ -148,8 +148,8 @@ public class _LocationSET {
         editor.putFloat("latitude", (float) from.getLatitude());
         editor.putFloat("longitude", (float) from.getLongitude());
         editor.putString("timezone", timezone);
-        editor.putFloat("offset",_LocationSET.getTimeDstOffset(timezone,calendar));
-        editor.putFloat("auto_offset",_LocationSET.getTimeDstOffset(timezone,calendar));
+        editor.putFloat("offset",_LocationSET.getTimeRawOffset(timezone));
+        editor.putFloat("auto_offset",_LocationSET.getTimeRawOffset(timezone));
         editor.putFloat("auto_dst",_LocationSET.getTimeDstSaving(timezone,calendar));
         editor.putBoolean("islocationassigned",true);
         editor.commit();
@@ -316,13 +316,17 @@ public class _LocationSET {
         }
         return TimeUnit.HOURS.convert(saving, TimeUnit.MILLISECONDS);
     }
-    public static float getTimeDstOffset(String timezone,Calendar mCalendar){
+   /* public static float getTimeDstOffset(String timezone,Calendar mCalendar){
         TimeZone mTimeZone = TimeZone.getTimeZone(timezone);
         int dst = mTimeZone.getRawOffset();
         if (mTimeZone.inDaylightTime(mCalendar.getTime())){
             dst += mTimeZone.getDSTSavings();
         }
         return TimeUnit.HOURS.convert(dst, TimeUnit.MILLISECONDS);
+    }*/
+    public static float getTimeRawOffset(String timezone) {
+        TimeZone mTimeZone = TimeZone.getTimeZone(timezone);
+        return TimeUnit.HOURS.convert(mTimeZone.getRawOffset(), TimeUnit.MILLISECONDS);
     }
 
     public static void clearTempLocationFile(Context context, String s) {
@@ -339,8 +343,6 @@ public class _LocationSET {
         float saving = getTimeDstSaving(timezone,calendar);
         if(saving != pref.getFloat("auto_dst",0)){
             SharedPreferences.Editor editor = pref.edit();
-            editor.putFloat("auto_offset", getTimeDstOffset(timezone,calendar));
-            editor.putFloat("offset",pref.getFloat("offset",0) + saving - pref.getFloat("auto_dst",0));
             editor.putFloat("auto_dst",saving);
             editor.commit();
             SharedPreferences.Editor editor1 = context.getSharedPreferences(_TimesSET.prayersFile,MODE_PRIVATE).edit();
@@ -354,12 +356,12 @@ public class _LocationSET {
         float saving = getTimeDstSaving(timezone,calendar);
         if(saving != pref.getFloat("auto_dst",0)){
             SharedPreferences.Editor editor = pref.edit();
-            editor.putFloat("auto_offset", getTimeDstOffset(timezone,calendar));
-            editor.putFloat("offset",getTimeDstOffset(timezone,calendar));
             editor.putFloat("auto_dst",saving);
             editor.commit();
         }
     }
+
+
 
     public interface locationUpdateResult {
         void onSuccess();

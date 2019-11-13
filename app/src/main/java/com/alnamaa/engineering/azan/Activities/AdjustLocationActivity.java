@@ -3,11 +3,14 @@ package com.alnamaa.engineering.azan.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alnamaa.engineering.azan.Alarms.AlarmsScheduler;
@@ -56,13 +59,22 @@ public class AdjustLocationActivity extends AppCompatActivity {
         });
     }
 
+
     private void initializeEditBoxes() {
+        String dst = String.valueOf(getSharedPreferences(_TimesSET.prayersFile,MODE_PRIVATE).getInt("dst",0));
+        dst = dst.length()<2?"+" + dst:dst;
         ((EditText)findViewById(R.id.adjust_location_activity_current_location_edittext)).setText(
                 getSharedPreferences(locationFile,MODE_PRIVATE).getString("location_name","")
         );
         ((EditText)findViewById(R.id.adjust_location_activity_time_location_edittext)).setText(
                 Float.toString(getSharedPreferences(locationFile,MODE_PRIVATE).getFloat("offset",0))
         );
+        if(getSharedPreferences(_TimesSET.prayersFile,MODE_PRIVATE).getInt("dst",0)!=0) {
+            findViewById(R.id.adjust_location_activity_time_location_dst).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.adjust_location_activity_time_location_dst)).setText(
+                    dst + ".0 DST"
+            );
+        }
         ((EditText)findViewById(R.id.adjust_location_activity_longitude_edittext)).setText(
                 Float.toString(getSharedPreferences(locationFile,MODE_PRIVATE).getFloat("longitude",0))
         );
